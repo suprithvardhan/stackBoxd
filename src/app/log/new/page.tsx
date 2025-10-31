@@ -1,27 +1,75 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Icon } from "@iconify/react";
-import { mockTools } from "@/lib/mock-data";
-import { Star, Save } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react"
+import { Icon } from "@iconify/react"
+import { Star, Save } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { api } from "@/lib/api"
+import { useAuth } from "@/lib/hooks/use-auth"
 
 export default function NewLogPage() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const presetTool = params.get("tool");
-  const [toolQuery, setToolQuery] = useState(presetTool ? (mockTools.find(t=>t.slug===presetTool)?.name || "") : "");
-  const [selectedTool, setSelectedTool] = useState<string | null>(presetTool);
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
-  const [visibility, setVisibility] = useState<"public" | "private">("public");
-  const [projectUrl, setProjectUrl] = useState("");
-  const [screens, setScreens] = useState<string[]>([]);
+  const router = useRouter()
+  const params = useSearchParams()
+  const { isAuthenticated } = useAuth()
+  const presetTool = params.get("tool")
 
-  const filtered = mockTools.filter((t) =>
+  const [tools, setTools] = useState<any[]>([])
+  const [toolQuery, setToolQuery] = useState("")
+  const [selectedTool, setSelectedTool] = useState<any | null>(null)
+  const [rating, setRating] = useState(0)
+  const [review, setReview] = useState("")
+  const [tags, setTags] = useState<string[]>([])
+  const [visibility, setVisibility] = useState<"public" | "private">("public")
+  const [projectId, setProjectId] = useState<string>("")
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login")
+      return
+    }
+
+    // Load tools
+    api.tools.list({ limit: 100 }).then(setTools).catch(console.error)
+
+    // If preset tool, find and set it
+    if (presetTool) {
+      api.tools.get(presetTool).then((tool) => {
+        setSelectedTool(tool)
+        setToolQuery(tool.name)
+      }).catch(console.error)
+    }
+  }, [presetTool, isAuthenticated, router])
+
+  const filtered = tools.filter((t) =>
     t.name.toLowerCase().includes(toolQuery.toLowerCase())
-  );
+  )
+
+  const handleSubmit = async () => {
+    if (!selectedTool || rating < 1 || review.trim().length < 10) return
+
+    setLoading(true)
+    try {
+      await api.logs.create({
+        toolId: selectedTool.slug || selectedTool.id,
+        rating,
+        review,
+        tags,
+        projectId: projectId || null,
+        visibility,
+      })
+      router.push("/home")
+    } catch (error) {
+      console.error("Failed to create log:", error)
+      alert("Failed to create log. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (!isAuthenticated) {
+    return null
+  }
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
@@ -40,11 +88,11 @@ export default function NewLogPage() {
             {toolQuery && (
               <ul className="mt-2 max-h-56 overflow-auto rounded-lg border border-[var(--border)] bg-[var(--bg)]">
                 {filtered.map((t) => (
-                  <li key={t.slug}>
+                  <li key={t.slug || t.id}>
                     <button
                       onClick={() => {
-                        setSelectedTool(t.slug);
-                        setToolQuery(t.name);
+                        setSelectedTool(t)
+                        setToolQuery(t.name)
                       }}
                       className="flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-white/5"
                     >
@@ -64,8 +112,14 @@ export default function NewLogPage() {
         </div>
 
         <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
-          <label className="text-sm text-[var(--text-muted)]">Project link (optional)</label>
-          <input value={projectUrl} onChange={(e)=>setProjectUrl(e.target.value)} placeholder="https://github.com/you/project" className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 outline-none focus:ring-2" style={{ outlineColor: "var(--ring)" }} />
+          <label className="text-sm text-[var(--text-muted)]">Project ID (optional)</label>
+          <input
+            value={projectId}
+            onChange={(e) => setProjectId(e.target.value)}
+            placeholder="Project ID"
+            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 outline-none focus:ring-2"
+            style={{ outlineColor: "var(--ring)" }}
+          />
         </div>
 
         <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
@@ -95,24 +149,14 @@ export default function NewLogPage() {
           <div className="mt-3 flex items-center justify-between">
             <div className="flex flex-wrap gap-2">
               {tags.map((t) => (
-                <span key={t} className="rounded-full border border-[var(--border)] px-2 py-0.5 text-xs">#{t}</span>
+                <span key={t} className="rounded-full border border-[var(--border)] px-2 py-0.5 text-xs">
+                  #{t}
+                </span>
               ))}
             </div>
-            <TagAdder onAdd={(t)=> setTags((prev)=> Array.from(new Set([...prev, t.toLowerCase()]))) } />
+            <TagAdder onAdd={(t) => setTags((prev) => Array.from(new Set([...prev, t.toLowerCase()])))} />
           </div>
           <div className="mt-2 text-right text-xs text-[var(--text-muted)]">{review.trim().length}/5000</div>
-        </div>
-
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
-          <label className="text-sm text-[var(--text-muted)]">Screenshots (URLs)</label>
-          <div className="mt-2 flex gap-2">
-            <button onClick={()=> setScreens((s)=> [...s, "https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=800&auto=format"]) } className="rounded-md border border-[var(--border)] px-2 py-1 text-xs">Add sample</button>
-          </div>
-          <div className="mt-3 grid grid-cols-3 gap-2">
-            {screens.map((u, idx)=> (
-              <div key={idx} className="aspect-video overflow-hidden rounded border border-[var(--border)] bg-[var(--bg)]" />
-            ))}
-          </div>
         </div>
 
         <div className="flex items-center justify-between">
@@ -138,15 +182,12 @@ export default function NewLogPage() {
           </div>
 
           <div className="flex gap-2">
-            <button className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text)]">
-              <Save size={16} /> Save Draft
-            </button>
             <button
-              disabled={!selectedTool || rating < 1 || review.trim().length < 10}
-              onClick={() => router.replace("/home")}
+              disabled={loading || !selectedTool || rating < 1 || review.trim().length < 10}
+              onClick={handleSubmit}
               className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-2 text-sm font-medium text-black shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] transition disabled:opacity-50"
             >
-              Publish Log
+              {loading ? "Publishing..." : "Publish Log"}
             </button>
           </div>
         </div>
@@ -163,9 +204,9 @@ export default function NewLogPage() {
               {selectedTool ? (
                 <>
                   <div className="flex h-6 w-6 items-center justify-center rounded border border-[var(--border)] bg-[var(--bg)]">
-                    <Icon icon={mockTools.find((t) => t.slug === selectedTool)?.icon || ""} width={14} height={14} style={{ color: mockTools.find((t)=> t.slug===selectedTool)?.color }} />
+                    <Icon icon={selectedTool.icon} width={14} height={14} style={{ color: selectedTool.color }} />
                   </div>
-                  <span>{mockTools.find((t) => t.slug === selectedTool)?.name}</span>
+                  <span>{selectedTool.name}</span>
                 </>
               ) : (
                 <span>Tool</span>
@@ -181,23 +222,37 @@ export default function NewLogPage() {
         </div>
       </aside>
     </div>
-  );
+  )
 }
 
 function TagAdder({ onAdd }: { onAdd: (t: string) => void }) {
-  const [val, setVal] = useState("");
+  const [val, setVal] = useState("")
   return (
     <div className="flex items-center gap-2">
       <input
         value={val}
-        onChange={(e)=> setVal(e.target.value)}
+        onChange={(e) => setVal(e.target.value)}
         placeholder="Add tag"
         className="w-28 rounded border border-[var(--border)] bg-[var(--bg)] px-2 py-1 text-xs outline-none focus:ring-2"
         style={{ outlineColor: "var(--ring)" }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && val.trim()) {
+            onAdd(val.trim())
+            setVal("")
+          }
+        }}
       />
-      <button onClick={()=> { if(val.trim()) { onAdd(val.trim()); setVal(""); } }} className="text-xs text-[var(--text-muted)] hover:text-[var(--text)]">+ Add</button>
+      <button
+        onClick={() => {
+          if (val.trim()) {
+            onAdd(val.trim())
+            setVal("")
+          }
+        }}
+        className="text-xs text-[var(--text-muted)] hover:text-[var(--text)]"
+      >
+        + Add
+      </button>
     </div>
-  );
+  )
 }
-
-

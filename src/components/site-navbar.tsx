@@ -1,24 +1,27 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { House, Compass, List, Briefcase, PlusCircle, Search } from "lucide-react";
-import { motion } from "framer-motion";
-import { useAuthStore } from "@/lib/auth-store";
-import { mockUser } from "@/lib/mock-data";
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { House, Compass, List, Briefcase, PlusCircle, Search } from "lucide-react"
+import { motion } from "framer-motion"
+import { signOut, useSession } from "next-auth/react"
 
 const tabs = [
-  { href: "/", label: "Home", icon: House },
+  { href: "/home", label: "Home", icon: House },
   { href: "/discover", label: "Discover", icon: Compass },
   { href: "/lists", label: "Lists", icon: List },
   { href: "/projects", label: "Projects", icon: Briefcase },
-];
+]
 
 export function SiteNavbar() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const isAuthed = useAuthStore((s) => s.isAuthed);
-  const logout = useAuthStore((s) => s.logout);
+  const pathname = usePathname()
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const isAuthed = status === "authenticated"
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/" })
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--border)] bg-[color:var(--bg)/0.8] backdrop-blur-md">
@@ -28,8 +31,8 @@ export function SiteNavbar() {
         </Link>
         <nav className="hidden gap-1 md:flex">
           {tabs.map((t) => {
-            const Icon = t.icon;
-            const active = pathname === t.href;
+            const Icon = t.icon
+            const active = pathname === t.href || pathname.startsWith(t.href + "/")
             return (
               <Link
                 key={t.href}
@@ -41,10 +44,14 @@ export function SiteNavbar() {
                 <Icon size={18} />
                 <span>{t.label}</span>
                 {active && (
-                  <motion.span layoutId="nav-active" className="absolute inset-0 -z-10 rounded-lg" style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.06) inset" }} />
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 -z-10 rounded-lg"
+                    style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.06) inset" }}
+                  />
                 )}
               </Link>
-            );
+            )
           })}
         </nav>
         <div className="flex items-center gap-2">
@@ -53,7 +60,7 @@ export function SiteNavbar() {
             <span>Search…</span>
             <kbd className="ml-1 rounded bg-black/40 px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]">⌘K</kbd>
           </button>
-          {isAuthed ? (
+          {isAuthed && session?.user ? (
             <>
               <Link
                 href="/log/new"
@@ -63,21 +70,38 @@ export function SiteNavbar() {
                 <PlusCircle size={18} />
                 Log Tool
               </Link>
-              <button onClick={() => { logout(); router.push("/"); }} className="ml-2 rounded-full border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)]">Logout</button>
+              <button
+                onClick={handleLogout}
+                className="ml-2 rounded-full border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)]"
+              >
+                Logout
+              </button>
               <Link
-                href={`/profile/${mockUser.username}`}
+                href={`/profile/${(session.user as any).username || session.user.name?.toLowerCase().replace(/\s+/g, "") || "user"}`}
                 className="ml-2 h-8 w-8 rounded-full bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center overflow-hidden hover:outline hover:outline-[2.5px] hover:outline-[var(--primary)] transition"
               >
-                <img src={mockUser.avatarUrl} alt={mockUser.username} width={32} height={32} className="rounded-full object-cover w-8 h-8" />
+                {session.user.image ? (
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "User"}
+                    width={32}
+                    height={32}
+                    className="rounded-full object-cover w-8 h-8"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-black text-xs font-semibold">
+                    {(session.user.name || session.user.email || "U")[0].toUpperCase()}
+                  </div>
+                )}
               </Link>
             </>
           ) : (
-            <Link href="/login" className="rounded-full border border-[var(--border)] px-4 py-2 text-sm">Sign In</Link>
+            <Link href="/login" className="rounded-full border border-[var(--border)] px-4 py-2 text-sm">
+              Sign In
+            </Link>
           )}
         </div>
       </div>
     </header>
-  );
+  )
 }
-
-
