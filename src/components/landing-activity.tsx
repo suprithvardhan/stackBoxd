@@ -32,8 +32,8 @@ export default function LandingActivity() {
             className="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 flex flex-col gap-3 shadow-sm min-h-[192px] cursor-pointer transition"
           >
             <div className="flex items-center gap-2 mb-2">
-              <div className="h-7 w-7 rounded-md flex items-center justify-center border border-[var(--border)]" style={{ background: (log.tool.slug === "react" ? "#61DAFB11" : log.tool.slug === "nextjs" ? "#00000007" : "") }}>
-                <Icon icon={log.tool.icon} width={20} height={20} style={{ color: log.tool.slug === "react" ? "#61DAFB" : log.tool.slug === "nextjs" ? "#000" : undefined }} />
+              <div className="h-7 w-7 rounded-md flex items-center justify-center border border-[var(--border)]" style={{ background: (log.tool.slug === "react" ? "#61DAFB11" : log.tool.slug === "nextjs" ? "#0070F315" : "") }}>
+                <Icon icon={log.tool.icon} width={20} height={20} style={{ color: log.tool.slug === "react" ? "#61DAFB" : log.tool.slug === "nextjs" ? "#0070F3" : undefined }} />
               </div>
               <span className="text-sm font-semibold text-[var(--text)]">{log.tool.name}</span>
               <span className="text-xs ml-1 text-[var(--text-muted)]">({starRow(log.rating)})</span>

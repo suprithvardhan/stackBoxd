@@ -28,22 +28,29 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "User not found" }, { status: 404 })
       }
 
-      return NextResponse.json({
-        id: user.id,
-        username: user.username,
-        displayName: user.displayName,
-        bio: user.bio,
-        avatarUrl: user.avatarUrl,
-        githubUrl: user.githubUrl,
-        websiteUrl: user.websiteUrl,
-        twitterUrl: user.twitterUrl,
-        stats: {
-          toolsLogged: user._count.logs,
-          projects: user._count.projects,
-          lists: user._count.lists,
-          followers: user._count.followers,
+      return NextResponse.json(
+        {
+          id: user.id,
+          username: user.username,
+          displayName: user.displayName,
+          bio: user.bio,
+          avatarUrl: user.avatarUrl,
+          githubUrl: user.githubUrl,
+          websiteUrl: user.websiteUrl,
+          twitterUrl: user.twitterUrl,
+          stats: {
+            toolsLogged: user._count.logs,
+            projects: user._count.projects,
+            lists: user._count.lists,
+            followers: user._count.followers,
+          },
         },
-      })
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 min
+          },
+        }
+      )
     }
 
     const users = await prisma.user.findMany({
@@ -78,7 +85,12 @@ export async function GET(request: NextRequest) {
           lists: u._count.lists,
           followers: u._count.followers,
         },
-      }))
+      })),
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=180, stale-while-revalidate=360', // Cache for 3 min
+        },
+      }
     )
   } catch (error) {
     console.error("Error fetching users:", error)

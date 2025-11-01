@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 
 const tools = [
   { icon: "simple-icons:react", color: "#61DAFB", name: "React" },
-  { icon: "simple-icons:nextdotjs", color: "#000", name: "Next.js" },
+  { icon: "simple-icons:nextdotjs", color: "#0070F3", name: "Next.js" },
   { icon: "simple-icons:typescript", color: "#3178c6", name: "TypeScript" },
   { icon: "simple-icons:docker", color: "#2496ED", name: "Docker" },
   { icon: "simple-icons:tailwindcss", color: "#06B6D4", name: "Tailwind" },

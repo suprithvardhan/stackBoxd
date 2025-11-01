@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get("id")
     const authorId = searchParams.get("authorId")
+    const username = searchParams.get("username")
     const limit = parseInt(searchParams.get("limit") || "20")
     const offset = parseInt(searchParams.get("offset") || "0")
 
@@ -35,27 +36,47 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "Project not found" }, { status: 404 })
       }
 
-      return NextResponse.json({
-        id: project.id,
-        name: project.name,
-        displayName: project.displayName,
-        tagline: project.tagline,
-        description: project.description,
-        about: project.about,
-        coverImage: project.coverImage,
-        repoUrl: project.repoUrl,
-        demoUrl: project.demoUrl,
-        stars: project.stars,
-        reflection: project.reflection,
-        author: project.author.username,
-        authorId: project.author.id,
-        tools: project.tools.map((pt) => pt.tool.icon),
-        highlights: project.highlights.map((h) => h.text),
-      })
+      return NextResponse.json(
+        {
+          id: project.id,
+          name: project.name,
+          displayName: project.displayName,
+          tagline: project.tagline,
+          description: project.description,
+          about: project.about,
+          coverImage: project.coverImage,
+          repoUrl: project.repoUrl,
+          demoUrl: project.demoUrl,
+          stars: project.stars,
+          reflection: project.reflection,
+          author: project.author.username,
+          authorId: project.author.id,
+          tools: project.tools.map((pt) => pt.tool.icon),
+          highlights: project.highlights.map((h) => h.text),
+        },
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 min
+          },
+        }
+      )
     }
 
     const where: any = {}
-    if (authorId) where.authorId = authorId
+    if (authorId) {
+      where.authorId = authorId
+    }
+    if (username) {
+      const user = await prisma.user.findUnique({
+        where: { username },
+        select: { id: true },
+      })
+      if (user) {
+        where.authorId = user.id
+      } else {
+        return NextResponse.json([])
+      }
+    }
 
     const projects = await prisma.project.findMany({
       where,
@@ -68,11 +89,16 @@ export async function GET(request: NextRequest) {
             username: true,
             displayName: true,
             avatarUrl: true,
+            id: true,
           },
         },
         tools: {
-          include: {
-            tool: true,
+          select: {
+            tool: {
+              select: {
+                icon: true,
+              },
+            },
           },
         },
       },
@@ -95,7 +121,14 @@ export async function GET(request: NextRequest) {
         authorId: p.author.id,
         tools: p.tools.map((pt) => pt.tool.icon),
         highlights: [],
-      }))
+      })),
+      {
+        headers: {
+          'Cache-Control': authorId 
+            ? 'private, s-maxage=60, stale-while-revalidate=120' // User-specific: 1 min cache
+            : 'public, s-maxage=180, stale-while-revalidate=360', // Public: 3 min cache
+        },
+      }
     )
   } catch (error) {
     console.error("Error fetching projects:", error)
@@ -129,6 +162,31 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
+    // Batch fetch all tools first for better performance
+    let toolMap = new Map<string, string>()
+    if (tools && tools.length > 0) {
+      const fetchedTools = await prisma.tool.findMany({
+        where: {
+          icon: { in: tools },
+        },
+        select: {
+          id: true,
+          icon: true,
+        },
+      })
+      toolMap = new Map(fetchedTools.map((t) => [t.icon, t.id]))
+      
+      // Validate all tools exist
+      for (const icon of tools) {
+        if (!toolMap.has(icon)) {
+          return NextResponse.json(
+            { error: `Tool with icon ${icon} not found` },
+            { status: 400 }
+          )
+        }
+      }
+    }
+
     // Create project
     const project = await prisma.project.create({
       data: {
@@ -147,19 +205,11 @@ export async function POST(request: NextRequest) {
               create: highlights.map((h: string) => ({ text: h })),
             }
           : undefined,
-        tools: tools
+        tools: tools && tools.length > 0
           ? {
-              create: await Promise.all(
-                tools.map(async (icon: string) => {
-                  const tool = await prisma.tool.findFirst({
-                    where: { icon },
-                  })
-                  if (!tool) {
-                    throw new Error(`Tool with icon ${icon} not found`)
-                  }
-                  return { toolId: tool.id }
-                })
-              ),
+              create: tools.map((icon: string) => ({
+                toolId: toolMap.get(icon)!,
+              })),
             }
           : undefined,
       },

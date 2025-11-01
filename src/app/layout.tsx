@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
-import { SiteNavbar } from "@/components/site-navbar";
-import { SiteFooter } from "@/components/site-footer";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 
 const inter = Inter({
@@ -32,7 +30,6 @@ export default function RootLayout({
     <html lang="en" className="min-h-full h-full">
       <body className={`${inter.variable} ${lora.variable} antialiased bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col h-full`}>
         <LayoutWrapper>{children}</LayoutWrapper>
-        <SiteFooter />
       </body>
     </html>
   );

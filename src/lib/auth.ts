@@ -1,15 +1,48 @@
-import { NextAuthOptions } from "next-auth"
+import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import GitHubProvider from "next-auth/providers/github"
 import { prisma } from "@/lib/prisma"
 
-export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+// Custom adapter wrapper
+const baseAdapter = PrismaAdapter(prisma) as any
+
+// Create a custom adapter that adds username before user creation
+const customAdapter = {
+  ...baseAdapter,
+  async createUser(user: any) {
+    // Generate username before creating user
+    const baseUsername = user.email?.split("@")[0] || user.name?.toLowerCase().replace(/\s+/g, "") || `user${Date.now()}`
+    let username = baseUsername
+    let counter = 1
+    
+    while (await prisma.user.findUnique({ where: { username } })) {
+      username = `${baseUsername}${counter}`
+      counter++
+    }
+
+    // Create user with username - map NextAuth fields to our schema
+    return await prisma.user.create({
+      data: {
+        id: user.id || undefined,
+        name: user.name || null, // NextAuth field
+        email: user.email,
+        emailVerified: user.emailVerified,
+        image: user.image || null, // NextAuth expects 'image' field
+        username,
+        displayName: user.name || username, // Our custom field
+        avatarUrl: user.image || undefined, // Our custom field (same as image)
+      },
+    })
+  },
+}
+
+export const { handlers, auth } = NextAuth({
+  adapter: customAdapter as any,
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      profile(profile) {
+      profile(profile: any) {
         return {
           id: profile.id.toString(),
           name: profile.name || profile.login,
@@ -19,73 +52,54 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  events: {
-    async createUser({ user }) {
-      // This event fires after user is created by the adapter
-      try {
-        // Generate username from email or name
-        const baseUsername = user.email?.split("@")[0] || user.name?.toLowerCase().replace(/\s+/g, "") || `user${Date.now()}`
-        let username = baseUsername
-        let counter = 1
-        
-        // Ensure username is unique
-        while (await prisma.user.findUnique({ where: { username } })) {
-          username = `${baseUsername}${counter}`
-          counter++
-        }
-
-        await prisma.user.update({
-          where: { id: user.id },
-          data: {
-            username,
-            displayName: user.name || username,
-            avatarUrl: user.image || undefined,
-          },
-        })
-      } catch (error) {
-        console.error("Error setting up user:", error)
-      }
-    },
-  },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user }: { session: any; user: any }) {
       if (session.user) {
         session.user.id = user.id
-        // Get username from database
-        const dbUser = await prisma.user.findUnique({
-          where: { id: user.id },
-          select: { username: true },
-        })
-        if (dbUser) {
-          (session.user as any).username = dbUser.username
+        // Use username from user object if available (from adapter), otherwise fetch
+        // This avoids an extra DB query when username is already in the user object
+        if ((user as any).username) {
+          (session.user as any).username = (user as any).username
+        } else {
+          // Fallback: only query if username is not available
+          const dbUser = await prisma.user.findUnique({
+            where: { id: user.id },
+            select: { username: true },
+          })
+          if (dbUser) {
+            (session.user as any).username = dbUser.username
+          }
         }
       }
       return session
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, profile }: { user: any; account: any; profile: any }) {
       if (account?.provider === "github" && profile && user.email) {
-        try {
-          // Update user with GitHub-specific info on each sign in
-          const existingUser = await prisma.user.findUnique({
+        // Run user update in background to not block login flow
+        // This improves perceived login speed
+        prisma.user
+          .findUnique({
             where: { email: user.email },
           })
-
-          if (existingUser) {
-            const githubUsername = (profile as any).login || user.name?.toLowerCase().replace(/\s+/g, "") || ""
-            
-            // Update fields
-            await prisma.user.update({
-              where: { id: existingUser.id },
-              data: {
-                displayName: existingUser.displayName || user.name || githubUsername,
-                avatarUrl: user.image || existingUser.avatarUrl,
-                githubUrl: (profile as any).html_url || existingUser.githubUrl,
-              },
-            })
-          }
-        } catch (error) {
-          console.error("Error in signIn callback:", error)
-        }
+          .then((existingUser) => {
+            if (existingUser) {
+              const githubUsername = (profile as any).login || user.name?.toLowerCase().replace(/\s+/g, "") || ""
+              
+              return prisma.user.update({
+                where: { id: existingUser.id },
+                data: {
+                  name: user.name || existingUser.name, // Update NextAuth field
+                  image: user.image || existingUser.image, // Update NextAuth field
+                  displayName: existingUser.displayName || user.name || githubUsername,
+                  avatarUrl: user.image || existingUser.avatarUrl,
+                  githubUrl: (profile as any).html_url || existingUser.githubUrl,
+                },
+              })
+            }
+          })
+          .catch((error) => {
+            console.error("Error in signIn callback (non-blocking):", error)
+          })
       }
       return true
     },
@@ -94,7 +108,6 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   session: {
-    strategy: "database",
+    strategy: "database" as const,
   },
-}
-
+})

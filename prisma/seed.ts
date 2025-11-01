@@ -4,11 +4,18 @@ import { prisma } from "@/lib/prisma"
 async function main() {
   console.log("Seeding database...")
 
-  // Seed tools
+  // Seed tools - update colors and other fields if they exist
   for (const tool of mockTools) {
     await prisma.tool.upsert({
       where: { slug: tool.slug },
-      update: {},
+      update: {
+        name: tool.name,
+        icon: tool.icon,
+        site: tool.site,
+        category: tool.category,
+        color: tool.color, // This will update the color for existing tools
+        // Note: We don't update avgRating, ratingsCount, usedByCount as those are calculated values
+      },
       create: {
         slug: tool.slug,
         name: tool.name,

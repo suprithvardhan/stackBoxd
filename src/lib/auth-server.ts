@@ -1,8 +1,6 @@
-import { NextAuthOptions } from "next-auth"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { auth } from "@/lib/auth"
 
 export function getSession() {
-  return getServerSession(authOptions)
+  return auth()
 }
 

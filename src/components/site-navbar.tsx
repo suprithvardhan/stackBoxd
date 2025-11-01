@@ -1,10 +1,12 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { House, Compass, List, Briefcase, PlusCircle, Search } from "lucide-react"
 import { motion } from "framer-motion"
 import { signOut, useSession } from "next-auth/react"
+import { SearchModal } from "./search-modal"
 
 const tabs = [
   { href: "/home", label: "Home", icon: House },
@@ -18,15 +20,28 @@ export function SiteNavbar() {
   const router = useRouter()
   const { data: session, status } = useSession()
   const isAuthed = status === "authenticated"
+  const [searchOpen, setSearchOpen] = useState(false)
 
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/" })
   }
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--border)] bg-[color:var(--bg)/0.8] backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
+        <Link href="/home" className="text-lg font-semibold tracking-tight">
           Stackboxd
         </Link>
         <nav className="hidden gap-1 md:flex">
@@ -55,11 +70,15 @@ export function SiteNavbar() {
           })}
         </nav>
         <div className="flex items-center gap-2">
-          <button className="hidden items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text)] md:inline-flex">
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="hidden items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text)] md:inline-flex"
+          >
             <Search size={16} />
             <span>Search…</span>
             <kbd className="ml-1 rounded bg-black/40 px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]">⌘K</kbd>
           </button>
+          <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
           {isAuthed && session?.user ? (
             <>
               <Link

@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get("id")
     const userId = searchParams.get("userId")
+    const username = searchParams.get("username")
     const toolId = searchParams.get("toolId")
     const projectId = searchParams.get("projectId")
     const limit = parseInt(searchParams.get("limit") || "20")
@@ -44,32 +45,58 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "Log not found" }, { status: 404 })
       }
 
-      return NextResponse.json({
-        id: log.id,
-        user: log.user.username,
-        userId: log.user.id,
-        tool: {
-          slug: log.tool.slug,
-          name: log.tool.name,
-          icon: log.tool.icon,
+      return NextResponse.json(
+        {
+          id: log.id,
+          user: log.user.username,
+          userId: log.user.id,
+          userData: {
+            username: log.user.username,
+            displayName: log.user.displayName,
+            avatarUrl: log.user.avatarUrl,
+          },
+          tool: {
+            slug: log.tool.slug,
+            name: log.tool.name,
+            icon: log.tool.icon,
+            color: log.tool.color,
+          },
+          rating: log.rating,
+          review: log.review,
+          tags: log.tags,
+          project: log.project
+            ? {
+                id: log.project.id,
+                name: log.project.name,
+              }
+            : null,
+          createdAt: log.createdAt.toISOString(),
+          reactions: log._count.reactions,
+          comments: log._count.comments,
         },
-        rating: log.rating,
-        review: log.review,
-        tags: log.tags,
-        project: log.project
-          ? {
-              id: log.project.id,
-              name: log.project.name,
-            }
-          : null,
-        createdAt: log.createdAt.toISOString(),
-        reactions: log._count.reactions,
-        comments: log._count.comments,
-      })
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 min
+          },
+        }
+      )
     }
 
     const where: any = {}
-    if (userId) where.userId = userId
+    if (userId) {
+      where.userId = userId
+    }
+    // Optimize username lookup
+    if (username) {
+      const user = await prisma.user.findUnique({
+        where: { username },
+        select: { id: true },
+      })
+      if (!user) {
+        return NextResponse.json([])
+      }
+      where.userId = user.id
+    }
     if (toolId) where.toolId = toolId
     if (projectId) where.projectId = projectId
     where.visibility = "public"
@@ -79,15 +106,28 @@ export async function GET(request: NextRequest) {
       take: limit,
       skip: offset,
       orderBy: { createdAt: "desc" },
-      include: {
+      select: {
+        id: true,
+        rating: true,
+        review: true,
+        tags: true,
+        createdAt: true,
         user: {
           select: {
+            id: true,
             username: true,
             displayName: true,
             avatarUrl: true,
           },
         },
-        tool: true,
+        tool: {
+          select: {
+            slug: true,
+            name: true,
+            icon: true,
+            color: true,
+          },
+        },
         project: {
           select: {
             id: true,
@@ -108,10 +148,16 @@ export async function GET(request: NextRequest) {
         id: log.id,
         user: log.user.username,
         userId: log.user.id,
+        userData: {
+          username: log.user.username,
+          displayName: log.user.displayName,
+          avatarUrl: log.user.avatarUrl,
+        },
         tool: {
           slug: log.tool.slug,
           name: log.tool.name,
           icon: log.tool.icon,
+          color: log.tool.color,
         },
         rating: log.rating,
         review: log.review,
@@ -125,7 +171,12 @@ export async function GET(request: NextRequest) {
         createdAt: log.createdAt.toISOString(),
         reactions: log._count.reactions,
         comments: log._count.comments,
-      }))
+      })),
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120', // Cache for 1 min
+        },
+      }
     )
   } catch (error) {
     console.error("Error fetching logs:", error)
@@ -193,24 +244,28 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    // Update tool stats
-    const allLogs = await prisma.log.findMany({
-      where: { toolId: tool.id },
-      select: { rating: true },
-    })
-    const avgRating = allLogs.reduce((sum, l) => sum + l.rating, 0) / allLogs.length
-    const uniqueUsers = await prisma.log.findMany({
-      where: { toolId: tool.id },
-      select: { userId: true },
-      distinct: ["userId"],
-    })
+    // Update tool stats using efficient aggregation queries
+    const [ratingStats, uniqueUsersCount, totalRatings] = await Promise.all([
+      prisma.log.aggregate({
+        where: { toolId: tool.id },
+        _avg: { rating: true },
+        _count: { rating: true },
+      }),
+      prisma.log.groupBy({
+        by: ["userId"],
+        where: { toolId: tool.id },
+      }),
+      prisma.log.count({
+        where: { toolId: tool.id },
+      }),
+    ])
 
     await prisma.tool.update({
       where: { id: tool.id },
       data: {
-        avgRating,
-        ratingsCount: allLogs.length,
-        usedByCount: uniqueUsers.length,
+        avgRating: ratingStats._avg.rating || 0,
+        ratingsCount: totalRatings,
+        usedByCount: uniqueUsersCount.length,
       },
     })
 
@@ -223,6 +278,7 @@ export async function POST(request: NextRequest) {
           slug: log.tool.slug,
           name: log.tool.name,
           icon: log.tool.icon,
+          color: log.tool.color,
         },
         rating: log.rating,
         review: log.review,

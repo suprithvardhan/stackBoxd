@@ -12,33 +12,56 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get("offset") || "0")
 
     if (slug) {
-      const tool = await prisma.tool.findUnique({
-        where: { slug },
-        include: {
-          _count: {
-            select: {
-              logs: true,
-            },
+      const [tool, ratingDistribution] = await Promise.all([
+        prisma.tool.findUnique({
+          where: { slug },
+          select: {
+            id: true,
+            slug: true,
+            name: true,
+            icon: true,
+            site: true,
+            category: true,
+            color: true,
+            avgRating: true,
+            ratingsCount: true,
+            usedByCount: true,
           },
-        },
-      })
+        }),
+        // Get rating distribution in parallel
+        prisma.log.groupBy({
+          by: ['rating'],
+          where: {
+            tool: { slug },
+            visibility: 'public',
+          },
+          _count: {
+            rating: true,
+          },
+        }),
+      ])
 
       if (!tool) {
         return NextResponse.json({ error: "Tool not found" }, { status: 404 })
       }
 
-      return NextResponse.json({
-        id: tool.id,
-        slug: tool.slug,
-        name: tool.name,
-        icon: tool.icon,
-        site: tool.site,
-        category: tool.category,
-        color: tool.color,
-        avgRating: tool.avgRating,
-        ratingsCount: tool.ratingsCount,
-        usedByCount: tool.usedByCount,
+      // Create distribution map (1-5 stars)
+      const distribution: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+      ratingDistribution.forEach((item) => {
+        distribution[item.rating] = item._count.rating
       })
+
+      return NextResponse.json(
+        {
+          ...tool,
+          ratingDistribution: distribution,
+        },
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 min, serve stale for 10 min
+          },
+        }
+      )
     }
 
     const where: any = {}
@@ -55,9 +78,24 @@ export async function GET(request: NextRequest) {
       take: limit,
       skip: offset,
       orderBy: { usedByCount: "desc" },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        icon: true,
+        color: true,
+        category: true,
+        avgRating: true,
+        ratingsCount: true,
+        usedByCount: true,
+      },
     })
 
-    return NextResponse.json(tools)
+    return NextResponse.json(tools, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=180, stale-while-revalidate=360', // Cache for 3 min
+      },
+    })
   } catch (error) {
     console.error("Error fetching tools:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

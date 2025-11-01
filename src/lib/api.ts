@@ -41,6 +41,8 @@ export const api = {
     },
     get: (slug: string) =>
       apiRequest<any>(`/api/tools?slug=${slug}`),
+    getDescription: (slug: string) =>
+      apiRequest<{ description: string | null; source: string | null }>(`/api/tools/${slug}/description`),
     create: (data: any) =>
       apiRequest<any>("/api/tools", {
         method: "POST",
@@ -48,9 +50,10 @@ export const api = {
       }),
   },
   projects: {
-    list: (params?: { authorId?: string; limit?: number; offset?: number }) => {
+    list: (params?: { authorId?: string; username?: string; limit?: number; offset?: number }) => {
       const query = new URLSearchParams()
       if (params?.authorId) query.append("authorId", params.authorId)
+      if (params?.username) query.append("username", params.username)
       if (params?.limit) query.append("limit", params.limit.toString())
       if (params?.offset) query.append("offset", params.offset.toString())
       return apiRequest<any[]>(`/api/projects?${query.toString()}`)
@@ -64,9 +67,10 @@ export const api = {
       }),
   },
   logs: {
-    list: (params?: { userId?: string; toolId?: string; projectId?: string; limit?: number; offset?: number }) => {
+    list: (params?: { userId?: string; username?: string; toolId?: string; projectId?: string; limit?: number; offset?: number }) => {
       const query = new URLSearchParams()
       if (params?.userId) query.append("userId", params.userId)
+      if (params?.username) query.append("username", params.username)
       if (params?.toolId) query.append("toolId", params.toolId)
       if (params?.projectId) query.append("projectId", params.projectId)
       if (params?.limit) query.append("limit", params.limit.toString())
@@ -82,9 +86,10 @@ export const api = {
       }),
   },
   lists: {
-    list: (params?: { userId?: string; limit?: number; offset?: number }) => {
+    list: (params?: { userId?: string; username?: string; limit?: number; offset?: number }) => {
       const query = new URLSearchParams()
       if (params?.userId) query.append("userId", params.userId)
+      if (params?.username) query.append("username", params.username)
       if (params?.limit) query.append("limit", params.limit.toString())
       if (params?.offset) query.append("offset", params.offset.toString())
       return apiRequest<any[]>(`/api/lists?${query.toString()}`)
@@ -95,6 +100,48 @@ export const api = {
       apiRequest<any>("/api/lists", {
         method: "POST",
         body: JSON.stringify(data),
+      }),
+  },
+  github: {
+    sync: () =>
+      apiRequest<any>("/api/github/sync", {
+        method: "POST",
+      }),
+    analyze: (repoUrl: string) =>
+      apiRequest<any>(`/api/github/sync?repoUrl=${encodeURIComponent(repoUrl)}`),
+  },
+  search: {
+    search: (query: string, limit?: number) => {
+      const params = new URLSearchParams()
+      params.append("q", query)
+      if (limit) params.append("limit", limit.toString())
+      return apiRequest<{ tools: any[]; users: any[]; lists: any[] }>(`/api/search?${params.toString()}`)
+    },
+  },
+  reactions: {
+    toggle: (logId: string) =>
+      apiRequest<{ reacted: boolean }>("/api/reactions", {
+        method: "POST",
+        body: JSON.stringify({ logId }),
+      }),
+    list: (logId?: string, userId?: string) => {
+      const params = new URLSearchParams()
+      if (logId) params.append("logId", logId)
+      if (userId) params.append("userId", userId)
+      return apiRequest<any[]>(`/api/reactions?${params.toString()}`)
+    },
+  },
+  comments: {
+    list: (logId: string) =>
+      apiRequest<any[]>(`/api/comments?logId=${logId}`),
+    create: (logId: string, content: string) =>
+      apiRequest<any>("/api/comments", {
+        method: "POST",
+        body: JSON.stringify({ logId, content }),
+      }),
+    delete: (id: string) =>
+      apiRequest<any>(`/api/comments?id=${id}`, {
+        method: "DELETE",
       }),
   },
 }

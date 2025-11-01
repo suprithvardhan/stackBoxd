@@ -43,14 +43,16 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   username      String    @unique
-  displayName   String
+  name          String?   // NextAuth required field
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?   // NextAuth required field (avatar URL)
+  displayName   String    // Our custom field
   bio           String?   @db.Text
-  avatarUrl     String?
+  avatarUrl     String?   // Our custom field (duplicate of image)
   githubUrl     String?
   websiteUrl    String?
   twitterUrl    String?
-  email         String?
-  emailVerified DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -171,6 +173,7 @@ model List {
   title       String
   description String?  @db.Text
   cover       String?
+  visibility  String   @default("public") // "public" | "private"
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -179,6 +182,7 @@ model List {
   items       ListItem[]
 
   @@index([userId])
+  @@index([visibility])
 }
 
 model ListItem {

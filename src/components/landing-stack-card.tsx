@@ -24,7 +24,7 @@ export default function LandingStackCard() {
         <div className="flex flex-wrap justify-center gap-5 mb-7">
           <div className="flex flex-col items-center">
             <span className="text-xs text-[var(--text-muted)]">Most used</span>
-            <span className="mt-1 flex h-10 w-10 items-center justify-center rounded-xl bg-[#00000013] border border-[var(--border)]"><Icon icon="simple-icons:nextdotjs" width={32} height={32} style={{color: '#000'}} /></span>
+            <span className="mt-1 flex h-10 w-10 items-center justify-center rounded-xl bg-[#0070F313] border border-[var(--border)]"><Icon icon="simple-icons:nextdotjs" width={32} height={32} style={{color: '#0070F3'}} /></span>
             <div className="mt-1 text-xs font-bold tracking-tight">Next.js</div>
           </div>
           <div className="flex flex-col items-center">
