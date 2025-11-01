@@ -61,10 +61,11 @@ model User {
   logs          Log[]
   projects      Project[]
   lists         List[]
-  followers     Follow[]  @relation("UserFollowers")
-  following     Follow[]  @relation("UserFollowing")
+  followers     Follow[]  @relation("UserFollowing")  // People following THIS user (followingId = this.id)
+  following     Follow[]  @relation("UserFollowers")  // People THIS user follows (followerId = this.id)
   reactions     Reaction[]
   comments      Comment[]
+  analyticsEvents AnalyticsEvent[]
 
   @@index([username])
 }
@@ -206,8 +207,8 @@ model Follow {
   followingId String
   createdAt   DateTime @default(now())
 
-  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
-  following   User     @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)  // The user who is following
+  following   User     @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)  // The user being followed
 
   @@unique([followerId, followingId])
   @@index([followerId])
@@ -241,5 +242,29 @@ model Comment {
 
   @@index([logId])
   @@index([userId])
+}
+
+model AnalyticsEvent {
+  id           String   @id @default(cuid())
+  userId       String?
+  sessionId    String?  // Session identifier for tracking user sessions
+  eventType    String   // page_view, click, search, form_submit, etc.
+  eventData    Json?    // Additional event data
+  path         String?  // URL path
+  referrer     String?  // HTTP referrer
+  userAgent    String?  // User agent
+  ipAddress    String?  // IP address (anonymized)
+  duration     Int?     // Duration in milliseconds (for time-based events)
+  metadata     Json?    // Additional metadata (device, browser, etc.)
+  createdAt    DateTime @default(now())
+
+  user         User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([sessionId])
+  @@index([eventType])
+  @@index([createdAt])
+  @@index([userId, eventType])
+  @@index([sessionId, createdAt])
 }
 

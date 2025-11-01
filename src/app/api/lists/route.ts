@@ -221,20 +221,29 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(
-      {
-        id: list.id,
-        title: list.title,
-        description: list.description,
-        cover: list.cover,
-        visibility: list.visibility,
-        userId: list.userId,
-        author: list.user.username,
-        tools: list.items.map((item) => item.tool.slug),
-        count: list.items.length,
+    const responseData = {
+      id: list.id,
+      title: list.title,
+      description: list.description,
+      cover: list.cover,
+      visibility: list.visibility,
+      userId: list.userId,
+      author: list.user.username,
+      tools: list.items.map((item) => item.tool.slug),
+      count: list.items.length,
+    }
+
+    // Track analytics
+    ;(prisma as any).analyticsEvent.create({
+      data: {
+        userId: session.user.id,
+        eventType: "list_create",
+        eventData: { listId: list.id, toolsCount: list.items.length },
+        path: `/lists/${list.id}`,
       },
-      { status: 201 }
-    )
+    }).catch(() => {})
+
+    return NextResponse.json(responseData, { status: 201 })
   } catch (error) {
     console.error("Error creating list:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

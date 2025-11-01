@@ -82,6 +82,16 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    // Track analytics
+    ;(prisma as any).analyticsEvent.create({
+      data: {
+        userId: session.user.id,
+        eventType: "comment_create",
+        eventData: { commentId: comment.id, logId, contentLength: content.trim().length },
+        path: request.headers.get("referer") || `/logs/${logId}`,
+      },
+    }).catch(() => {})
+
     return NextResponse.json(
       {
         id: comment.id,
@@ -120,6 +130,7 @@ export async function DELETE(request: NextRequest) {
 
     const comment = await prisma.comment.findUnique({
       where: { id },
+      select: { logId: true, userId: true },
     })
 
     if (!comment) {
@@ -133,6 +144,18 @@ export async function DELETE(request: NextRequest) {
     await prisma.comment.delete({
       where: { id },
     })
+
+    // Track analytics
+    if (comment) {
+      ;(prisma as any).analyticsEvent.create({
+        data: {
+          userId: session.user.id,
+          eventType: "comment_delete",
+          eventData: { commentId: id, logId: comment.logId },
+          path: request.headers.get("referer") || null,
+        },
+      }).catch(() => {})
+    }
 
     return NextResponse.json({ success: true })
   } catch (error) {

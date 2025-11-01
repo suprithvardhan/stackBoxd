@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Cannot follow yourself" }, { status: 400 })
     }
 
-    // Check if already following
+    // Optimized: Use upsert to handle both follow/unfollow in one query
+    // First check if follow exists
     const existing = await prisma.follow.findUnique({
       where: {
         followerId_followingId: {
@@ -28,28 +29,56 @@ export async function POST(request: NextRequest) {
           followingId,
         },
       },
+      select: { id: true },
     })
 
     if (existing) {
-      // Unfollow
+      // Unfollow - delete
       await prisma.follow.delete({
-        where: {
-          id: existing.id,
-        },
+        where: { id: existing.id },
       })
+      // Track analytics
+      ;(prisma as any).analyticsEvent.create({
+        data: {
+          userId: session.user.id,
+          eventType: "follow_unfollow",
+          eventData: { followingId, action: "unfollow" },
+          path: request.headers.get("referer") || null,
+        },
+      }).catch(() => {})
       return NextResponse.json({ following: false })
+    } else {
+      // Follow - create (skip verification, let unique constraint handle it)
+      try {
+        await prisma.follow.create({
+          data: {
+            followerId: session.user.id,
+            followingId,
+          },
+        })
+        // Track analytics
+        ;(prisma as any).analyticsEvent.create({
+          data: {
+            userId: session.user.id,
+            eventType: "follow",
+            eventData: { followingId, action: "follow" },
+            path: request.headers.get("referer") || null,
+          },
+        }).catch(() => {})
+        return NextResponse.json({ following: true }, { status: 201 })
+      } catch (error: any) {
+        if (error.code === "P2002") {
+          // Already following (race condition)
+          return NextResponse.json({ following: true })
+        }
+        if (error.code === "P2003") {
+          // Foreign key constraint - user doesn't exist
+          return NextResponse.json({ error: "User not found" }, { status: 404 })
+        }
+        throw error
+      }
     }
-
-    // Create follow
-    await prisma.follow.create({
-      data: {
-        followerId: session.user.id,
-        followingId,
-      },
-    })
-
-    return NextResponse.json({ following: true }, { status: 201 })
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error toggling follow:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
@@ -68,15 +97,18 @@ export async function GET(request: NextRequest) {
     if (type === "followers") {
       const followers = await prisma.follow.findMany({
         where: { followingId: userId },
-        include: {
+        orderBy: { createdAt: "desc" },
+        select: {
           follower: {
             select: {
               id: true,
               username: true,
               displayName: true,
               avatarUrl: true,
+              bio: true,
             },
           },
+          createdAt: true,
         },
       })
 
@@ -86,20 +118,29 @@ export async function GET(request: NextRequest) {
           username: f.follower.username,
           displayName: f.follower.displayName,
           avatarUrl: f.follower.avatarUrl,
-        }))
+          bio: f.follower.bio,
+        })),
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120', // Cache for 1 min
+          },
+        }
       )
     } else {
       const following = await prisma.follow.findMany({
         where: { followerId: userId },
-        include: {
+        orderBy: { createdAt: "desc" },
+        select: {
           following: {
             select: {
               id: true,
               username: true,
               displayName: true,
               avatarUrl: true,
+              bio: true,
             },
           },
+          createdAt: true,
         },
       })
 
@@ -109,7 +150,13 @@ export async function GET(request: NextRequest) {
           username: f.following.username,
           displayName: f.following.displayName,
           avatarUrl: f.following.avatarUrl,
-        }))
+          bio: f.following.bio,
+        })),
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120', // Cache for 1 min
+          },
+        }
       )
     }
   } catch (error) {

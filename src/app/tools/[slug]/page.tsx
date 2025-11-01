@@ -126,6 +126,16 @@ export default function ToolPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Track tool view after tool is loaded
+    if (tool?.slug && !loading) {
+      // Import trackFeature for consistent tracking
+      import("@/lib/analytics").then(({ trackFeature }) => {
+        trackFeature("tool_view", "view", { toolSlug: tool.slug, toolId: tool.id });
+      }).catch(() => {});
+    }
+  }, [tool?.slug, tool?.id, loading])
+
+  useEffect(() => {
     const loadData = async () => {
       try {
         // Load tool data and description in parallel

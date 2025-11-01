@@ -34,6 +34,7 @@ export default function LogDetail() {
 
     try {
       await api.reactions.toggle(logId);
+      // Analytics tracked on backend
       // Invalidate reactions queries to refetch updated data
       queryClient.invalidateQueries({ queryKey: queryKeys.reactions.list(logId, undefined) });
       queryClient.invalidateQueries({ queryKey: queryKeys.reactions.list(undefined, session.user.id) });
@@ -43,6 +44,7 @@ export default function LogDetail() {
   };
 
   const handleComment = async (e: React.FormEvent) => {
+    // Analytics tracked on backend when comment is created
     e.preventDefault();
     if (!session || !newComment.trim()) return;
 

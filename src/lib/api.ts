@@ -144,5 +144,30 @@ export const api = {
         method: "DELETE",
       }),
   },
+  follows: {
+    toggle: (followingId: string) =>
+      apiRequest<{ following: boolean }>("/api/follows", {
+        method: "POST",
+        body: JSON.stringify({ followingId }),
+      }),
+    list: (userId: string, type: "followers" | "following" = "followers") =>
+      apiRequest<any[]>(`/api/follows?userId=${userId}&type=${type}`),
+    check: (userId: string) =>
+      apiRequest<{ following: boolean }>(`/api/follows/check?userId=${userId}`),
+  },
+  analytics: {
+    track: (eventType: string, eventData?: any, path?: string, referrer?: string, duration?: number) =>
+      apiRequest<{ success: boolean }>("/api/analytics", {
+        method: "POST",
+        body: JSON.stringify({ eventType, eventData, path, referrer, duration }),
+      }),
+    get: (params?: { startDate?: string; endDate?: string; eventType?: string }) => {
+      const query = new URLSearchParams()
+      if (params?.startDate) query.append("startDate", params.startDate)
+      if (params?.endDate) query.append("endDate", params.endDate)
+      if (params?.eventType) query.append("eventType", params.eventType)
+      return apiRequest<any[]>(`/api/analytics?${query.toString()}`)
+    },
+  },
 }
 

@@ -34,6 +34,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
       try {
         const data = await api.search.search(query.trim(), 5)
         setResults(data)
+        // Track search (analytics tracked on backend)
       } catch (error) {
         console.error("Search error:", error)
       } finally {

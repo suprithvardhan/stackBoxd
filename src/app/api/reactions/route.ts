@@ -33,6 +33,15 @@ export async function POST(request: NextRequest) {
           id: existing.id,
         },
       })
+      // Track analytics
+      ;(prisma as any).analyticsEvent.create({
+        data: {
+          userId: session.user.id,
+          eventType: "reaction_remove",
+          eventData: { logId, action: "unlike" },
+          path: request.headers.get("referer") || null,
+        },
+      }).catch(() => {})
       return NextResponse.json({ reacted: false })
     }
 
@@ -43,6 +52,16 @@ export async function POST(request: NextRequest) {
         logId,
       },
     })
+    
+    // Track analytics
+    ;(prisma as any).analyticsEvent.create({
+      data: {
+        userId: session.user.id,
+        eventType: "reaction",
+        eventData: { logId, action: "like" },
+        path: request.headers.get("referer") || null,
+      },
+    }).catch(() => {})
 
     return NextResponse.json({ reacted: true }, { status: 201 })
   } catch (error) {

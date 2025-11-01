@@ -186,6 +186,92 @@ export function useSyncGitHub() {
   });
 }
 
+// Follow hooks
+export function useFollowStatus(userId: string, enabled = true) {
+  return useQuery({
+    queryKey: ["follows", "status", userId],
+    queryFn: () => api.follows.check(userId),
+    enabled: enabled && !!userId,
+    staleTime: 30 * 1000, // 30 seconds
+  });
+}
+
+export function useFollowers(userId: string, enabled = true) {
+  return useQuery({
+    queryKey: ["follows", "followers", userId],
+    queryFn: () => api.follows.list(userId, "followers"),
+    enabled: enabled && !!userId,
+    staleTime: 60 * 1000, // 1 minute
+  });
+}
+
+export function useFollowing(userId: string, enabled = true) {
+  return useQuery({
+    queryKey: ["follows", "following", userId],
+    queryFn: () => api.follows.list(userId, "following"),
+    enabled: enabled && !!userId,
+    staleTime: 60 * 1000, // 1 minute
+  });
+}
+
+export function useToggleFollow() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: api.follows.toggle,
+    onMutate: async (followingId) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ["follows", "status", followingId] });
+      await queryClient.cancelQueries({ queryKey: ["users"] });
+      
+      // Snapshot previous values
+      const previousStatus = queryClient.getQueryData(["follows", "status", followingId]);
+      
+      // Optimistically update follow status
+      queryClient.setQueryData(["follows", "status", followingId], (old: any) => {
+        return { following: !old?.following };
+      });
+      
+      // Optimistically update follower count for ALL user queries (by id match)
+      queryClient.setQueriesData({ queryKey: ["users"] }, (old: any) => {
+        if (!old || !old.id || old.id !== followingId) return old;
+        const increment = !previousStatus?.following ? 1 : -1;
+        return {
+          ...old,
+          stats: {
+            ...old.stats,
+            followers: Math.max(0, (old.stats?.followers || 0) + increment),
+          },
+        };
+      });
+      
+      return { previousStatus };
+    },
+    onError: (err, followingId, context) => {
+      // Rollback on error
+      if (context?.previousStatus) {
+        queryClient.setQueryData(["follows", "status", followingId], context.previousStatus);
+      }
+      // Refetch to get correct data
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+    onSuccess: (data, followingId) => {
+      // Update with actual data from server
+      queryClient.setQueryData(["follows", "status", followingId], data);
+      
+      // Invalidate related queries to ensure fresh data
+      queryClient.invalidateQueries({ queryKey: ["follows", "followers", followingId] });
+      queryClient.invalidateQueries({ queryKey: ["follows", "following", followingId] });
+      
+      // CRITICAL: Invalidate ALL user queries to update follower/following counts everywhere
+      // This ensures the profile page refetches with correct counts
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      
+      // Also refetch any active user queries immediately
+      queryClient.refetchQueries({ queryKey: ["users"] });
+    },
+  });
+}
+
 // Comments hooks
 export function useComments(logId: string, enabled = true) {
   return useQuery({

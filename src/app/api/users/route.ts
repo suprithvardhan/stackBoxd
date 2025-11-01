@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
         },
         {
           headers: {
-            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 min
+            'Cache-Control': 'private, s-maxage=30, stale-while-revalidate=60', // Cache for 30 seconds (shorter for follower counts)
           },
         }
       )
@@ -64,6 +64,7 @@ export async function GET(request: NextRequest) {
             projects: true,
             lists: true,
             followers: true,
+            following: true,
           },
         },
       },
@@ -84,6 +85,7 @@ export async function GET(request: NextRequest) {
           projects: u._count.projects,
           lists: u._count.lists,
           followers: u._count.followers,
+          following: u._count.following,
         },
       })),
       {

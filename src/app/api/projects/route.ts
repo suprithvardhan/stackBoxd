@@ -230,26 +230,35 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(
-      {
-        id: project.id,
-        name: project.name,
-        displayName: project.displayName,
-        tagline: project.tagline,
-        description: project.description,
-        about: project.about,
-        coverImage: project.coverImage,
-        repoUrl: project.repoUrl,
-        demoUrl: project.demoUrl,
-        stars: project.stars,
-        reflection: project.reflection,
-        author: project.author.username,
-        authorId: project.author.id,
-        tools: project.tools.map((pt) => pt.tool.icon),
-        highlights: project.highlights.map((h) => h.text),
+    const responseData = {
+      id: project.id,
+      name: project.name,
+      displayName: project.displayName,
+      tagline: project.tagline,
+      description: project.description,
+      about: project.about,
+      coverImage: project.coverImage,
+      repoUrl: project.repoUrl,
+      demoUrl: project.demoUrl,
+      stars: project.stars,
+      reflection: project.reflection,
+      author: project.author.username,
+      authorId: project.author.id,
+      tools: project.tools.map((pt) => pt.tool.icon),
+      highlights: project.highlights.map((h) => h.text),
+    }
+
+    // Track analytics
+    ;(prisma as any).analyticsEvent.create({
+      data: {
+        userId: session.user.id,
+        eventType: "project_create",
+        eventData: { projectId: project.id, toolsCount: project.tools.length },
+        path: `/projects/${project.id}`,
       },
-      { status: 201 }
-    )
+    }).catch(() => {})
+
+    return NextResponse.json(responseData, { status: 201 })
   } catch (error) {
     console.error("Error creating project:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

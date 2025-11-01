@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useFollowStatus, useToggleFollow, useFollowers, useFollowing, useUser } from "@/lib/api-hooks";
 
 function getToolColor(tools: any[], icon: string) {
   return tools.find((t) => t.icon === icon)?.color || undefined;
@@ -37,33 +38,40 @@ export default function ProfilePage() {
   const username = params.username as string;
   const { data: session } = useSession();
   const [tab, setTab] = useState("activity");
-  const [user, setUser] = useState<any>(null);
   const [logs, setLogs] = useState<any[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
   const [lists, setLists] = useState<any[]>([]);
   const [tools, setTools] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [showFollowingModal, setShowFollowingModal] = useState(false);
+  
+  // Use React Query hook for user data - ensures proper cache invalidation
+  const { data: user, isLoading: userLoading, refetch: refetchUser } = useUser(username, !!username);
+  
+  // Follow functionality - only check if viewing other user's profile
+  const { data: followStatus } = useFollowStatus(
+    user?.id || "", 
+    !!user?.id && !!session?.user?.id && session?.user?.id !== user?.id
+  );
+  const toggleFollow = useToggleFollow();
+  
+  const isFollowing = followStatus?.following || false;
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [userData, logsData, projectsData, listsData, toolsData] = await Promise.all([
-          api.users.get(username),
+        const [logsData, projectsData, listsData, toolsData] = await Promise.all([
           api.logs.list({ username, limit: 100 }),
           api.projects.list({ username, limit: 100 }),
           api.lists.list({ username, limit: 100 }),
           api.tools.list({ limit: 200 }),
         ]);
-        setUser(userData);
         setLogs(logsData);
         setProjects(projectsData);
         setLists(listsData);
         setTools(toolsData);
       } catch (error) {
         console.error("Failed to load profile data:", error);
-      } finally {
-        setLoading(false);
       }
     };
     if (username) {
@@ -71,9 +79,19 @@ export default function ProfilePage() {
     }
   }, [username]);
 
+  // Optimistically update follower count when follow status changes
+  useEffect(() => {
+    if (user && followStatus?.following !== undefined) {
+      // Immediately refetch user data to get updated follower count
+      refetchUser();
+    }
+  }, [followStatus?.following, user?.id, refetchUser]);
+
   const likedTools = Array.from(new Set(
     logs.filter((l) => l.rating === 5).map((l) => l.tool.slug)
   ));
+
+  const loading = userLoading;
 
   if (loading) {
     return (
@@ -106,12 +124,42 @@ export default function ProfilePage() {
             <div className="text-sm text-[var(--text-muted)]">
               <span className="font-semibold text-[var(--primary)]">{user.stats?.toolsLogged || 0}</span> tools |&nbsp;
               <span className="font-semibold text-[var(--primary)]">{user.stats?.projects || 0}</span> projects |&nbsp;
-              <span className="font-semibold text-[var(--primary)]">{user.stats?.followers || 0}</span> followers
+              <button 
+                onClick={() => setShowFollowersModal(true)}
+                className="font-semibold text-[var(--primary)] hover:underline cursor-pointer"
+              >
+                {user.stats?.followers || 0} followers
+              </button>
+              {user.stats?.following !== undefined && (user.stats.following < 200) && (
+                <>
+                  {" | "}
+                  <button 
+                    onClick={() => setShowFollowingModal(true)}
+                    className="font-semibold text-[var(--primary)] hover:underline cursor-pointer"
+                  >
+                    {user.stats.following} following
+                  </button>
+                </>
+              )}
             </div>
             <div className="flex gap-2 mt-2">
               <Link href="/stack-card" className="rounded-full bg-[var(--primary)] px-4 py-1.5 text-sm font-bold text-black focus:outline-none shadow-md">Share Card</Link>
               {session?.user?.id !== user.id && (
-                <button className="rounded-full border border-[var(--primary)] px-4 py-1.5 text-sm font-bold text-[var(--primary)] bg-transparent">Follow</button>
+                <button 
+                  onClick={() => {
+                    if (user?.id && !toggleFollow.isPending) {
+                      toggleFollow.mutate(user.id);
+                    }
+                  }}
+                  disabled={toggleFollow.isPending}
+                  className={`rounded-full border px-4 py-1.5 text-sm font-bold transition ${
+                    isFollowing
+                      ? "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]"
+                      : "border-[var(--primary)] text-[var(--primary)] bg-transparent hover:bg-[var(--primary)]/10"
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                >
+                  {toggleFollow.isPending ? "..." : isFollowing ? "Following" : "Follow"}
+                </button>
               )}
             </div>
           </div>
@@ -307,6 +355,128 @@ export default function ProfilePage() {
           </div>
         )}
       </div>
+
+      {/* Followers Modal */}
+      {showFollowersModal && (
+        <FollowersModal 
+          userId={user.id} 
+          onClose={() => setShowFollowersModal(false)} 
+        />
+      )}
+
+      {/* Following Modal */}
+      {showFollowingModal && (
+        <FollowingModal 
+          userId={user.id} 
+          onClose={() => setShowFollowingModal(false)} 
+        />
+      )}
     </div>
+  );
+}
+
+function FollowersModal({ userId, onClose }: { userId: string; onClose: () => void }) {
+  const { data: followers = [], isLoading } = useFollowers(userId);
+  
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/50 z-50" onClick={onClose} />
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col">
+          <div className="flex items-center justify-between p-6 border-b border-[var(--border)]">
+            <h2 className="text-xl font-bold">Followers</h2>
+            <button onClick={onClose} className="text-[var(--text-muted)] hover:text-[var(--text)]">
+              <Icon icon="mdi:close" width={24} height={24} />
+            </button>
+          </div>
+          <div className="overflow-y-auto p-6">
+            {isLoading ? (
+              <div className="text-center py-8 text-[var(--text-muted)]">Loading...</div>
+            ) : followers.length === 0 ? (
+              <div className="text-center py-8 text-[var(--text-muted)]">No followers yet.</div>
+            ) : (
+              <div className="space-y-4">
+                {followers.map((user: any) => (
+                  <Link
+                    key={user.id}
+                    href={`/profile/${user.username}`}
+                    onClick={onClose}
+                    className="flex items-center gap-4 p-3 rounded-lg hover:bg-[var(--bg)] transition"
+                  >
+                    <img
+                      src={user.avatarUrl || "/default-avatar.png"}
+                      alt={user.username}
+                      width={48}
+                      height={48}
+                      className="rounded-full"
+                    />
+                    <div className="flex-1">
+                      <div className="font-semibold text-[var(--text)]">{user.displayName}</div>
+                      <div className="text-sm text-[var(--text-muted)]">@{user.username}</div>
+                      {user.bio && (
+                        <div className="text-sm text-[var(--text-muted)] mt-1 line-clamp-1">{user.bio}</div>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function FollowingModal({ userId, onClose }: { userId: string; onClose: () => void }) {
+  const { data: following = [], isLoading } = useFollowing(userId);
+  
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/50 z-50" onClick={onClose} />
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col">
+          <div className="flex items-center justify-between p-6 border-b border-[var(--border)]">
+            <h2 className="text-xl font-bold">Following</h2>
+            <button onClick={onClose} className="text-[var(--text-muted)] hover:text-[var(--text)]">
+              <Icon icon="mdi:close" width={24} height={24} />
+            </button>
+          </div>
+          <div className="overflow-y-auto p-6">
+            {isLoading ? (
+              <div className="text-center py-8 text-[var(--text-muted)]">Loading...</div>
+            ) : following.length === 0 ? (
+              <div className="text-center py-8 text-[var(--text-muted)]">Not following anyone yet.</div>
+            ) : (
+              <div className="space-y-4">
+                {following.map((user: any) => (
+                  <Link
+                    key={user.id}
+                    href={`/profile/${user.username}`}
+                    onClick={onClose}
+                    className="flex items-center gap-4 p-3 rounded-lg hover:bg-[var(--bg)] transition"
+                  >
+                    <img
+                      src={user.avatarUrl || "/default-avatar.png"}
+                      alt={user.username}
+                      width={48}
+                      height={48}
+                      className="rounded-full"
+                    />
+                    <div className="flex-1">
+                      <div className="font-semibold text-[var(--text)]">{user.displayName}</div>
+                      <div className="text-sm text-[var(--text-muted)]">@{user.username}</div>
+                      {user.bio && (
+                        <div className="text-sm text-[var(--text-muted)] mt-1 line-clamp-1">{user.bio}</div>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
