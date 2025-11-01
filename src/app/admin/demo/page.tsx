@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
-import { isAdminAuthenticated, logoutAdmin } from "@/lib/admin-auth";
 import Link from "next/link";
 import {
   LineChart,
@@ -23,101 +21,138 @@ import {
   Legend,
 } from "recharts";
 
-type AnalyticsData = {
-  period: string;
+// Mock data for demo purposes
+const mockData = {
+  period: "30d",
   overview: {
-    totalEvents: number;
-    pageViews: number;
-    uniqueUsers: number;
-    newUsers: number;
-    activeUsers: number;
-  };
+    totalEvents: 125847,
+    pageViews: 89432,
+    uniqueUsers: 3421,
+    newUsers: 892,
+    activeUsers: 2156,
+  },
   content: {
-    totalLogs: number;
-    totalProjects: number;
-    totalTools: number;
-    totalLists: number;
-    totalFollows: number;
-  };
+    totalLogs: 1247,
+    totalProjects: 456,
+    totalTools: 473,
+    totalLists: 189,
+    totalFollows: 3421,
+  },
   engagement: {
-    totalPageViews: number;
-    avgTimeOnPage: number;
-    bounceRate: number;
-    totalSessions: number;
-    avgSessionDuration: number;
-    avgEventsPerSession: number;
-  };
+    totalPageViews: 89432,
+    avgTimeOnPage: 127,
+    bounceRate: 32.5,
+    totalSessions: 12543,
+    avgSessionDuration: 245000, // milliseconds
+    avgEventsPerSession: 10.3,
+  },
   geographic: {
-    countries: Array<{ country: string; count: number }>;
-  };
+    countries: [
+      { country: "US", count: 45234 },
+      { country: "IN", count: 28341 },
+      { country: "GB", count: 12456 },
+      { country: "CA", count: 8732 },
+      { country: "DE", count: 6543 },
+      { country: "AU", count: 4321 },
+      { country: "FR", count: 3892 },
+      { country: "JP", count: 3241 },
+      { country: "BR", count: 2891 },
+      { country: "MX", count: 2134 },
+      { country: "IT", count: 1876 },
+      { country: "ES", count: 1654 },
+      { country: "NL", count: 1432 },
+      { country: "SE", count: 1287 },
+      { country: "NO", count: 987 },
+    ],
+  },
   technical: {
-    devices: Array<{ device: string; count: number }>;
-    browsers: Array<{ browser: string; count: number }>;
-    os: Array<{ os: string; count: number }>;
-  };
+    devices: [
+      { device: "desktop", count: 78432 },
+      { device: "mobile", count: 32145 },
+      { device: "tablet", count: 12876 },
+    ],
+    browsers: [
+      { browser: "chrome", count: 72341 },
+      { browser: "safari", count: 23145 },
+      { browser: "firefox", count: 12876 },
+      { browser: "edge", count: 9876 },
+      { browser: "opera", count: 3421 },
+      { browser: "unknown", count: 189 },
+    ],
+    os: [
+      { os: "windows", count: 52432 },
+      { os: "macos", count: 31245 },
+      { os: "linux", count: 18765 },
+      { os: "android", count: 16543 },
+      { os: "ios", count: 12321 },
+      { os: "unknown", count: 1541 },
+    ],
+  },
   traffic: {
-    referrers: Array<{ referrer: string; count: number }>;
-    hourly: Array<{ hour: number; count: number }>;
-  };
-  eventsByType: Array<{ type: string; count: number }>;
-  eventsByDay: Array<{ date: string; count: number }>;
-  topPages: Array<{ path: string; count: number }>;
-  topUsers: Array<{ user: any; count: number }>;
+    referrers: [
+      { referrer: "google.com", count: 34218 },
+      { referrer: "direct", count: 21345 },
+      { referrer: "github.com", count: 18765 },
+      { referrer: "twitter.com", count: 9876 },
+      { referrer: "linkedin.com", count: 6543 },
+      { referrer: "reddit.com", count: 4321 },
+      { referrer: "producthunt.com", count: 2987 },
+      { referrer: "dev.to", count: 2134 },
+      { referrer: "medium.com", count: 1876 },
+      { referrer: "youtube.com", count: 1432 },
+    ],
+    hourly: Array.from({ length: 24 }, (_, i) => ({
+      hour: i,
+      count: Math.floor(Math.random() * 8000) + 2000 + Math.sin(i / 24 * Math.PI * 2) * 3000,
+    })),
+  },
+  eventsByType: [
+    { type: "page_view", count: 89432 },
+    { type: "log_create", count: 1247 },
+    { type: "tool_view", count: 34218 },
+    { type: "search", count: 15234 },
+    { type: "reaction", count: 8765 },
+    { type: "comment_create", count: 4321 },
+    { type: "project_create", count: 456 },
+    { type: "follow", count: 3421 },
+    { type: "list_create", count: 189 },
+    { type: "page_view_end", count: 76543 },
+    { type: "feature_usage", count: 1234 },
+    { type: "engagement", count: 987 },
+  ],
+  eventsByDay: Array.from({ length: 30 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - (29 - i));
+    return {
+      date: date.toISOString().split("T")[0],
+      count: Math.floor(Math.random() * 5000) + 2000,
+    };
+  }),
+  topPages: [
+    { path: "/", count: 23456 },
+    { path: "/home", count: 18765 },
+    { path: "/discover", count: 15234 },
+    { path: "/tools/react", count: 9876 },
+    { path: "/tools/nextjs", count: 8765 },
+    { path: "/tools/typescript", count: 7654 },
+    { path: "/logs/123", count: 6543 },
+    { path: "/profile/johndoe", count: 5432 },
+    { path: "/projects", count: 4321 },
+    { path: "/lists", count: 3214 },
+  ],
+  topUsers: Array.from({ length: 10 }, (_, i) => ({
+    user: {
+      id: `user-${i + 1}`,
+      username: `developer${i + 1}`,
+      displayName: `Developer ${i + 1}`,
+      avatarUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=developer${i + 1}`,
+    },
+    count: Math.floor(Math.random() * 5000) + 1000,
+  })),
 };
 
-export default function AdminDashboard() {
+export default function AdminDemoPage() {
   const router = useRouter();
-  const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<AnalyticsData | null>(null);
-  const [period, setPeriod] = useState("7d");
-  const [refreshing, setRefreshing] = useState(false);
-
-  useEffect(() => {
-    if (!isAdminAuthenticated()) {
-      router.push("/admin/login");
-      return;
-    }
-    setAuthenticated(true);
-    loadAnalytics();
-  }, [router, period]);
-
-  const loadAnalytics = async () => {
-    try {
-      setRefreshing(true);
-      const response = await fetch(`/api/admin/analytics?period=${period}`);
-      if (response.ok) {
-        const analyticsData = await response.json();
-        setData(analyticsData);
-      }
-    } catch (error) {
-      console.error("Failed to load analytics:", error);
-    } finally {
-      setRefreshing(false);
-      setLoading(false);
-    }
-  };
-
-  const handleLogout = () => {
-    logoutAdmin();
-    router.push("/admin/login");
-  };
-
-  if (!authenticated || loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--bg)]">
-        <div className="text-[var(--text-muted)]">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--bg)]">
-        <div className="text-[var(--text-muted)]">No data available</div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -127,22 +162,18 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Icon icon="mdi:chart-line" width={32} height={32} className="text-[var(--primary)]" />
-              <h1 className="text-2xl font-bold text-white">Analytics Dashboard</h1>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Analytics Dashboard</h1>
+                <p className="text-xs text-[var(--text-muted)]">Demo Mode • Mock Data</p>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={loadAnalytics}
-                disabled={refreshing}
-                className="px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--bg)] transition disabled:opacity-50"
+            <div className="flex items-center gap-3">
+              <Link
+                href="/admin"
+                className="px-4 py-2 rounded-lg border border-[var(--border)] hover:bg-[var(--bg)] transition text-sm font-medium text-[var(--text)]"
               >
-                {refreshing ? "Refreshing..." : "Refresh"}
-              </button>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 rounded-lg border border-red-500/50 text-red-400 hover:bg-red-500/10 transition"
-              >
-                Logout
-              </button>
+                View Real Data
+              </Link>
             </div>
           </div>
         </div>
@@ -150,16 +181,16 @@ export default function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Period Selector */}
-        <div className="mb-6 flex items-center gap-2">
-          <span className="text-sm text-[var(--text-muted)]">Period:</span>
+        <div className="mb-8 flex items-center gap-2">
+          <span className="text-sm text-[var(--text-muted)] font-medium">Time Period:</span>
           {["7d", "30d", "90d", "all"].map((p) => (
             <button
               key={p}
-              onClick={() => setPeriod(p)}
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition ${
-                period === p
+              disabled
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${
+                p === "30d"
                   ? "bg-[var(--primary)] text-black"
-                  : "bg-[var(--surface)] border border-[var(--border)] hover:bg-[var(--bg)]"
+                  : "bg-[var(--surface)] border border-[var(--border)] text-[var(--text-muted)] opacity-60"
               }`}
             >
               {p === "all" ? "All Time" : p}
@@ -167,98 +198,108 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Overview Cards */}
+        {/* Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <StatCard
             title="Total Events"
-            value={data.overview.totalEvents.toLocaleString()}
+            value={mockData.overview.totalEvents.toLocaleString()}
             icon="mdi:chart-bar"
+            trend={{ value: "+12.5%", positive: true }}
+            color="primary"
           />
           <StatCard
             title="Page Views"
-            value={data.overview.pageViews.toLocaleString()}
+            value={mockData.overview.pageViews.toLocaleString()}
             icon="mdi:eye"
+            trend={{ value: "+8.2%", positive: true }}
+            color="blue"
           />
           <StatCard
             title="Unique Users"
-            value={data.overview.uniqueUsers.toLocaleString()}
+            value={mockData.overview.uniqueUsers.toLocaleString()}
             icon="mdi:account-group"
+            trend={{ value: "+15.3%", positive: true }}
+            color="green"
           />
           <StatCard
             title="Active Users"
-            value={data.overview.activeUsers.toLocaleString()}
+            value={mockData.overview.activeUsers.toLocaleString()}
             icon="mdi:account-check"
+            trend={{ value: "+22.1%", positive: true }}
+            color="purple"
           />
           <StatCard
             title="New Users"
-            value={data.overview.newUsers.toLocaleString()}
+            value={mockData.overview.newUsers.toLocaleString()}
             icon="mdi:account-plus"
+            trend={{ value: "+5.7%", positive: true }}
+            color="orange"
           />
         </div>
 
         {/* Engagement Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <StatCard
-            title="Avg Session Duration"
-            value={formatDuration(data.engagement.avgSessionDuration)}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <EngagementCard
+            title="Average Session Duration"
+            value={formatDuration(mockData.engagement.avgSessionDuration)}
             icon="mdi:timer"
             color="purple"
           />
-          <StatCard
-            title="Avg Time on Page"
-            value={`${data.engagement.avgTimeOnPage}s`}
+          <EngagementCard
+            title="Average Time on Page"
+            value={`${mockData.engagement.avgTimeOnPage}s`}
             icon="mdi:clock-outline"
             color="blue"
           />
-          <StatCard
+          <EngagementCard
             title="Events per Session"
-            value={data.engagement.avgEventsPerSession.toFixed(1)}
+            value={mockData.engagement.avgEventsPerSession.toFixed(1)}
             icon="mdi:chart-timeline"
             color="green"
           />
         </div>
 
-        {/* Content Stats */}
+        {/* Main Chart - Events Over Time */}
+        <div className="mb-8">
+          <ChartCard title="Events Over Time" description="Daily event distribution over the last 30 days">
+            <div className="h-96">
+              <LineChartWithLabels data={mockData.eventsByDay} />
+            </div>
+          </ChartCard>
+        </div>
+
+        {/* Content Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
-          <StatCard
-            title="Logs Created"
-            value={data.content.totalLogs.toLocaleString()}
+          <ContentStatCard
+            title="Logs"
+            value={mockData.content.totalLogs.toLocaleString()}
             icon="mdi:file-document"
             color="blue"
           />
-          <StatCard
+          <ContentStatCard
             title="Projects"
-            value={data.content.totalProjects.toLocaleString()}
+            value={mockData.content.totalProjects.toLocaleString()}
             icon="mdi:folder"
             color="green"
           />
-          <StatCard
+          <ContentStatCard
             title="Tools"
-            value={data.content.totalTools.toLocaleString()}
+            value={mockData.content.totalTools.toLocaleString()}
             icon="mdi:toolbox"
             color="purple"
           />
-          <StatCard
+          <ContentStatCard
             title="Lists"
-            value={data.content.totalLists.toLocaleString()}
+            value={mockData.content.totalLists.toLocaleString()}
             icon="mdi:format-list-bulleted"
             color="orange"
           />
-          <StatCard
+          <ContentStatCard
             title="Follows"
-            value={data.content.totalFollows.toLocaleString()}
+            value={mockData.content.totalFollows.toLocaleString()}
             icon="mdi:account-plus"
             color="pink"
           />
-        </div>
-
-        {/* Main Chart - Events Over Time */}
-        <div className="mb-8">
-          <ChartCard title="Events Over Time" description="Daily event distribution over the selected period">
-            <div className="h-96">
-              <LineChartWithLabels data={data.eventsByDay} />
-            </div>
-          </ChartCard>
         </div>
 
         {/* Two Column Layout */}
@@ -266,14 +307,14 @@ export default function AdminDashboard() {
           {/* Events by Type */}
           <ChartCard title="Events by Type" description="Breakdown of all tracked events">
             <div className="h-96">
-              <EventsByTypeChart data={data.eventsByType} />
+              <EventsByTypeChart data={mockData.eventsByType} />
             </div>
           </ChartCard>
 
           {/* Hourly Distribution */}
           <ChartCard title="Traffic by Hour (UTC)" description="24-hour activity pattern">
             <div className="h-96">
-              <HourlyChart data={data.traffic.hourly} />
+              <HourlyChart data={mockData.traffic.hourly} />
             </div>
           </ChartCard>
         </div>
@@ -283,14 +324,14 @@ export default function AdminDashboard() {
           {/* Country Distribution */}
           <ChartCard title="Users by Country" description="Geographic distribution">
             <div className="h-[500px] overflow-y-auto custom-scrollbar">
-              <CountryChart data={data.geographic.countries} />
+              <CountryChart data={mockData.geographic.countries} />
             </div>
           </ChartCard>
 
           {/* Device Distribution */}
           <ChartCard title="Device Types" description="Desktop, mobile, and tablet usage">
             <div className="h-[500px]">
-              <DeviceChart data={data.technical.devices} />
+              <DeviceChart data={mockData.technical.devices} />
             </div>
           </ChartCard>
         </div>
@@ -300,14 +341,14 @@ export default function AdminDashboard() {
           {/* Browser Distribution */}
           <ChartCard title="Browser Distribution" description="Popular browsers among users">
             <div className="h-[500px] overflow-y-auto custom-scrollbar">
-              <BrowserChart data={data.technical.browsers} />
+              <BrowserChart data={mockData.technical.browsers} />
             </div>
           </ChartCard>
 
           {/* OS Distribution */}
           <ChartCard title="Operating Systems" description="Platform distribution">
             <div className="h-[500px] overflow-y-auto custom-scrollbar">
-              <OSChart data={data.technical.os} />
+              <OSChart data={mockData.technical.os} />
             </div>
           </ChartCard>
         </div>
@@ -316,7 +357,7 @@ export default function AdminDashboard() {
         <div className="mb-8">
           <ChartCard title="Traffic Sources" description="Top referrers driving traffic">
             <div className="h-[500px] overflow-y-auto custom-scrollbar">
-              <ReferrerChart data={data.traffic.referrers} />
+              <ReferrerChart data={mockData.traffic.referrers} />
             </div>
           </ChartCard>
         </div>
@@ -324,45 +365,59 @@ export default function AdminDashboard() {
         {/* Tables Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Top Pages */}
-          <TableCard title="Top Pages">
+          <TableCard title="Top Pages" description="Most visited pages">
             <div className="space-y-2">
-              {data.topPages.slice(0, 10).map((page, idx) => (
-                <div key={page.path} className="flex items-center justify-between p-3 rounded-lg bg-[var(--bg)] hover:bg-[var(--surface)] transition">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-sm font-bold text-[var(--primary)]">
+              {mockData.topPages.map((page, idx) => (
+                <div key={page.path} className="flex items-center justify-between p-4 rounded-lg bg-[var(--bg)] hover:bg-[var(--surface)] transition border border-[var(--border)]">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${
+                      idx === 0 ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30" :
+                      idx === 1 ? "bg-gray-400/20 text-gray-300 border border-gray-400/30" :
+                      idx === 2 ? "bg-amber-600/20 text-amber-400 border border-amber-600/30" :
+                      "bg-[var(--surface)] text-[var(--text-muted)] border border-[var(--border)]"
+                    }`}>
                       {idx + 1}
                     </div>
-                    <span className="text-sm font-medium text-[var(--text)]">{page.path || "/"}</span>
+                    <div>
+                      <div className="text-sm font-semibold text-white">{page.path || "/"}</div>
+                      <div className="text-xs text-[var(--text-muted)]">{page.count.toLocaleString()} views</div>
+                    </div>
                   </div>
-                  <span className="text-sm text-[var(--text-muted)]">{page.count.toLocaleString()}</span>
                 </div>
               ))}
             </div>
           </TableCard>
 
           {/* Top Users */}
-          <TableCard title="Top Active Users">
+          <TableCard title="Top Active Users" description="Most engaged users">
             <div className="space-y-2">
-              {data.topUsers.slice(0, 10).map((item, idx) => (
-                <Link
-                  key={item.user?.id}
-                  href={`/profile/${item.user?.username}`}
-                  className="flex items-center justify-between p-3 rounded-lg bg-[var(--bg)] hover:bg-[var(--surface)] transition"
+              {mockData.topUsers.map((item, idx) => (
+                <div
+                  key={item.user.id}
+                  className="flex items-center justify-between p-4 rounded-lg bg-[var(--bg)] hover:bg-[var(--surface)] transition border border-[var(--border)]"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-sm font-bold text-[var(--primary)]">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${
+                      idx === 0 ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30" :
+                      idx === 1 ? "bg-gray-400/20 text-gray-300 border border-gray-400/30" :
+                      idx === 2 ? "bg-amber-600/20 text-amber-400 border border-amber-600/30" :
+                      "bg-[var(--surface)] text-[var(--text-muted)] border border-[var(--border)]"
+                    }`}>
                       {idx + 1}
                     </div>
-                    {item.user?.avatarUrl && (
-                      <img src={item.user.avatarUrl} alt={item.user.username} className="w-8 h-8 rounded-full" />
+                    {item.user.avatarUrl && (
+                      <img src={item.user.avatarUrl} alt={item.user.username} className="w-10 h-10 rounded-full" />
                     )}
                     <div>
-                      <div className="text-sm font-medium text-[var(--text)]">{item.user?.displayName}</div>
-                      <div className="text-xs text-[var(--text-muted)]">@{item.user?.username}</div>
+                      <div className="text-sm font-semibold text-white">{item.user.displayName}</div>
+                      <div className="text-xs text-[var(--text-muted)]">@{item.user.username}</div>
                     </div>
                   </div>
-                  <span className="text-sm text-[var(--text-muted)]">{item.count.toLocaleString()} events</span>
-                </Link>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold text-[var(--text-muted)]">{item.count.toLocaleString()}</span>
+                    <span className="text-xs text-[var(--text-muted)]">events</span>
+                  </div>
+                </div>
               ))}
             </div>
           </TableCard>
@@ -389,7 +444,38 @@ export default function AdminDashboard() {
   );
 }
 
-function StatCard({ title, value, icon, trend, color = "primary" }: { title: string; value: string | number; icon: string; trend?: string; color?: string }) {
+function StatCard({ title, value, icon, trend, color = "primary" }: { title: string; value: string | number; icon: string; trend?: { value: string; positive: boolean }; color?: string }) {
+  const colorClasses: Record<string, string> = {
+    primary: "bg-[var(--primary)]/10 text-[var(--primary)]",
+    blue: "bg-blue-500/10 text-blue-400",
+    green: "bg-green-500/10 text-green-400",
+    purple: "bg-purple-500/10 text-purple-400",
+    orange: "bg-orange-500/10 text-orange-400",
+    pink: "bg-pink-500/10 text-pink-400",
+  };
+
+  return (
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6 hover:border-[var(--primary)]/30 transition-all">
+      <div className="flex items-center justify-between mb-4">
+        <div className={`w-12 h-12 rounded-lg ${colorClasses[color] || colorClasses.primary} flex items-center justify-center`}>
+          <Icon icon={icon} width={24} height={24} />
+        </div>
+        {trend && (
+          <div className={`px-2 py-1 rounded text-xs font-bold flex items-center gap-1 ${
+            trend.positive ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
+          }`}>
+            <Icon icon={trend.positive ? "mdi:trending-up" : "mdi:trending-down"} width={12} />
+            {trend.value}
+          </div>
+        )}
+      </div>
+      <div className="text-3xl font-bold text-white mb-1">{value}</div>
+      <div className="text-sm text-[var(--text-muted)]">{title}</div>
+    </div>
+  );
+}
+
+function EngagementCard({ title, value, icon, color = "primary" }: { title: string; value: string | number; icon: string; color?: string }) {
   const colorClasses: Record<string, string> = {
     primary: "bg-[var(--primary)]/10 text-[var(--primary)]",
     blue: "bg-blue-500/10 text-blue-400",
@@ -401,13 +487,35 @@ function StatCard({ title, value, icon, trend, color = "primary" }: { title: str
 
   return (
     <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center gap-3 mb-4">
         <div className={`w-12 h-12 rounded-lg ${colorClasses[color] || colorClasses.primary} flex items-center justify-center`}>
           <Icon icon={icon} width={24} height={24} />
         </div>
+        <div className="flex-1">
+          <h3 className="text-sm font-semibold text-white">{title}</h3>
+        </div>
+      </div>
+      <div className="text-4xl font-bold text-white">{value}</div>
+    </div>
+  );
+}
+
+function ContentStatCard({ title, value, icon, color }: { title: string; value: string | number; icon: string; color: string }) {
+  const colorClasses: Record<string, string> = {
+    blue: "bg-blue-500/10 text-blue-400",
+    green: "bg-green-500/10 text-green-400",
+    purple: "bg-purple-500/10 text-purple-400",
+    orange: "bg-orange-500/10 text-orange-400",
+    pink: "bg-pink-500/10 text-pink-400",
+  };
+
+  return (
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 hover:border-[var(--primary)]/30 transition-all">
+      <div className={`w-12 h-12 rounded-lg ${colorClasses[color]} flex items-center justify-center mb-3`}>
+        <Icon icon={icon} width={24} height={24} />
       </div>
       <div className="text-2xl font-bold text-white mb-1">{value}</div>
-      <div className="text-sm text-[var(--text-muted)]">{title}</div>
+      <div className="text-xs text-[var(--text-muted)]">{title}</div>
     </div>
   );
 }
@@ -424,10 +532,13 @@ function ChartCard({ title, description, children }: { title: string; descriptio
   );
 }
 
-function TableCard({ title, children }: { title: string; children: React.ReactNode }) {
+function TableCard({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
   return (
     <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6">
-      <h3 className="text-lg font-bold text-white mb-4">{title}</h3>
+      <div className="mb-6">
+        <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
+        {description && <p className="text-sm text-[var(--text-muted)]">{description}</p>}
+      </div>
       {children}
     </div>
   );
@@ -544,6 +655,60 @@ function EventsByTypeChart({ data }: { data: Array<{ type: string; count: number
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}
         </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function HourlyChart({ data }: { data: Array<{ hour: number; count: number }> }) {
+  // Transform data for recharts
+  const chartData = data.map((item) => ({
+    hour: `${item.hour}:00`,
+    hourNum: item.hour,
+    events: item.count,
+  }));
+
+  // Custom tooltip
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 shadow-lg">
+          <p className="text-sm font-semibold text-white mb-1">
+            {payload[0].payload.hourNum}:00 UTC
+          </p>
+          <p className="text-xs text-[var(--primary)]">
+            Events: <span className="font-bold">{payload[0].value.toLocaleString()}</span>
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 50 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+        <XAxis 
+          dataKey="hour"
+          stroke="var(--text-muted)"
+          tick={{ fill: "var(--text-muted)", fontSize: 11 }}
+          angle={-45}
+          textAnchor="end"
+          height={60}
+          interval={3}
+        />
+        <YAxis 
+          stroke="var(--text-muted)"
+          tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+          label={{ value: "Events", angle: -90, position: "insideLeft", fill: "var(--text-muted)", fontSize: 12 }}
+        />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar 
+          dataKey="events" 
+          fill="var(--primary)"
+          radius={[4, 4, 0, 0]}
+        />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -900,60 +1065,6 @@ function ReferrerChart({ data }: { data: Array<{ referrer: string; count: number
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}
         </Bar>
-      </BarChart>
-    </ResponsiveContainer>
-  );
-}
-
-function HourlyChart({ data }: { data: Array<{ hour: number; count: number }> }) {
-  // Transform data for recharts
-  const chartData = data.map((item) => ({
-    hour: `${item.hour}:00`,
-    hourNum: item.hour,
-    events: item.count,
-  }));
-
-  // Custom tooltip
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 shadow-lg">
-          <p className="text-sm font-semibold text-white mb-1">
-            {payload[0].payload.hourNum}:00 UTC
-          </p>
-          <p className="text-xs text-[var(--primary)]">
-            Events: <span className="font-bold">{payload[0].value.toLocaleString()}</span>
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 50 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-        <XAxis 
-          dataKey="hour"
-          stroke="var(--text-muted)"
-          tick={{ fill: "var(--text-muted)", fontSize: 11 }}
-          angle={-45}
-          textAnchor="end"
-          height={60}
-          interval={3}
-        />
-        <YAxis 
-          stroke="var(--text-muted)"
-          tick={{ fill: "var(--text-muted)", fontSize: 12 }}
-          label={{ value: "Events", angle: -90, position: "insideLeft", fill: "var(--text-muted)", fontSize: 12 }}
-        />
-        <Tooltip content={<CustomTooltip />} />
-        <Bar 
-          dataKey="events" 
-          fill="var(--primary)"
-          radius={[4, 4, 0, 0]}
-        />
       </BarChart>
     </ResponsiveContainer>
   );
