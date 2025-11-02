@@ -20,12 +20,11 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl leading-tight">Log, rate, and reflect on your developer stack</h1>
           <p className="mt-4 text-lg md:text-xl text-[var(--text-muted)] max-w-xl">Stackboxd makes exploring tools and documenting projects as engaging as Letterboxd—minimal, social, and beautiful.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/onboarding" className="rounded-full bg-[var(--primary)] px-8 py-3 text-base font-semibold text-black focus:outline-none focus:ring-2 ring-[var(--ring)] hover:bg-[var(--primary)]/90 transition-all duration-300 hover:scale-105 shadow-[0_2px_8px_rgba(0,255,143,0.15),0_1px_3px_rgba(0,0,0,0.2)]">Build Your Developer Journal</Link>
+            <Link href="/onboarding" className="rounded-full bg-[var(--primary)] px-8 py-3 text-base font-semibold text-black focus:outline-none focus:ring-2 ring-[var(--ring)] hover:bg-[var(--primary)]/90 transition-all duration-300 hover:scale-105 shadow-[0_2px_8px_rgba(0,255,143,0.15),0_1px_3px_rgba(0,0,0,0.2)]">Start Logging Tools</Link>
             <Link href="/discover" className="flex items-center gap-2 rounded-full border-2 border-[var(--border)] bg-[var(--surface)] px-8 py-3 text-base font-medium hover:bg-[var(--bg)] hover:border-[var(--text-muted)] transition">
               <Icon icon="lucide:compass" width={18} height={18} />
-              <span>Explore Tools</span>
+              <span>Discover Tools</span>
             </Link>
-            <Link href="/login" className="rounded-full border border-[var(--primary)]/50 bg-transparent px-8 py-3 text-base font-medium text-[var(--primary)] hover:bg-[var(--primary)]/10 hover:border-[var(--primary)] transition">Sign In</Link>
           </div>
         </div>
         <div className="relative flex-1 flex items-center justify-center min-h-[320px]">

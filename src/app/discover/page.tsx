@@ -1,13 +1,25 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { useSession } from "next-auth/react";
 import { useTools, useLogs } from "@/lib/api-hooks";
 
 const ITEMS_PER_PAGE = 48; // 6 columns x 8 rows
 
 export default function DiscoverPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login?callbackUrl=/discover");
+    }
+  }, [status, router]);
+
   const [selectedCategory, setSelectedCategory] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -29,6 +41,15 @@ export default function DiscoverPage() {
   const { data: logs = [], isLoading: logsLoading } = useLogs({ limit: 20 });
 
   const loading = toolsLoading || logsLoading;
+
+  // Show loading or nothing while checking auth
+  if (status === "loading" || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-[var(--text-muted)]">Loading...</div>
+      </div>
+    );
+  }
 
   // Extract all unique categories from tools and sort them
   const categoriesWithCount = useMemo(() => {

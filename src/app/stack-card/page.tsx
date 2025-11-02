@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { mockUser, mockTools } from "@/lib/mock-data";
 import { Icon } from "@iconify/react";
 
@@ -11,6 +16,24 @@ const topLangs = [
 ];
 
 export default function StackCardPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login?callbackUrl=/stack-card");
+    }
+  }, [status, router]);
+
+  // Show loading while checking auth
+  if (status === "loading" || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-[var(--text-muted)]">Loading...</div>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col min-h-[90vh] items-center justify-center bg-gradient-to-br from-[var(--surface)] to-[#00FFD011] pb-24">
       <div className="mx-auto mt-8 max-w-lg w-full flex flex-col items-center">
