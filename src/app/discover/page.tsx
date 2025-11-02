@@ -116,7 +116,7 @@ export default function DiscoverPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight">Discover Tools</h1>
             <p className="text-sm text-[var(--text-muted)] mt-1">
@@ -190,10 +190,10 @@ export default function DiscoverPage() {
                             : "hover:bg-[var(--bg)] text-[var(--text)]"
                         }`}
                       >
-                        <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between">
                           <span>{cat.name.replace(/\b\w/g, (l) => l.toUpperCase())}</span>
                           <span className="text-xs text-[var(--text-muted)] ml-2">{cat.count}</span>
-                        </div>
+          </div>
                       </button>
                     ))}
                   </div>
@@ -208,7 +208,7 @@ export default function DiscoverPage() {
         <div className="flex items-center justify-between">
           <h2 className="text-sm uppercase tracking-wide text-[var(--text-muted)] font-semibold">
             {selectedCategory === "all" ? "All Tools" : `${selectedCategory.replace(/\b\w/g, (l) => l.toUpperCase())} Tools`}
-          </h2>
+        </h2>
           <span className="text-xs text-[var(--text-muted)]">
             Showing {startIndex + 1}-{Math.min(endIndex, filteredAndSortedTools.length)} of {filteredAndSortedTools.length} {filteredAndSortedTools.length === 1 ? 'tool' : 'tools'}
           </span>
@@ -246,7 +246,7 @@ export default function DiscoverPage() {
                   </div>
                 </div>
               </Link>
-              ))}
+            ))}
 
             </div>
 
@@ -299,7 +299,7 @@ export default function DiscoverPage() {
                   <span>Next</span>
                   <Icon icon="mdi:chevron-right" width={20} height={20} />
                 </button>
-              </div>
+          </div>
             )}
           </>
         )}

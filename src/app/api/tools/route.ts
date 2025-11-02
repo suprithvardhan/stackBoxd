@@ -53,8 +53,8 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json(
         {
-          ...tool,
-          ratingDistribution: distribution,
+        ...tool,
+        ratingDistribution: distribution,
         },
         {
           headers: {

@@ -6,7 +6,7 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <div>
             <label className="text-sm text-[var(--text-muted)]">Display name</label>
-            <input className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 outline-none focus:ring-2" style={{ outlineColor: "var(--ring)" }} placeholder="Suprith V" />
+            <input className="mt-1 w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 outline-none focus:ring-2" style={{ outlineColor: "var(--ring)" }} placeholder="Velt Cipher" />
           </div>
           <div>
             <label className="text-sm text-[var(--text-muted)]">Bio</label>

@@ -47,32 +47,32 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json(
         {
-          id: log.id,
-          user: log.user.username,
-          userId: log.user.id,
-          userData: {
-            username: log.user.username,
-            displayName: log.user.displayName,
-            avatarUrl: log.user.avatarUrl,
-          },
-          tool: {
-            slug: log.tool.slug,
-            name: log.tool.name,
-            icon: log.tool.icon,
-            color: log.tool.color,
-          },
-          rating: log.rating,
-          review: log.review,
-          tags: log.tags,
-          project: log.project
-            ? {
-                id: log.project.id,
-                name: log.project.name,
-              }
-            : null,
-          createdAt: log.createdAt.toISOString(),
-          reactions: log._count.reactions,
-          comments: log._count.comments,
+        id: log.id,
+        user: log.user.username,
+        userId: log.user.id,
+        userData: {
+          username: log.user.username,
+          displayName: log.user.displayName,
+          avatarUrl: log.user.avatarUrl,
+        },
+        tool: {
+          slug: log.tool.slug,
+          name: log.tool.name,
+          icon: log.tool.icon,
+          color: log.tool.color,
+        },
+        rating: log.rating,
+        review: log.review,
+        tags: log.tags,
+        project: log.project
+          ? {
+              id: log.project.id,
+              name: log.project.name,
+            }
+          : null,
+        createdAt: log.createdAt.toISOString(),
+        reactions: log._count.reactions,
+        comments: log._count.comments,
         },
         {
           headers: {
@@ -263,10 +263,10 @@ export async function POST(request: NextRequest) {
       }),
       prisma.log.groupBy({
         by: ["userId"],
-        where: { toolId: tool.id },
+      where: { toolId: tool.id },
       }),
       prisma.log.count({
-        where: { toolId: tool.id },
+      where: { toolId: tool.id },
       }),
     ])
 
