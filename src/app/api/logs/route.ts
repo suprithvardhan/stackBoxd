@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
       data: {
         userId: session.user.id,
         eventType: "log_create",
-        eventData: { logId: log.id, toolId: tool.id, toolSlug: tool.tool.slug, rating },
+        eventData: { logId: log.id, toolId: tool.id, toolSlug: tool.slug, rating },
         path: `/logs/${log.id}`,
       },
     }).catch(() => {}) // Silent fail
@@ -299,101 +299,6 @@ export async function POST(request: NextRequest) {
           color: log.tool.color,
         },
         project: log.project,
-        reactions: log._count.reactions,
-        comments: log._count.comments,
-      },
-      { status: 201 }
-    )
-  } catch (error) {
-    console.error("Error creating log:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
-  }
-}
-
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url)
-    const userId = searchParams.get("userId")
-    const username = searchParams.get("username")
-    const toolId = searchParams.get("toolId")
-    const projectId = searchParams.get("projectId")
-    const limit = parseInt(searchParams.get("limit") || "20")
-    const offset = parseInt(searchParams.get("offset") || "0")
-    const id = searchParams.get("id")
-
-    if (id) {
-      const log = await prisma.log.findUnique({
-        where: { id },
-        include: {
-          user: {
-            select: {
-              username: true,
-            displayName: true,
-            avatarUrl: true,
-          },
-        },
-        tool: true,
-        project: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        _count: {
-          select: {
-            reactions: true,
-            comments: true,
-          },
-        },
-      },
-    })
-
-    // Update tool stats using efficient aggregation queries
-    const [ratingStats, uniqueUsersCount, totalRatings] = await Promise.all([
-      prisma.log.aggregate({
-        where: { toolId: tool.id },
-        _avg: { rating: true },
-        _count: { rating: true },
-      }),
-      prisma.log.groupBy({
-        by: ["userId"],
-        where: { toolId: tool.id },
-      }),
-      prisma.log.count({
-        where: { toolId: tool.id },
-      }),
-    ])
-
-    await prisma.tool.update({
-      where: { id: tool.id },
-      data: {
-        avgRating: ratingStats._avg.rating || 0,
-        ratingsCount: totalRatings,
-        usedByCount: uniqueUsersCount.length,
-      },
-    })
-
-    return NextResponse.json(
-      {
-        id: log.id,
-        user: log.user.username,
-        userId: log.user.id,
-        tool: {
-          slug: log.tool.slug,
-          name: log.tool.name,
-          icon: log.tool.icon,
-          color: log.tool.color,
-        },
-        rating: log.rating,
-        review: log.review,
-        tags: log.tags,
-        project: log.project
-          ? {
-              id: log.project.id,
-              name: log.project.name,
-            }
-          : null,
-        createdAt: log.createdAt.toISOString(),
         reactions: log._count.reactions,
         comments: log._count.comments,
       },
