@@ -42,16 +42,8 @@ export default function DiscoverPage() {
 
   const loading = toolsLoading || logsLoading;
 
-  // Show loading or nothing while checking auth
-  if (status === "loading" || !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-[var(--text-muted)]">Loading...</div>
-      </div>
-    );
-  }
-
   // Extract all unique categories from tools and sort them
+  // IMPORTANT: This hook must be called before any conditional returns
   const categoriesWithCount = useMemo(() => {
     const categoryMap = new Map<string, number>();
     
@@ -121,6 +113,16 @@ export default function DiscoverPage() {
       window.history.replaceState({}, '', url.toString());
     }
   }, [selectedCategory, currentPage]);
+
+  // Show loading or nothing while checking auth
+  // IMPORTANT: This return must happen AFTER all hooks are called
+  if (status === "loading" || !session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-[var(--text-muted)]">Loading...</div>
+      </div>
+    );
+  }
 
   // Show first 6 categories as buttons, rest in dropdown
   const visibleCategories = categoriesWithCount.slice(0, 6);
