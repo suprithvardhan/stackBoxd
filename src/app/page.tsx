@@ -20,9 +20,12 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl leading-tight">Log, rate, and reflect on your developer stack</h1>
           <p className="mt-4 text-lg md:text-xl text-[var(--text-muted)] max-w-xl">Stackboxd makes exploring tools and documenting projects as engaging as Letterboxd—minimal, social, and beautiful.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/onboarding" className="rounded-full bg-[var(--primary)] px-8 py-3 text-base font-semibold text-black shadow-[0_0_8px_#00FF8F50] focus:outline-none focus:ring-2 ring-[var(--ring)] hover:bg-[var(--primary)]/90 transition hover:scale-105">Get Started</Link>
-            <Link href="/discover" className="rounded-full border border-[var(--border)] px-8 py-3 text-base hover:bg-[var(--surface)] transition">Discover</Link>
-            <Link href="/login" className="rounded-full border border-[var(--primary)] bg-transparent px-8 py-3 text-base text-[var(--primary)] hover:bg-[var(--primary)]/[0.09] transition">Sign In</Link>
+            <Link href="/onboarding" className="rounded-full bg-[var(--primary)] px-8 py-3 text-base font-semibold text-black focus:outline-none focus:ring-2 ring-[var(--ring)] hover:bg-[var(--primary)]/90 transition-all duration-300 hover:scale-105 shadow-[0_2px_8px_rgba(0,255,143,0.15),0_1px_3px_rgba(0,0,0,0.2)]">Build Your Developer Journal</Link>
+            <Link href="/discover" className="flex items-center gap-2 rounded-full border-2 border-[var(--border)] bg-[var(--surface)] px-8 py-3 text-base font-medium hover:bg-[var(--bg)] hover:border-[var(--text-muted)] transition">
+              <Icon icon="lucide:compass" width={18} height={18} />
+              <span>Explore Tools</span>
+            </Link>
+            <Link href="/login" className="rounded-full border border-[var(--primary)]/50 bg-transparent px-8 py-3 text-base font-medium text-[var(--primary)] hover:bg-[var(--primary)]/10 hover:border-[var(--primary)] transition">Sign In</Link>
           </div>
         </div>
         <div className="relative flex-1 flex items-center justify-center min-h-[320px]">
@@ -52,8 +55,28 @@ export default function Home() {
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Ready to start your developer journal?</h2>
         <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto mb-8">Join thousands of developers documenting their stack, one tool at a time.</p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/onboarding" className="rounded-full bg-[var(--primary)] px-8 py-3 text-base font-semibold text-black shadow-[0_0_8px_#00FF8F50] hover:bg-[var(--primary)]/90 transition hover:scale-105">Get Started Free</Link>
+          <Link href="/onboarding" className="rounded-full bg-[var(--primary)] px-8 py-3 text-base font-semibold text-black hover:bg-[var(--primary)]/90 transition-all duration-300 hover:scale-105 shadow-[0_2px_8px_rgba(0,255,143,0.15),0_1px_3px_rgba(0,0,0,0.2)]">Start Logging Your Stack</Link>
           <Link href="/discover" className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-8 py-3 text-base hover:bg-[var(--bg)] transition">Explore Community</Link>
+        </div>
+      </section>
+
+      {/* Open Source Section */}
+      <section className="mt-8 rounded-3xl border border-[var(--border)] bg-gradient-to-br from-[var(--surface)] to-[var(--bg)] p-10 text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">Built by developers, for developers</h2>
+          <p className="text-lg text-[var(--text-muted)] mb-6">
+            Stackboxd is completely open source. Want to contribute? Check out our repository and help shape the future of developer tool documentation.
+          </p>
+          <a 
+            href="https://github.com/suprithv/stackboxd" 
+            target="_blank" 
+            rel="noopener"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-6 py-3 text-base hover:bg-[var(--bg)] transition hover:scale-105 group"
+          >
+            <Icon icon="simple-icons:github" width={20} height={20} className="text-[var(--text)]" />
+            <span>View on GitHub</span>
+            <Icon icon="lucide:external-link" width={16} height={16} className="text-[var(--text-muted)] group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
       </section>
     </div>

@@ -253,16 +253,16 @@ export default function LandingStackCard() {
                   </div>
                 </div>
 
-                {/* CTA Button - Premium */}
+                {/* CTA Button - Premium with Subtle Shadow */}
                 <Link href="/stack-card">
                   <motion.button
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="relative w-full rounded-2xl overflow-hidden group"
+                    className="relative w-full rounded-2xl overflow-hidden group shadow-[0_4px_12px_rgba(0,255,143,0.15),0_2px_4px_rgba(0,0,0,0.2)]"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)] to-[#00E676] opacity-90 group-hover:opacity-100 transition-opacity" />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                    <div className="relative flex items-center justify-center gap-2 px-6 py-4 text-base font-bold text-black">
+                    <div className="relative flex items-center justify-center gap-2 px-6 py-4 text-base font-bold text-black z-10">
                       <span>Share My Stack Card</span>
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </div>
