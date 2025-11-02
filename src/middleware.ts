@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { auth } from "@/lib/auth"
 
-export async function middleware(request: NextRequest) {
-  const session = await auth()
+export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // Protected routes that require authentication
@@ -22,11 +20,20 @@ export async function middleware(request: NextRequest) {
   // Check if the route requires authentication
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
 
-  // Redirect to login if accessing protected route without auth
-  if (isProtectedRoute && !session) {
-    const loginUrl = new URL("/login", request.url)
-    loginUrl.searchParams.set("callbackUrl", pathname)
-    return NextResponse.redirect(loginUrl)
+  if (isProtectedRoute) {
+    // Check for NextAuth session cookie (doesn't require Prisma/Edge runtime)
+    // NextAuth uses different cookie names depending on configuration
+    const sessionToken = request.cookies.get("authjs.session-token") || 
+                         request.cookies.get("__Secure-authjs.session-token") ||
+                         request.cookies.get("next-auth.session-token") ||
+                         request.cookies.get("__Secure-next-auth.session-token")
+
+    // If no session cookie found, redirect to login
+    if (!sessionToken) {
+      const loginUrl = new URL("/login", request.url)
+      loginUrl.searchParams.set("callbackUrl", pathname)
+      return NextResponse.redirect(loginUrl)
+    }
   }
 
   // Admin routes protection

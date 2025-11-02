@@ -1,18 +1,30 @@
 "use client"
 
-import { signIn } from "next-auth/react"
-import { useState } from "react"
+import { signIn, useSession } from "next-auth/react"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Icon } from "@iconify/react"
 import Link from "next/link"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl") || "/home"
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (status === "authenticated" && session) {
+      router.push(callbackUrl)
+    }
+  }, [status, session, router, callbackUrl])
 
   const handleGitHubLogin = async () => {
     setIsLoading(true)
     try {
       await signIn("github", { 
-        callbackUrl: "/home",
+        callbackUrl: callbackUrl,
         redirect: true 
       })
     } catch (error) {
