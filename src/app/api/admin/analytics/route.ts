@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const period = searchParams.get("period") || "7d" // 7d, 30d, 90d, all
-    
+
     const now = new Date()
     let startDate: Date | undefined
     
@@ -307,8 +307,8 @@ export async function GET(request: NextRequest) {
         totalTools,
         totalLists,
         totalFollows,
-      },
-      engagement: {
+        },
+        engagement: {
         ...engagementMetrics,
         ...sessionMetrics,
       },
