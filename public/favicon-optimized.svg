@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular background -->
+  <circle cx="100" cy="100" r="100" fill="#0E0E0E"/>
+  
+  <!-- Text: stackboxd - properly sized with padding -->
+  <text 
+    x="100" 
+    y="110" 
+    font-family="system-ui, -apple-system, sans-serif" 
+    font-size="38" 
+    font-weight="700" 
+    text-anchor="middle" 
+    dominant-baseline="middle"
+    letter-spacing="-0.8"
+  >
+    <tspan fill="#00FF8F">stack</tspan>
+    <tspan fill="#FFFFFF">boxd</tspan>
+  </text>
+</svg>
+

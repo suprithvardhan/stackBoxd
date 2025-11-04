@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import LogoCollage from "@/components/hero-logo-collage";
 import dynamic from "next/dynamic";
 import { TrendingUp, Users, Code, BookOpen } from "lucide-react";
-import { StructuredData, generateWebsiteStructuredData } from "@/components/structured-data";
+import Script from "next/script";
 
 const LandingFeatures = dynamic(() => import("@/components/landing-features"));
 const LandingActivity = dynamic(() => import("@/components/landing-activity"));
@@ -15,9 +15,30 @@ const UseCaseStacking = dynamic(() => import("@/components/use-case-stacking"));
 export default function Home() {
   const baseUrl = process.env.NEXTAUTH_URL || "https://stackboxd.vercel.app";
 
+  // Generate structured data for SEO (server-side)
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "StackBoxd",
+    url: baseUrl,
+    description: "Log, rate, and reflect on your developer stack. Discover tools, share projects, and build your developer portfolio.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${baseUrl}/discover?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <>
-      <StructuredData data={generateWebsiteStructuredData(baseUrl)} />
+      <Script
+        id="website-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <div className="mx-auto max-w-7xl min-h-[640px] flex flex-col gap-16 px-4">
       {/* Hero Section */}
       <section className="relative flex flex-col md:flex-row gap-8 overflow-hidden rounded-3xl border border-[var(--border)] bg-[linear-gradient(135deg,#0b0b0b,#101010)] p-10 md:p-12 min-h-[400px] md:min-h-[500px]">

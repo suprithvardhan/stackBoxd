@@ -86,6 +86,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+      { url: "/favicon-optimized.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/app-icon-square.svg", sizes: "180x180", type: "image/svg+xml" },
+      { url: "/icon.svg", sizes: "180x180", type: "image/svg+xml" },
+    ],
+    shortcut: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
