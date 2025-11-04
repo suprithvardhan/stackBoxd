@@ -3,13 +3,31 @@ import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { Heart, ArrowRight, Sparkles } from "lucide-react";
 
-const SPONSORS = [
+// Template: Add your sponsors here
+// Example structure:
+// {
+//   name: "Sponsor Name",
+//   logo: "simple-icons:sponsor-icon", // Iconify icon name
+//   url: "https://sponsor-website.com",
+//   description: "Brief description of what they sponsor",
+//   color: "#HEXCOLOR", // Logo color
+// }
+const SPONSORS: Array<{
+  name: string;
+  logo: string;
+  url: string;
+  description: string;
+  color?: string;
+  isTemplate?: boolean;
+}> = [
+  // Template sponsor card - shows potential sponsors how their company will appear
   {
-    name: "Vercel",
-    logo: "simple-icons:vercel",
-    url: "https://vercel.com",
-    description: "Infrastructure partner powering Stackboxd's global edge network",
+    name: "Your Company Here",
+    logo: "simple-icons:github",
+    url: "#",
+    description: "Want to display your company here? Sponsor Stackboxd and reach thousands of developers worldwide.",
     color: "#000000",
+    isTemplate: true,
   },
 ];
 
@@ -42,27 +60,39 @@ export default function LandingSponsors() {
           <Heart className="w-4 h-4 text-[var(--primary)] fill-[var(--primary)]" />
           <span className="text-sm font-medium text-[var(--primary)]">Proudly Sponsored</span>
         </motion.div>
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Built on World-Class Infrastructure</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Our Sponsors</h2>
         <p className="text-lg text-[var(--text-muted)] max-w-xl mx-auto">
-          Stackboxd is powered by cutting-edge platforms that enable us to deliver the best experience worldwide
+          Organizations supporting Stackboxd and helping us grow the developer community
         </p>
       </div>
 
       {/* Sponsor Grid - Matching testimonial style */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {SPONSORS.map((sponsor, i) => (
-          <motion.a
+          <motion.div
             key={sponsor.name}
-            href={sponsor.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => {
+              if (sponsor.url !== "#") {
+                window.open(sponsor.url, "_blank", "noopener,noreferrer");
+              } else if (sponsor.isTemplate) {
+                // Scroll to CTA card or trigger email
+                document.getElementById("sponsor-cta")?.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
             variants={{
               hidden: { opacity: 0, y: 50 },
               show: { opacity: 1, y: 0 },
             }}
             transition={{ type: "spring", damping: 18, mass: 1 }}
-            whileHover={{ scale: 1.04, boxShadow: "0 8px 30px 0 #00FF8F30" }}
-            className="group relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-7 flex flex-col gap-4 items-start min-h-[210px] shadow-sm cursor-pointer transition overflow-hidden"
+            whileHover={sponsor.url !== "#" || sponsor.isTemplate ? { scale: 1.04, boxShadow: "0 8px 30px 0 #00FF8F30" } : {}}
+            className={`group relative rounded-2xl p-7 flex flex-col gap-4 items-start min-h-[210px] shadow-sm transition overflow-hidden ${
+              sponsor.isTemplate 
+                ? "border-2 border-[var(--primary)]/30 bg-[var(--primary)]/5 cursor-pointer hover:border-[var(--primary)]/50 hover:bg-[var(--primary)]/10" 
+                : sponsor.url !== "#" 
+                ? "border border-[var(--border)] cursor-pointer bg-[var(--surface)]" 
+                : "border border-[var(--border)] cursor-default opacity-60 bg-[var(--surface)]"
+            }`}
+            style={sponsor.isTemplate ? { borderStyle: "dashed" } : undefined}
           >
             {/* Subtle gradient overlay on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -81,13 +111,28 @@ export default function LandingSponsors() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-bold tracking-tight">{sponsor.name}</h3>
-                    <ArrowRight className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--primary)] group-hover:translate-x-1 transition-all" />
+                    {(sponsor.url !== "#" || sponsor.isTemplate) && (
+                      <ArrowRight className={`w-4 h-4 transition-all ${
+                        sponsor.isTemplate 
+                          ? "text-[var(--primary)]" 
+                          : "text-[var(--text-muted)] group-hover:text-[var(--primary)]"
+                      } group-hover:translate-x-1`} />
+                    )}
                   </div>
-                  <div className="mt-1 flex items-center gap-2">
-                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20">
-                      Infrastructure
-                    </span>
-                  </div>
+                  {sponsor.url !== "#" && (
+                    <div className="mt-1 flex items-center gap-2">
+                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20">
+                        Infrastructure
+                      </span>
+                    </div>
+                  )}
+                  {sponsor.isTemplate && (
+                    <div className="mt-1 flex items-center gap-2">
+                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-[var(--primary)]/20 text-[var(--primary)] border border-[var(--primary)]/30">
+                        Sponsor Us
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -96,20 +141,30 @@ export default function LandingSponsors() {
                 {sponsor.description}
               </p>
 
-              {/* Features */}
-              <div className="mt-4 pt-4 border-t border-[var(--border)] flex flex-wrap gap-3">
-                <span className="text-xs text-[var(--text-muted)]">Edge Network</span>
-                <span className="text-xs text-[var(--text-muted)]">•</span>
-                <span className="text-xs text-[var(--text-muted)]">Zero Config</span>
-                <span className="text-xs text-[var(--text-muted)]">•</span>
-                <span className="text-xs text-[var(--text-muted)]">Global CDN</span>
-              </div>
+              {/* Features - Customize per sponsor */}
+              {sponsor.url !== "#" && !sponsor.isTemplate && (
+                <div className="mt-4 pt-4 border-t border-[var(--border)] flex flex-wrap gap-3">
+                  <span className="text-xs text-[var(--text-muted)]">Infrastructure</span>
+                  <span className="text-xs text-[var(--text-muted)]">•</span>
+                  <span className="text-xs text-[var(--text-muted)]">Partnership</span>
+                  <span className="text-xs text-[var(--text-muted)]">•</span>
+                  <span className="text-xs text-[var(--text-muted)]">Support</span>
+                </div>
+              )}
+              {sponsor.isTemplate && (
+                <div className="mt-4 pt-4 border-t border-[var(--border)]/50">
+                  <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+                    This is how your company will appear. Sponsor us to get featured here and reach thousands of developers.
+                  </p>
+                </div>
+              )}
             </div>
-          </motion.a>
+          </motion.div>
         ))}
 
         {/* CTA Card - Matching feature card style */}
         <motion.div
+          id="sponsor-cta"
           variants={{
             hidden: { opacity: 0, y: 50 },
             show: { opacity: 1, y: 0 },
