@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { api } from "@/lib/api";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { StructuredData, generateToolStructuredData } from "@/components/structured-data";
 
 function shortAgo(date: string) {
   const d = new Date(date);
@@ -202,8 +203,14 @@ export default function ToolPage() {
   const ratingDistribution: Record<number, number> = tool.ratingDistribution || { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   const totalRatings = (Object.values(ratingDistribution) as number[]).reduce((a, b) => a + b, 0) || tool.ratingsCount || 0;
 
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://stackboxd.vercel.app";
+
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
+    <>
+      {tool && (
+        <StructuredData data={generateToolStructuredData(tool, baseUrl)} />
+      )}
+      <div className="max-w-7xl mx-auto space-y-8">
       {/* Hero Section - Redesigned */}
       <section className="relative rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl">
         {/* Background gradient */}
@@ -543,5 +550,6 @@ export default function ToolPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

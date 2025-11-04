@@ -17,8 +17,75 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Stackboxd",
-  description: "Log, rate, and reflect on your developer stack.",
+  metadataBase: new URL(process.env.NEXTAUTH_URL || "https://stackboxd.vercel.app"),
+  title: {
+    default: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
+    template: "%s | StackBoxd",
+  },
+  description: "Log, rate, and reflect on your developer stack. Discover tools, share projects, and build your developer portfolio. Think Letterboxd, but for your tech stack.",
+  keywords: [
+    "developer tools",
+    "tech stack",
+    "software development",
+    "developer portfolio",
+    "programming tools",
+    "framework reviews",
+    "developer community",
+    "tech reviews",
+    "software reviews",
+    "developer stack",
+  ],
+  authors: [{ name: "StackBoxd Team" }],
+  creator: "StackBoxd",
+  publisher: "StackBoxd",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "StackBoxd",
+    title: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
+    description: "Discover and share developer tools. Log your tech stack, rate tools, and build your developer portfolio.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "StackBoxd - Developer Stack Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
+    description: "Discover and share developer tools. Log your tech stack, rate tools, and build your developer portfolio.",
+    images: ["/og-image.png"],
+    creator: "@stackboxd",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    // Add these when you have them
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+    // bing: "your-bing-verification-code",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({

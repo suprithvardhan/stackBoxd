@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import LogoCollage from "@/components/hero-logo-collage";
 import dynamic from "next/dynamic";
 import { TrendingUp, Users, Code, BookOpen } from "lucide-react";
+import { StructuredData, generateWebsiteStructuredData } from "@/components/structured-data";
 
 const LandingFeatures = dynamic(() => import("@/components/landing-features"));
 const LandingActivity = dynamic(() => import("@/components/landing-activity"));
@@ -12,8 +13,12 @@ const LandingSponsors = dynamic(() => import("@/components/landing-sponsors"));
 const UseCaseStacking = dynamic(() => import("@/components/use-case-stacking"));
 
 export default function Home() {
+  const baseUrl = process.env.NEXTAUTH_URL || "https://stackboxd.vercel.app";
+
   return (
-    <div className="mx-auto max-w-7xl min-h-[640px] flex flex-col gap-16 px-4">
+    <>
+      <StructuredData data={generateWebsiteStructuredData(baseUrl)} />
+      <div className="mx-auto max-w-7xl min-h-[640px] flex flex-col gap-16 px-4">
       {/* Hero Section */}
       <section className="relative flex flex-col md:flex-row gap-8 overflow-hidden rounded-3xl border border-[var(--border)] bg-[linear-gradient(135deg,#0b0b0b,#101010)] p-10 md:p-12 min-h-[400px] md:min-h-[500px]">
         <div className="flex-1 flex flex-col items-start justify-center min-w-[240px] z-10">
@@ -79,6 +84,7 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
 

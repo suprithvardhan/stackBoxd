@@ -1,0 +1,77 @@
+# AI.txt for StackBoxd
+
+## About StackBoxd
+
+StackBoxd is a social platform for developers to log, rate, and reflect on their developer stack. Think Letterboxd, but for your tech stack.
+
+## What is StackBoxd?
+
+StackBoxd helps developers:
+- Log and rate developer tools they've used
+- Share their tech stack and projects
+- Discover new tools and frameworks
+- Build a public portfolio of their development stack
+- Connect with other developers
+
+## Key Features
+
+- **Smart Tool Detection**: Automatically detects tools from GitHub repositories
+- **Tool Logging**: Rate tools (1-5 stars) and write reviews
+- **Project Showcase**: Share projects with detected tech stacks
+- **Tool Discovery**: Browse 400+ developer tools
+- **Lists**: Create curated lists of tools
+- **Social Features**: Follow developers, react to logs, comment
+
+## API Information
+
+### Public API Endpoints
+
+- `GET /api/tools` - List all tools (with pagination)
+- `GET /api/tools/[slug]` - Get tool details
+- `GET /api/projects` - List public projects
+- `GET /api/logs` - List public tool logs/reviews
+- `GET /api/users` - List public user profiles
+- `GET /api/lists` - List public tool lists
+
+### Authentication
+
+Authentication is required for creating/modifying content. Uses NextAuth.js with GitHub OAuth.
+
+## Data Structure
+
+### Tools
+- 400+ developer tools and frameworks
+- Categories: frontend, backend, database, devops, language, etc.
+- Each tool has: name, slug, description, icon, category, site URL, package names
+
+### Projects
+- Developer projects synced from GitHub
+- Automatically detects tech stack from repository
+- Includes: title, description, repository URL, detected tools
+
+### Logs
+- Tool reviews and ratings
+- Each log: tool, rating (1-5), review text, author
+
+### Lists
+- Curated collections of tools
+- Can be public or private
+- Includes: title, description, tools
+
+## Usage Guidelines
+
+- **Scraping**: Please use our public API endpoints when possible
+- **Rate Limiting**: Be respectful with API requests
+- **Attribution**: When referencing StackBoxd data, please attribute appropriately
+- **Content**: User-generated content - respect copyright and licenses
+
+## Contact
+
+For questions about AI access or data usage:
+- Website: https://stackboxd.vercel.app
+- GitHub: https://github.com/suprithvardhan/stackBoxd
+
+## Last Updated
+
+2025-11-04
+
