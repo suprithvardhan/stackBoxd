@@ -6,6 +6,47 @@ export const runtime = "nodejs"
 export const alt = "StackBoxd Log Share Card"
 export const contentType = "image/png"
 
+// Load font explicitly for ImageResponse
+// Using Roboto which is more reliable and widely available
+async function loadFont() {
+  try {
+    // Try Roboto Regular first (more reliable)
+    const fontUrl = "https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxP.ttf"
+    const fontResponse = await fetch(fontUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+      },
+    })
+    if (!fontResponse.ok) {
+      console.warn("Failed to load Roboto font")
+      return null
+    }
+    const fontData = await fontResponse.arrayBuffer()
+    console.log("Font loaded successfully, size:", fontData.byteLength)
+    return fontData
+  } catch (error) {
+    console.error("Error loading font:", error)
+    return null
+  }
+}
+
+async function loadBoldFont() {
+  try {
+    const fontUrl = "https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4.ttf"
+    const fontResponse = await fetch(fontUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+      },
+    })
+    if (!fontResponse.ok) {
+      return null
+    }
+    return await fontResponse.arrayBuffer()
+  } catch {
+    return null
+  }
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -80,6 +121,14 @@ export async function GET(
     const reviewLines = wordWrap(reviewText, 60) // ~60 chars per line
     const dateStr = new Date(log.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
 
+    // Load fonts for proper text rendering
+    const [fontData, boldFontData] = await Promise.all([
+      loadFont(),
+      loadBoldFont(),
+    ])
+    
+    console.log("Font data loaded:", { hasFont: !!fontData, hasBold: !!boldFontData })
+    
     // Use ImageResponse from next/og which properly handles fonts and text rendering
     // ImageResponse always returns PNG, so we ignore the format parameter
     return new ImageResponse(
@@ -144,8 +193,9 @@ export async function GET(
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: "18px",
-                  fontWeight: "bold",
+                  fontWeight: 700,
                   color: toolColor,
+                  fontFamily: fontData ? "Inter" : "system-ui",
                 }}
               >
                 {(userName[0] || "U").toUpperCase()}
@@ -163,8 +213,9 @@ export async function GET(
                 <div
                   style={{
                     fontSize: "34px",
-                    fontWeight: "bold",
+                    fontWeight: 700,
                     color: "#ffffff",
+                    fontFamily: fontData ? "Roboto" : "Arial",
                   }}
                 >
                   {userName}
@@ -173,10 +224,11 @@ export async function GET(
                   style={{
                     fontSize: "20px",
                     color: "#999999",
+                    fontFamily: fontData ? "Roboto" : "Arial",
                   }}
                 >
                   reviewed{" "}
-                  <span style={{ color: toolColor, fontWeight: "bold" }}>
+                  <span style={{ color: toolColor, fontWeight: 700, fontFamily: fontData ? "Inter" : "system-ui" }}>
                     {toolName}
                   </span>
                 </div>
@@ -214,8 +266,9 @@ export async function GET(
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: "32px",
-                  fontWeight: "bold",
+                  fontWeight: 700,
                   color: toolColor,
+                  fontFamily: fontData ? "Inter" : "system-ui",
                 }}
               >
                 {(toolName[0] || "T").toUpperCase()}
@@ -241,40 +294,80 @@ export async function GET(
                   display: "flex",
                   flexDirection: "column",
                   gap: "8px",
+                  fontFamily: fontData ? "Inter" : "system-ui",
                 }}
               >
                 {reviewLines.map((line, idx) => (
-                  <div key={idx}>{line}</div>
+                  <div key={idx} style={{ fontFamily: fontData ? "Inter" : "system-ui" }}>{line}</div>
                 ))}
               </div>
             </div>
 
             {/* Footer */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "0 40px 30px",
-                fontSize: "18px",
-                color: "#666666",
-                fontWeight: "bold",
-              }}
-            >
-              <div>stackboxd.com</div>
-              <div>{dateStr}</div>
-            </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "0 40px 30px",
+                  fontSize: "18px",
+                  color: "#666666",
+                  fontWeight: 700,
+                  fontFamily: fontData ? "Inter" : "system-ui",
+                }}
+              >
+                <div style={{ fontFamily: fontData ? "Inter" : "system-ui" }}>stackboxd.com</div>
+                <div style={{ fontFamily: fontData ? "Inter" : "system-ui" }}>{dateStr}</div>
+              </div>
           </div>
         </div>
       ),
       {
         width: 1200,
         height: 630,
+        fonts: [
+          ...(fontData
+            ? [
+                {
+                  name: "Roboto",
+                  data: fontData,
+                  style: "normal" as const,
+                  weight: 400 as const,
+                },
+              ]
+            : []),
+          ...(boldFontData
+            ? [
+                {
+                  name: "Roboto",
+                  data: boldFontData,
+                  style: "normal" as const,
+                  weight: 700 as const,
+                },
+              ]
+            : []),
+        ],
       }
     )
   } catch (error) {
     console.error("Error generating log share card:", error)
     return NextResponse.json({ error: "Failed to generate image" }, { status: 500 })
   }
+}
+
+// Add proper headers for social media platforms
+export async function HEAD(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+  return new NextResponse(null, {
+    headers: {
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD",
+    },
+  })
 }
 

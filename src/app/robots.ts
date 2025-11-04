@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", "/opengraph-image", "/api/og/"],
         disallow: [
           "/api/",
           "/admin/",

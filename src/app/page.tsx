@@ -4,6 +4,7 @@ import LogoCollage from "@/components/hero-logo-collage";
 import dynamic from "next/dynamic";
 import { TrendingUp, Users, Code, BookOpen } from "lucide-react";
 import Script from "next/script";
+import type { Metadata } from "next";
 
 const LandingFeatures = dynamic(() => import("@/components/landing-features"));
 const LandingActivity = dynamic(() => import("@/components/landing-activity"));

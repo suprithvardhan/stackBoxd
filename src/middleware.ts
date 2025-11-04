@@ -3,15 +3,20 @@ import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  const userAgent = request.headers.get("user-agent") || ""
 
-  // Allow OG image routes and static assets without authentication
+  // Allow social media crawlers and bots (Telegram, WhatsApp, Facebook, Twitter, LinkedIn, Discord, Slack, etc.)
+  const isSocialBot = /facebookexternalhit|Facebot|TwitterBot|LinkedInBot|WhatsApp|TelegramBot|Telegram|Slackbot|Slack|Discordbot|Discord|SkypeUriPreview|Applebot|Googlebot|Bingbot|YandexBot|Slurp|DuckDuckBot|Baiduspider|Sogou|Exabot|ia_archiver/i.test(userAgent)
+
+  // Allow OG image routes, static assets, and social bots without authentication
   if (
     pathname.startsWith("/opengraph-image") ||
     pathname.startsWith("/icon") ||
     pathname.startsWith("/favicon") ||
     pathname.startsWith("/api/og") ||
     pathname.startsWith("/_next") ||
-    pathname.startsWith("/api/auth")
+    pathname.startsWith("/api/auth") ||
+    isSocialBot
   ) {
     return NextResponse.next()
   }

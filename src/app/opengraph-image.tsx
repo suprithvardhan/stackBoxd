@@ -10,6 +10,18 @@ export const contentType = "image/png";
 
 export const runtime = "nodejs";
 
+// Add HEAD handler for social media bots (Telegram, WhatsApp, etc.)
+export async function HEAD() {
+  return new Response(null, {
+    headers: {
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD",
+    },
+  })
+}
+
 export default async function Image() {
   return new ImageResponse(
     (
@@ -34,8 +46,10 @@ export default async function Image() {
     {
       ...size,
       headers: {
-        "Cache-Control": "public, max-age=31536000, immutable",
+        "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
         "Content-Type": "image/png",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     }
   );
