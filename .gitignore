@@ -45,3 +45,5 @@ tools-color-update-report.json
 tools-data.json
 
 scripts/
+
+src/app/demo/

@@ -1,251 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getSession } from "@/lib/auth-server"
 import { prisma } from "@/lib/prisma"
+import { initializeToolMatcher } from "@/lib/tool-matcher"
+import { detectToolsFromRepo } from "@/lib/github-tool-detector"
 
-// Map common package.json dependencies to tool icons (must match database icon IDs)
-const packageToIconMap: Record<string, string> = {
-  // Frontend frameworks
-  "react": "simple-icons:react",
-  "next": "simple-icons:nextdotjs",
-  "vue": "simple-icons:vuejs",
-  "svelte": "simple-icons:svelte",
-  "angular": "simple-icons:angular",
-  "nuxt": "simple-icons:nuxtdotjs",
-  "@nuxt/core": "simple-icons:nuxtdotjs",
-  "@nuxt/vite-builder": "simple-icons:nuxtdotjs",
-  "remix": "simple-icons:remix",
-  "@remix-run/node": "simple-icons:remix",
-  "astro": "simple-icons:astro",
-  
-  // Build tools
-  "vite": "simple-icons:vite",
-  "webpack": "simple-icons:webpack",
-  "rollup": "simple-icons:rollupdotjs",
-  "parcel": "simple-icons:parcel",
-  "turbo": "simple-icons:turborepo",
-  "@turbo/gen": "simple-icons:turborepo",
-  
-  // Styling
-  "tailwindcss": "simple-icons:tailwindcss",
-  "styled-components": "simple-icons:styledcomponents",
-  "sass": "simple-icons:sass",
-  "less": "simple-icons:less",
-  "@emotion/react": "simple-icons:emotion",
-  "@emotion/styled": "simple-icons:emotion",
-  
-  // State management
-  "zustand": "simple-icons:zustand",
-  "redux": "simple-icons:redux",
-  "@reduxjs/toolkit": "simple-icons:redux",
-  "mobx": "simple-icons:mobx",
-  "recoil": "simple-icons:recoil",
-  "@tanstack/react-query": "simple-icons:reactquery",
-  "@tanstack/react-query-devtools": "simple-icons:reactquery",
-  "jotai": "simple-icons:jotai",
-  
-  // Testing
-  "jest": "simple-icons:jest",
-  "vitest": "simple-icons:vitest",
-  "cypress": "simple-icons:cypress",
-  "@playwright/test": "simple-icons:playwright",
-  "playwright": "simple-icons:playwright",
-  "@testing-library/react": "simple-icons:testinglibrary",
-  "@testing-library/jest-dom": "simple-icons:testinglibrary",
-  "pytest": "simple-icons:pytest",
-  "mocha": "simple-icons:mocha",
-  "selenium-webdriver": "simple-icons:selenium",
-  
-  // Backend
-  "express": "simple-icons:express",
-  "fastify": "simple-icons:fastify",
-  "koa": "simple-icons:koa",
-  "@nestjs/core": "simple-icons:nestjs",
-  "@nestjs/common": "simple-icons:nestjs",
-  "fastapi": "simple-icons:fastapi",
-  "django": "simple-icons:django",
-  "flask": "simple-icons:flask",
-  "rails": "simple-icons:rubyonrails",
-  "@rails/rails": "simple-icons:rubyonrails",
-  "@spring/boot": "simple-icons:springboot",
-  "spring-boot": "simple-icons:springboot",
-  "@microsoft/aspnetcore": "simple-icons:dotnet",
-  "@aspnet/core": "simple-icons:dotnet",
-  "gin": "simple-icons:go",
-  "github.com/gin-gonic/gin": "simple-icons:go",
-  "github.com/labstack/echo": "simple-icons:go",
-  "actix-web": "simple-icons:rust",
-  "actix": "simple-icons:rust",
-  
-  // Database
-  "prisma": "simple-icons:prisma",
-  "@prisma/client": "simple-icons:prisma",
-  "mongoose": "simple-icons:mongoose",
-  "typeorm": "simple-icons:typeorm",
-  "sequelize": "simple-icons:sequelize",
-  "pg": "simple-icons:postgresql",
-  "postgres": "simple-icons:postgresql",
-  "mysql2": "simple-icons:mysql",
-  "mysql": "simple-icons:mysql",
-  "mongodb": "simple-icons:mongodb",
-  "redis": "simple-icons:redis",
-  "ioredis": "simple-icons:redis",
-  "@supabase/supabase-js": "simple-icons:supabase",
-  "firebase": "simple-icons:firebase",
-  "@firebase/app": "simple-icons:firebase",
-  "cassandra-driver": "simple-icons:apachecassandra",
-  "@elastic/elasticsearch": "simple-icons:elasticsearch",
-  "elasticsearch": "simple-icons:elasticsearch",
-  "@aws-sdk/client-dynamodb": "simple-icons:amazondynamodb",
-  "aws-sdk": "simple-icons:amazonaws",
-  "@aws-sdk/client-s3": "simple-icons:amazonaws",
-  "better-sqlite3": "simple-icons:sqlite",
-  "sqlite3": "simple-icons:sqlite",
-  
-  // Runtime
-  "typescript": "simple-icons:typescript",
-  "ts-node": "simple-icons:typescript",
-  "@types/node": "simple-icons:typescript",
-  "node": "simple-icons:nodedotjs",
-  "deno": "simple-icons:deno",
-  
-  // Cloud & DevOps
-  "vercel": "simple-icons:vercel",
-  "@vercel/node": "simple-icons:vercel",
-  "terraform": "simple-icons:terraform",
-  "ansible": "simple-icons:ansible",
-  "@actions/core": "simple-icons:githubactions",
-  "@actions/github": "simple-icons:githubactions",
-  "@gitlab/ci": "simple-icons:gitlab",
-  "@circleci/circleci-config-sdk": "simple-icons:circleci",
-  "@netlify/build": "simple-icons:netlify",
-  "@cloudflare/workers-types": "simple-icons:cloudflare",
-  "nginx": "simple-icons:nginx",
-  
-  // API & GraphQL
-  "graphql": "simple-icons:graphql",
-  "apollo-server": "simple-icons:apollographql",
-  "@apollo/server": "simple-icons:apollographql",
-  "@apollo/client": "simple-icons:apollographql",
-  "@trpc/server": "simple-icons:trpc",
-  "@trpc/client": "simple-icons:trpc",
-  "@trpc/react": "simple-icons:trpc",
-  "postman": "simple-icons:postman",
-  "insomnia": "simple-icons:insomnia",
-  
-  // Authentication
-  "next-auth": "simple-icons:nextdotjs",
-  "nextauth": "simple-icons:nextdotjs",
-  "@auth/core": "simple-icons:nextdotjs",
-  "@clerk/nextjs": "simple-icons:clerk",
-  "@clerk/clerk-sdk-node": "simple-icons:clerk",
-  "auth0": "simple-icons:auth0",
-  "@auth0/auth0-spa-js": "simple-icons:auth0",
-  "passport": "simple-icons:passport",
-  "passport-local": "simple-icons:passport",
-  "jsonwebtoken": "simple-icons:jsonwebtokens",
-  "jwt": "simple-icons:jsonwebtokens",
-  
-  // Payments
-  "stripe": "simple-icons:stripe",
-  "@stripe/stripe-js": "simple-icons:stripe",
-  "paypal-rest-sdk": "simple-icons:paypal",
-  "@paypal/payouts-sdk": "simple-icons:paypal",
-  "@paddle/paddle-node-sdk": "simple-icons:paddle",
-  
-  // Mobile
-  "react-native": "simple-icons:react",
-  "expo": "simple-icons:expo",
-  "@expo/metro-runtime": "simple-icons:expo",
-  "flutter": "simple-icons:flutter",
-  "@ionic/core": "simple-icons:ionic",
-  "@ionic/react": "simple-icons:ionic",
-  "@ionic/angular": "simple-icons:ionic",
-  "xamarin": "simple-icons:xamarin",
-  
-  // UI Libraries (these won't have database entries, but we'll handle them)
-  "lucide-react": "mdi:shape-outline",
-  "@iconify/react": "mdi:code-tags",
-  "@radix-ui/react-dialog": "mdi:package-variant",
-  "@radix-ui/react-dropdown-menu": "mdi:package-variant",
-  "@headlessui/react": "mdi:package-variant",
-  "@mui/material": "mdi:package-variant",
-  "@chakra-ui/react": "mdi:package-variant",
-}
-
-// Analyze tech stack from package.json
-function analyzeTechStack(packageJson: any): string[] {
-  const icons: string[] = []
-  const deps = { ...packageJson.dependencies, ...packageJson.devDependencies }
-  
-  for (const [pkg, version] of Object.entries(deps)) {
-    if (packageToIconMap[pkg]) {
-      icons.push(packageToIconMap[pkg])
-    }
-  }
-  
-  return Array.from(new Set(icons))
-}
-
-// Fetch GitHub repo data
-async function fetchGitHubRepo(owner: string, repo: string, accessToken: string) {
-  const [repoResponse, packageJsonResponse] = await Promise.all([
-    fetch(`https://api.github.com/repos/${owner}/${repo}`, {
-      headers: {
-        Authorization: `token ${accessToken}`,
-        Accept: "application/vnd.github.v3+json",
-      },
-    }),
-    fetch(`https://api.github.com/repos/${owner}/${repo}/contents/package.json`, {
-      headers: {
-        Authorization: `token ${accessToken}`,
-        Accept: "application/vnd.github.v3+json",
-      },
-    }).catch(() => null),
-  ])
-
-  if (!repoResponse.ok) {
-    throw new Error(`GitHub API error: ${repoResponse.statusText}`)
-  }
-
-  const repoData = await repoResponse.json()
-  
-  let tools: string[] = []
-  if (packageJsonResponse?.ok) {
-    try {
-      const packageJsonContent = await packageJsonResponse.json()
-      if (packageJsonContent.content) {
-        const packageJson = JSON.parse(
-          Buffer.from(packageJsonContent.content, "base64").toString("utf-8")
-        )
-        tools = analyzeTechStack(packageJson)
-      }
-    } catch (e) {
-      console.error("Error parsing package.json:", e)
-    }
-  }
-
-  // Extract owner from repo URL
-  const ownerMatch = repoData.html_url?.match(/github\.com\/([^\/]+)\/([^\/]+)/)
-  const repoOwner = ownerMatch ? ownerMatch[1] : owner
-  const repoName = repoData.name
-
-  // Generate cover image URL
-  const coverImageUrl = `/api/og/project?username=${encodeURIComponent(repoOwner)}&repo=${encodeURIComponent(repoName)}&stars=${repoData.stargazers_count}`
-
-  return {
-    name: repoData.name,
-    description: repoData.description,
-    stars: repoData.stargazers_count,
-    url: repoData.html_url,
-    homepage: repoData.homepage,
-    language: repoData.language,
-    topics: repoData.topics || [],
-    createdAt: repoData.created_at,
-    updatedAt: repoData.updated_at,
-    tools,
-    coverImage: coverImageUrl,
-  }
-}
 
 // Sync user's GitHub repos
 export async function POST(request: NextRequest) {
@@ -323,36 +81,35 @@ export async function POST(request: NextRequest) {
             const repoName = repo.name
             const coverImageUrl = `/api/og/project?username=${encodeURIComponent(repoOwner)}&repo=${encodeURIComponent(repoName)}&stars=${repo.stargazers_count || 0}`
 
-            // Fetch package.json only if needed (in parallel)
-            let tools: string[] = []
+            // Use new detection algorithm with database packageNames
+            let toolIds: string[] = []
             try {
-              const packageJsonResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/package.json`, {
-                headers: {
-                  Authorization: `token ${account.access_token}`,
-                  Accept: "application/vnd.github.v3+json",
-                },
-              }).catch(() => null)
+              const authHeader = (account as any)?.token_type 
+                ? `${(account as any).token_type} ${account.access_token}`
+                : `token ${account.access_token}`
               
-              if (packageJsonResponse?.ok) {
-                const packageJsonContent = await packageJsonResponse.json()
-                if (packageJsonContent.content) {
-                  const packageJson = JSON.parse(
-                    Buffer.from(packageJsonContent.content, "base64").toString("utf-8")
-                  )
-                  tools = analyzeTechStack(packageJson)
-                }
+              if (!authHeader || !account?.access_token) {
+                throw new Error("No access token available")
               }
+              
+              // Initialize tool matcher if not already done
+              await initializeToolMatcher()
+              
+              // Use the new comprehensive detection algorithm
+              toolIds = await detectToolsFromRepo(repoOwner, repoName, authHeader)
             } catch (e) {
-              // Silently skip if package.json doesn't exist or can't be parsed
+              console.error(`Error detecting tools for ${repoName}:`, e)
+              // Silently skip if detection fails
             }
 
-            // Map tools using cache
-            const toolsToCreate = tools
-              .map((icon: string) => {
-                const toolId = toolCache.get(icon)
-                return toolId ? { toolId } : null
+            // Map tool IDs to ProjectTool relations
+            const toolsToCreate = toolIds
+              .map((toolId: string) => {
+                return { toolId }
               })
               .filter(Boolean) as any
+            
+            console.log(`✓ ${repoName}: Detected ${toolIds.length} tools, saving ${toolsToCreate.length} ProjectTool relations`)
 
             // Check if project already exists (batch check could be optimized further)
             const existingProject = await prisma.project.findFirst({
@@ -367,7 +124,7 @@ export async function POST(request: NextRequest) {
               name: repo.name,
               displayName: repo.name.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
               tagline: repo.description || repo.name,
-              description: repo.description || `A project built with ${tools.length > 0 ? tools.length : 'various'} technologies.`,
+              description: repo.description || `A project built with ${toolIds.length > 0 ? toolIds.length : 'various'} technologies.`,
               stars: repo.stargazers_count || 0,
               repoUrl: repo.html_url,
               demoUrl: repo.homepage || null,
@@ -376,7 +133,7 @@ export async function POST(request: NextRequest) {
 
             if (existingProject) {
               // Update existing project
-              await prisma.project.update({
+              const updatedProject = await prisma.project.update({
                 where: { id: existingProject.id },
                 data: {
                   ...projectData,
@@ -385,19 +142,39 @@ export async function POST(request: NextRequest) {
                     create: toolsToCreate,
                   } : undefined,
                 },
+                include: {
+                  tools: {
+                    include: {
+                      tool: {
+                        select: { name: true, icon: true },
+                      },
+                    },
+                  },
+                },
               })
+              console.log(`✓ ${repoName}: Updated project with ${updatedProject.tools.length} tools saved`)
               syncedProjects.push(existingProject.id)
             } else {
               // Create new project
               const newProject = await prisma.project.create({
                 data: {
                   ...projectData,
-                  authorId: session.user!.id,
+                  authorId: session.user!.id!,
                   tools: toolsToCreate.length > 0 ? {
                     create: toolsToCreate,
                   } : undefined,
                 },
+                include: {
+                  tools: {
+                    include: {
+                      tool: {
+                        select: { name: true, icon: true },
+                      },
+                    },
+                  },
+                },
               })
+              console.log(`✓ ${repoName}: Created project with ${newProject.tools.length} tools saved`)
               syncedProjects.push(newProject.id)
             }
           } catch (error) {
@@ -455,9 +232,59 @@ export async function GET(request: NextRequest) {
     }
 
     const [, owner, repo] = match
-    const repoData = await fetchGitHubRepo(owner, repo, account.access_token)
+    
+    // Use new detection algorithm
+    await initializeToolMatcher()
+    const authHeader = (account as any)?.token_type 
+      ? `${(account as any).token_type} ${account.access_token}`
+      : `token ${account.access_token}`
+    
+    const toolIds = await detectToolsFromRepo(owner, repo, authHeader)
+    
+    // Fetch repo metadata
+    const repoResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+      headers: {
+        Authorization: authHeader,
+        Accept: "application/vnd.github.v3+json",
+      },
+    })
 
-    return NextResponse.json(repoData)
+    if (!repoResponse.ok) {
+      return NextResponse.json({ error: `Failed to fetch repo: ${repoResponse.statusText}` }, { status: repoResponse.status })
+    }
+
+    const repoData = await repoResponse.json()
+    const coverImageUrl = `/api/og/project?username=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}&stars=${repoData.stargazers_count || 0}`
+
+    // Fetch tool details
+    const tools = await prisma.tool.findMany({
+      where: {
+        id: { in: toolIds },
+      },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        icon: true,
+        color: true,
+        category: true,
+      },
+    })
+
+    return NextResponse.json({
+      name: repoData.name,
+      description: repoData.description,
+      stars: repoData.stargazers_count,
+      url: repoData.html_url,
+      homepage: repoData.homepage,
+      language: repoData.language,
+      topics: repoData.topics || [],
+      createdAt: repoData.created_at,
+      updatedAt: repoData.updated_at,
+      tools: tools.map(t => t.icon),
+      toolIds: toolIds,
+      coverImage: coverImageUrl,
+    })
   } catch (error) {
     console.error("Error fetching repo:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

@@ -86,6 +86,7 @@ model Tool {
   site          String?
   category      String
   color         String?
+  packageNames  String[] @default([])
   avgRating     Float    @default(0)
   ratingsCount  Int      @default(0)
   usedByCount   Int      @default(0)

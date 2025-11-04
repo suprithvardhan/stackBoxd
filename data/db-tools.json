@@ -1,0 +1,6200 @@
+{
+  "exportedAt": "2025-11-04T04:34:34.330Z",
+  "totalTools": 491,
+  "tools": [
+    {
+      "id": "cmhg6pj3v00cf7pl8muv3tzok",
+      "slug": "apscheduler",
+      "name": "APScheduler",
+      "category": "backend",
+      "site": "https://apscheduler.readthedocs.io",
+      "icon": "mdi:clock-start",
+      "color": "#4CAF50",
+      "packageNames": [
+        "apscheduler"
+      ]
+    },
+    {
+      "id": "cmhepfq1i00167pasf4ltbb3u",
+      "slug": "aspnet",
+      "name": "ASP.NET",
+      "category": "backend",
+      "site": "https://dotnet.microsoft.com",
+      "icon": "simple-icons:dotnet",
+      "color": "#512BD4",
+      "packageNames": [
+        "asp.net"
+      ]
+    },
+    {
+      "id": "cmhg6osmi00717pl8zfzr6jgb",
+      "slug": "ava",
+      "name": "AVA",
+      "category": "testing",
+      "site": "https://github.com/avajs/ava",
+      "icon": "simple-icons:ava",
+      "color": "#4B275F",
+      "packageNames": [
+        "ava"
+      ]
+    },
+    {
+      "id": "cmhepfwa4001q7pas84ow6zrj",
+      "slug": "aws",
+      "name": "AWS",
+      "category": "devops",
+      "site": "https://aws.amazon.com",
+      "icon": "simple-icons:amazonaws",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws"
+      ]
+    },
+    {
+      "id": "cmhg6p2to008u7pl80mhbqtvn",
+      "slug": "cdk",
+      "name": "AWS CDK",
+      "category": "devops",
+      "site": "https://aws.amazon.com/cdk",
+      "icon": "simple-icons:amazonaws",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws-cdk",
+        "awscdk",
+        "aws_cdk"
+      ]
+    },
+    {
+      "id": "cmhg6p1ne008i7pl8ryvrh4mz",
+      "slug": "aws-cloudfront",
+      "name": "AWS CloudFront",
+      "category": "devops",
+      "site": "https://aws.amazon.com/cloudfront",
+      "icon": "simple-icons:amazoncloudfront",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws-cloudfront",
+        "awscloudfront",
+        "aws_cloudfront"
+      ]
+    },
+    {
+      "id": "cmhg6p1kg008h7pl8kpizfdn2",
+      "slug": "aws-dynamodb",
+      "name": "AWS DynamoDB",
+      "category": "devops",
+      "site": "https://aws.amazon.com/dynamodb",
+      "icon": "simple-icons:amazondynamodb",
+      "color": "#4053D6",
+      "packageNames": [
+        "aws-dynamodb",
+        "awsdynamodb",
+        "aws_dynamodb"
+      ]
+    },
+    {
+      "id": "cmhg6p0yt008e7pl8vcov1xg1",
+      "slug": "aws-ec2",
+      "name": "AWS EC2",
+      "category": "devops",
+      "site": "https://aws.amazon.com/ec2",
+      "icon": "simple-icons:amazonec2",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws-ec2",
+        "awsec2",
+        "aws_ec2"
+      ]
+    },
+    {
+      "id": "cmhg6p0uq008d7pl8edwtmnkl",
+      "slug": "aws-lambda",
+      "name": "AWS Lambda",
+      "category": "devops",
+      "site": "https://aws.amazon.com/lambda",
+      "icon": "simple-icons:awslambda",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws-lambda",
+        "awslambda",
+        "aws_lambda"
+      ]
+    },
+    {
+      "id": "cmhg6p1he008g7pl8eawzxr6y",
+      "slug": "aws-rds",
+      "name": "AWS RDS",
+      "category": "devops",
+      "site": "https://aws.amazon.com/rds",
+      "icon": "simple-icons:amazonrds",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws-rds",
+        "awsrds",
+        "aws_rds"
+      ]
+    },
+    {
+      "id": "cmhg6p1bp008f7pl8cypduqpp",
+      "slug": "aws-s3",
+      "name": "AWS S3",
+      "category": "devops",
+      "site": "https://aws.amazon.com/s3",
+      "icon": "simple-icons:amazons3",
+      "color": "#FF9900",
+      "packageNames": [
+        "aws-s3",
+        "awss3",
+        "aws_s3"
+      ]
+    },
+    {
+      "id": "cmhg6p6ds009k7pl8961g7r8o",
+      "slug": "abstract",
+      "name": "Abstract",
+      "category": "design",
+      "site": "https://www.abstract.com",
+      "icon": "simple-icons:abstract",
+      "color": "#191A1B",
+      "packageNames": [
+        "abstract"
+      ]
+    },
+    {
+      "id": "cmhg6oqzi006n7pl8d4oqw7xt",
+      "slug": "activerecord",
+      "name": "Active Record",
+      "category": "database",
+      "site": "https://guides.rubyonrails.org/active_record_basics.html",
+      "icon": "simple-icons:rubyonrails",
+      "color": "#CC0000",
+      "packageNames": [
+        "active-record",
+        "active_record"
+      ]
+    },
+    {
+      "id": "cmhepfr2s00197pasfy8jjtkb",
+      "slug": "actix",
+      "name": "Actix",
+      "category": "backend",
+      "site": "https://actix.rs",
+      "icon": "simple-icons:rust",
+      "color": "#CE422B",
+      "packageNames": [
+        "actix-web",
+        "actix"
+      ]
+    },
+    {
+      "id": "cmhg6p57a009e7pl8o8nnb943",
+      "slug": "adobe-creative-cloud",
+      "name": "Adobe Creative Cloud",
+      "category": "design",
+      "site": "https://www.adobe.com/creativecloud.html",
+      "icon": "simple-icons:adobe",
+      "color": "#FF0000",
+      "packageNames": [
+        "adobe-creative-cloud",
+        "adobecreativecloud",
+        "adobe_creative_cloud"
+      ]
+    },
+    {
+      "id": "cmhg6p5cy009f7pl8c29mainw",
+      "slug": "adobe-illustrator",
+      "name": "Adobe Illustrator",
+      "category": "design",
+      "site": "https://www.adobe.com/products/illustrator.html",
+      "icon": "simple-icons:adobeillustrator",
+      "color": "#FF9A00",
+      "packageNames": [
+        "adobe-illustrator",
+        "adobeillustrator",
+        "adobe_illustrator"
+      ]
+    },
+    {
+      "id": "cmhg6p5zo009h7pl8jtzdpb2w",
+      "slug": "adobe-indesign",
+      "name": "Adobe InDesign",
+      "category": "design",
+      "site": "https://www.adobe.com/products/indesign.html",
+      "icon": "simple-icons:adobeindesign",
+      "color": "#FF3366",
+      "packageNames": [
+        "adobe-indesign",
+        "adobeindesign",
+        "adobe_indesign"
+      ]
+    },
+    {
+      "id": "cmhg6p5gn009g7pl8ueyn3q4e",
+      "slug": "adobe-photoshop",
+      "name": "Adobe Photoshop",
+      "category": "design",
+      "site": "https://www.adobe.com/products/photoshop.html",
+      "icon": "simple-icons:adobephotoshop",
+      "color": "#31A8FF",
+      "packageNames": [
+        "adobe-photoshop",
+        "adobephotoshop",
+        "adobe_photoshop"
+      ]
+    },
+    {
+      "id": "cmhepgcbc002w7pas06177ull",
+      "slug": "adobe-xd",
+      "name": "Adobe XD",
+      "category": "design",
+      "site": "https://www.adobe.com/products/xd.html",
+      "icon": "simple-icons:adobexd",
+      "color": "#FF61F6",
+      "packageNames": [
+        "adobe-xd",
+        "adobexd",
+        "adobe_xd"
+      ]
+    },
+    {
+      "id": "cmhg6okpk005m7pl8nohjtgsd",
+      "slug": "adonisjs",
+      "name": "AdonisJS",
+      "category": "backend",
+      "site": "https://adonisjs.com",
+      "icon": "simple-icons:adonisjs",
+      "color": "#5A45FF",
+      "packageNames": [
+        "adonisjs"
+      ]
+    },
+    {
+      "id": "cmhg6pg6j00bm7pl8ae7c5m7m",
+      "slug": "agenda",
+      "name": "Agenda",
+      "category": "backend",
+      "site": "https://github.com/agenda/agenda",
+      "icon": "mdi:calendar-month",
+      "color": "#2196F3",
+      "packageNames": [
+        "agenda",
+        "nestjs-agenda"
+      ]
+    },
+    {
+      "id": "cmhg6p9sk00aa7pl8gwp0i90w",
+      "slug": "airbrake",
+      "name": "Airbrake",
+      "category": "devops",
+      "site": "https://airbrake.io",
+      "icon": "simple-icons:airbrake",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "airbrake"
+      ]
+    },
+    {
+      "id": "cmhg6pcpg00aw7pl8vob393p7",
+      "slug": "ajv",
+      "name": "Ajv",
+      "category": "frontend",
+      "site": "https://ajv.js.org",
+      "icon": "simple-icons:ajv",
+      "color": "#23C8D2",
+      "packageNames": [
+        "@ajv/core"
+      ]
+    },
+    {
+      "id": "cmhg6olue005x7pl8ipacl1pi",
+      "slug": "akka",
+      "name": "Akka",
+      "category": "backend",
+      "site": "https://akka.io",
+      "icon": "mdi:lightning-bolt",
+      "color": "#FF6B00",
+      "packageNames": [
+        "akka"
+      ]
+    },
+    {
+      "id": "cmhg6ognf004l7pl8maqi5j5j",
+      "slug": "alpinejs",
+      "name": "Alpine.js",
+      "category": "frontend",
+      "site": "https://alpinejs.dev",
+      "icon": "simple-icons:alpinejs",
+      "color": "#8BC0D0",
+      "packageNames": [
+        "alpine.js",
+        "@alpinejs/core"
+      ]
+    },
+    {
+      "id": "cmhg6odaw003y7pl8jlg5cvtx",
+      "slug": "anchor",
+      "name": "Anchor",
+      "category": "crypto",
+      "site": "https://www.anchor-lang.com",
+      "icon": "simple-icons:anchor",
+      "color": "#00D9FF",
+      "packageNames": [
+        "anchor"
+      ]
+    },
+    {
+      "id": "cmhg6p49400987pl871jdch5m",
+      "slug": "android-jetpack",
+      "name": "Android Jetpack",
+      "category": "mobile",
+      "site": "https://developer.android.com/jetpack",
+      "icon": "simple-icons:android",
+      "color": "#3DDC84",
+      "packageNames": [
+        "android-jetpack",
+        "androidjetpack",
+        "android_jetpack"
+      ]
+    },
+    {
+      "id": "cmhepfdjh00047pase3r65c3h",
+      "slug": "angular",
+      "name": "Angular",
+      "category": "frontend",
+      "site": "https://angular.io",
+      "icon": "simple-icons:angular",
+      "color": "#DD0031",
+      "packageNames": [
+        "@angular/core",
+        "@angular/common",
+        "angular"
+      ]
+    },
+    {
+      "id": "cmhg6orqf006t7pl8i0dnqv07",
+      "slug": "anorm",
+      "name": "Anorm",
+      "category": "database",
+      "site": "https://www.playframework.com/documentation/2.8.x/Anorm",
+      "icon": "simple-icons:playframework",
+      "color": "#4169E1",
+      "packageNames": [
+        "anorm"
+      ]
+    },
+    {
+      "id": "cmhepfwz6001s7pas5vfutdqf",
+      "slug": "ansible",
+      "name": "Ansible",
+      "category": "devops",
+      "site": "https://www.ansible.com",
+      "icon": "simple-icons:ansible",
+      "color": "#EE0000",
+      "packageNames": [
+        "ansible"
+      ]
+    },
+    {
+      "id": "cmhg6oilk00527pl8v0pxlenr",
+      "slug": "ant-design",
+      "name": "Ant Design",
+      "category": "frontend",
+      "site": "https://ant.design",
+      "icon": "simple-icons:antdesign",
+      "color": "#0170FE",
+      "packageNames": [
+        "ant-design",
+        "antdesign",
+        "ant_design",
+        "@ant-design/core",
+        "antd",
+        "@ant-design/icons"
+      ]
+    },
+    {
+      "id": "cmhg6oia9004z7pl8eip7da5q",
+      "slug": "apollo-client",
+      "name": "Apollo Client",
+      "category": "frontend",
+      "site": "https://www.apollographql.com/docs/react",
+      "icon": "simple-icons:apollographql",
+      "color": "#311C87",
+      "packageNames": [
+        "apollo-client",
+        "apolloclient",
+        "apollo_client",
+        "@apollo-client/core"
+      ]
+    },
+    {
+      "id": "cmhepg0j600237pasqcmdvp6t",
+      "slug": "apollo",
+      "name": "Apollo GraphQL",
+      "category": "api",
+      "site": "https://www.apollographql.com",
+      "icon": "simple-icons:apollographql",
+      "color": "#311C87",
+      "packageNames": [
+        "apollo-graphql",
+        "apollographql",
+        "apollo_graphql"
+      ]
+    },
+    {
+      "id": "cmhg6p1w4008k7pl8s8a3f0qj",
+      "slug": "gcp-app-engine",
+      "name": "App Engine",
+      "category": "devops",
+      "site": "https://cloud.google.com/appengine",
+      "icon": "simple-icons:googlecloud",
+      "color": "#4285F4",
+      "packageNames": [
+        "gcp-app-engine",
+        "app-engine",
+        "appengine",
+        "app_engine"
+      ]
+    },
+    {
+      "id": "cmhg6p9xh00ac7pl8ujeotufv",
+      "slug": "appsignal",
+      "name": "AppSignal",
+      "category": "devops",
+      "site": "https://www.appsignal.com",
+      "icon": "simple-icons:appsignal",
+      "color": "#213752",
+      "packageNames": [
+        "appsignal"
+      ]
+    },
+    {
+      "id": "cmhg6p4vu009c7pl8qu6n1g6d",
+      "slug": "appium",
+      "name": "Appium",
+      "category": "mobile",
+      "site": "https://appium.io",
+      "icon": "simple-icons:appium",
+      "color": "#1F4788",
+      "packageNames": [
+        "appium"
+      ]
+    },
+    {
+      "id": "cmhepntbr001c7p5od63he9rv",
+      "slug": "assembly",
+      "name": "Assembly",
+      "category": "language",
+      "site": "https://www.assemblyscript.org",
+      "icon": "simple-icons:assemblyscript",
+      "color": "#007AAC",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepfejt00077passw7z9rb1",
+      "slug": "astro",
+      "name": "Astro",
+      "category": "frontend",
+      "site": "https://astro.build",
+      "icon": "simple-icons:astro",
+      "color": "#FF5D01",
+      "packageNames": [
+        "astro",
+        "@astrojs/react",
+        "@astro/core"
+      ]
+    },
+    {
+      "id": "cmhepg7f9002h7pasxboi3u56",
+      "slug": "auth0",
+      "name": "Auth0",
+      "category": "auth",
+      "site": "https://auth0.com",
+      "icon": "simple-icons:auth0",
+      "color": "#EB5424",
+      "packageNames": [
+        "auth0",
+        "@auth0/auth0-spa-js"
+      ]
+    },
+    {
+      "id": "cmhg6payw00al7pl87af0kjhc",
+      "slug": "axios",
+      "name": "Axios",
+      "category": "frontend",
+      "site": "https://axios-http.com",
+      "icon": "simple-icons:axios",
+      "color": "#5A29E4",
+      "packageNames": [
+        "axios",
+        "@axios/core"
+      ]
+    },
+    {
+      "id": "cmhg6p793009r7pl8402x0htx",
+      "slug": "axure",
+      "name": "Axure",
+      "category": "design",
+      "site": "https://www.axure.com",
+      "icon": "simple-icons:axure",
+      "color": "#FF3333",
+      "packageNames": [
+        "axure"
+      ]
+    },
+    {
+      "id": "cmhg6oy8f007y7pl8328z3j7c",
+      "slug": "azure",
+      "name": "Azure",
+      "category": "devops",
+      "site": "https://azure.microsoft.com",
+      "icon": "simple-icons:microsoftazure",
+      "color": "#0078D4",
+      "packageNames": [
+        "azure"
+      ]
+    },
+    {
+      "id": "cmhg6p27b008n7pl88gunjbso",
+      "slug": "azure-app-service",
+      "name": "Azure App Service",
+      "category": "devops",
+      "site": "https://azure.microsoft.com/services/app-service",
+      "icon": "simple-icons:microsoftazure",
+      "color": "#0078D4",
+      "packageNames": [
+        "azure-app-service",
+        "azureappservice",
+        "azure_app_service"
+      ]
+    },
+    {
+      "id": "cmhg6p24a008m7pl8h5n8qxm9",
+      "slug": "azure-functions",
+      "name": "Azure Functions",
+      "category": "devops",
+      "site": "https://azure.microsoft.com/services/functions",
+      "icon": "simple-icons:microsoftazure",
+      "color": "#0078D4",
+      "packageNames": [
+        "azure-functions",
+        "azurefunctions",
+        "azure_functions"
+      ]
+    },
+    {
+      "id": "cmhg6p73i009q7pl8qb0uoye1",
+      "slug": "balsamiq",
+      "name": "Balsamiq",
+      "category": "design",
+      "site": "https://balsamiq.com",
+      "icon": "simple-icons:balsamiq",
+      "color": "#CD2020",
+      "packageNames": [
+        "balsamiq"
+      ]
+    },
+    {
+      "id": "cmhg6oq63006j7pl80o32j56p",
+      "slug": "beanie",
+      "name": "Beanie",
+      "category": "database",
+      "site": "https://beanie-odm.dev",
+      "icon": "simple-icons:beanie",
+      "color": "#EF4444",
+      "packageNames": [
+        "beanie"
+      ]
+    },
+    {
+      "id": "cmhg6ou56007a7pl8vfetpoop",
+      "slug": "betamax",
+      "name": "Betamax",
+      "category": "testing",
+      "site": "https://betamax.readthedocs.io",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "betamax"
+      ]
+    },
+    {
+      "id": "cmhg6ol8s005s7pl8k8rvu2x8",
+      "slug": "blacksheep",
+      "name": "BlackSheep",
+      "category": "backend",
+      "site": "https://www.neoteroi.dev/blacksheep",
+      "icon": "mdi:sheep",
+      "color": "#FFD700",
+      "packageNames": [
+        "blacksheep",
+        "blacksheep.mx",
+        "blacksheep-react-canvas",
+        "blacksheep-product-card"
+      ]
+    },
+    {
+      "id": "cmhg6oh5q004p7pl8tu11sm9x",
+      "slug": "blitzjs",
+      "name": "Blitz.js",
+      "category": "frontend",
+      "site": "https://blitzjs.com",
+      "icon": "simple-icons:blitz",
+      "color": "#6700EB",
+      "packageNames": [
+        "blitz.js",
+        "@blitzjs/core"
+      ]
+    },
+    {
+      "id": "cmhg6ojmq005b7pl8hwtelko4",
+      "slug": "bootstrap",
+      "name": "Bootstrap",
+      "category": "frontend",
+      "site": "https://getbootstrap.com",
+      "icon": "simple-icons:bootstrap",
+      "color": "#7952B3",
+      "packageNames": [
+        "@bootstrap/core"
+      ]
+    },
+    {
+      "id": "cmhg6okz2005p7pl8tywv7au1",
+      "slug": "bottle",
+      "name": "Bottle",
+      "category": "backend",
+      "site": "https://bottlepy.org",
+      "icon": "mdi:bottle-tonic",
+      "color": "#4CAF50",
+      "packageNames": [
+        "bottle",
+        "bottle-pack-met"
+      ]
+    },
+    {
+      "id": "cmhg6p9q000a97pl8xw2uwi0u",
+      "slug": "bugsnag",
+      "name": "Bugsnag",
+      "category": "devops",
+      "site": "https://www.bugsnag.com",
+      "icon": "simple-icons:bugsnag",
+      "color": "#4949E4",
+      "packageNames": [
+        "bugsnag"
+      ]
+    },
+    {
+      "id": "cmhg6pg2000bl7pl84b12gawn",
+      "slug": "bull",
+      "name": "Bull",
+      "category": "backend",
+      "site": "https://github.com/OptimalBits/bull",
+      "icon": "mdi:bullseye",
+      "color": "#FF5722",
+      "packageNames": [
+        "bull"
+      ]
+    },
+    {
+      "id": "cmhg6pgr700br7pl8j6i7esi8",
+      "slug": "bullmq",
+      "name": "BullMQ",
+      "category": "backend",
+      "site": "https://github.com/taskforcesh/bullmq",
+      "icon": "mdi:bullseye-arrow",
+      "color": "#FF5722",
+      "packageNames": [
+        "bullmq",
+        "bullmq-otel"
+      ]
+    },
+    {
+      "id": "cmhg6ojpz005c7pl88sot71oy",
+      "slug": "bulma",
+      "name": "Bulma",
+      "category": "frontend",
+      "site": "https://bulma.io",
+      "icon": "simple-icons:bulma",
+      "color": "#00D1B2",
+      "packageNames": [
+        "@bulma/core"
+      ]
+    },
+    {
+      "id": "cmhg6p36d008y7pl8aeo442vt",
+      "slug": "bun",
+      "name": "Bun",
+      "category": "language",
+      "site": "https://bun.sh",
+      "icon": "simple-icons:bun",
+      "color": "#FBF0DF",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6phlr00c27pl8xhvi274l",
+      "slug": "bunyan",
+      "name": "Bunyan",
+      "category": "backend",
+      "site": "https://github.com/trentm/node-bunyan",
+      "icon": "mdi:book-open",
+      "color": "#795548",
+      "packageNames": [
+        "bunyan"
+      ]
+    },
+    {
+      "id": "cmhepnmia000y7p5o44p14lnf",
+      "slug": "c",
+      "name": "C",
+      "category": "language",
+      "site": "https://en.cppreference.com/w/c",
+      "icon": "simple-icons:c",
+      "color": "#A8B9CC",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepfli1000s7pasnzhxhz1p",
+      "slug": "csharp",
+      "name": "C#",
+      "category": "language",
+      "site": "https://dotnet.microsoft.com",
+      "icon": "simple-icons:csharp",
+      "color": "#239120",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepnmxe000z7p5oxpxa06tr",
+      "slug": "cpp",
+      "name": "C++",
+      "category": "language",
+      "site": "https://isocpp.org",
+      "icon": "simple-icons:cplusplus",
+      "color": "#00599C",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepo0cy001p7p5ojr6q9hy0",
+      "slug": "cobol",
+      "name": "COBOL",
+      "category": "language",
+      "site": "https://www.microfocus.com/en-us/products/cobol",
+      "icon": "simple-icons:cobol",
+      "color": "#004E98",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6pdw700b37pl8ucrwtnz9",
+      "slug": "cors",
+      "name": "CORS",
+      "category": "backend",
+      "site": "https://expressjs.com/en/resources/middleware/cors.html",
+      "icon": "simple-icons:express",
+      "color": "#3C873A",
+      "packageNames": [
+        "cors"
+      ]
+    },
+    {
+      "id": "cmhepfhbq000f7pasjtpokux7",
+      "slug": "css-modules",
+      "name": "CSS Modules",
+      "category": "frontend",
+      "site": "https://github.com/css-modules/css-modules",
+      "icon": "simple-icons:css3",
+      "color": "#1572B6",
+      "packageNames": [
+        "css-modules",
+        "cssmodules",
+        "css_modules",
+        "@css-modules/core"
+      ]
+    },
+    {
+      "id": "cmhg6oxm8007t7pl8ozzlream",
+      "slug": "capybara",
+      "name": "Capybara",
+      "category": "testing",
+      "site": "https://teamcapybara.github.io/capybara",
+      "icon": "simple-icons:capybara",
+      "color": "#CC342D",
+      "packageNames": [
+        "capybara"
+      ]
+    },
+    {
+      "id": "cmhepftkk001h7pascq42q2cb",
+      "slug": "cassandra",
+      "name": "Cassandra",
+      "category": "database",
+      "site": "https://cassandra.apache.org",
+      "icon": "simple-icons:apachecassandra",
+      "color": "#1287B1",
+      "packageNames": [
+        "cassandra"
+      ]
+    },
+    {
+      "id": "cmhg6p3ug00957pl8g4b37kvd",
+      "slug": "catalyst",
+      "name": "Catalyst",
+      "category": "mobile",
+      "site": "https://www.catalystframework.org",
+      "icon": "simple-icons:apple",
+      "color": "#A855F7",
+      "packageNames": [
+        "catalyst"
+      ]
+    },
+    {
+      "id": "cmhg6pimq00cc7pl8roc4b7dk",
+      "slug": "celery",
+      "name": "Celery",
+      "category": "backend",
+      "site": "https://docs.celeryq.dev",
+      "icon": "simple-icons:celery",
+      "color": "#37814A",
+      "packageNames": [
+        "celery",
+        "celery-node",
+        "celery-ts",
+        "celery-shoot"
+      ]
+    },
+    {
+      "id": "cmhg6ofec004b7pl8y1rnw2ns",
+      "slug": "chainlink",
+      "name": "Chainlink",
+      "category": "crypto",
+      "site": "https://chain.link",
+      "icon": "simple-icons:chainlink",
+      "color": "#375BD2",
+      "packageNames": [
+        "chainlink"
+      ]
+    },
+    {
+      "id": "cmhg6oisn00547pl8u00a7wi3",
+      "slug": "chakra-ui",
+      "name": "Chakra UI",
+      "category": "frontend",
+      "site": "https://chakra-ui.com",
+      "icon": "simple-icons:chakraui",
+      "color": "#319795",
+      "packageNames": [
+        "chakra-ui",
+        "chakraui",
+        "chakra_ui",
+        "@chakra-ui/core",
+        "@chakra-ui/react"
+      ]
+    },
+    {
+      "id": "cmhg6pfb700bf7pl8dy8t1wr1",
+      "slug": "cheerio",
+      "name": "Cheerio",
+      "category": "backend",
+      "site": "https://cheerio.js.org",
+      "icon": "simple-icons:cheerio",
+      "color": "#3C873A",
+      "packageNames": [
+        "cheerio",
+        "gulp-cheerio",
+        "cheerio-req"
+      ]
+    },
+    {
+      "id": "cmhepfy9a001w7pash30owl2e",
+      "slug": "circleci",
+      "name": "CircleCI",
+      "category": "devops",
+      "site": "https://circleci.com",
+      "icon": "simple-icons:circleci",
+      "color": "#FFF",
+      "packageNames": [
+        "@circleci/circleci-config-sdk"
+      ]
+    },
+    {
+      "id": "cmhk2r5qb00047p6s7hbiunzg",
+      "slug": "class-variance-authority",
+      "name": "Class Variance Authority",
+      "category": "frontend",
+      "site": "https://cva.style",
+      "icon": "mdi:code-tags",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "class-variance-authority",
+        "cva"
+      ]
+    },
+    {
+      "id": "cmheo1qq2000l7pz0kq2s59eu",
+      "slug": "clerk",
+      "name": "Clerk",
+      "category": "auth",
+      "site": "https://clerk.com",
+      "icon": "simple-icons:clerk",
+      "color": "#3B49DF",
+      "packageNames": [
+        "@clerk/nextjs",
+        "@clerk/clerk-sdk-node"
+      ]
+    },
+    {
+      "id": "cmhg6pjl400ci7pl8v08w4j3z",
+      "slug": "click",
+      "name": "Click",
+      "category": "backend",
+      "site": "https://click.palletsprojects.com",
+      "icon": "mdi:cursor-pointer",
+      "color": "#6C5CE7",
+      "packageNames": [
+        "click",
+        "vue3-click-away"
+      ]
+    },
+    {
+      "id": "cmhg6pllq00d57pl8hx43avns",
+      "slug": "clockwork",
+      "name": "Clockwork",
+      "category": "backend",
+      "site": "https://github.com/Rykian/clockwork",
+      "icon": "mdi:clock",
+      "color": "#3F51B5",
+      "packageNames": [
+        "clockwork",
+        "clockwork-browser"
+      ]
+    },
+    {
+      "id": "cmhepnpk400157p5ornqyf3nb",
+      "slug": "clojure",
+      "name": "Clojure",
+      "category": "language",
+      "site": "https://clojure.org",
+      "icon": "simple-icons:clojure",
+      "color": "#5881D8",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p1yr008l7pl8ebfxsboo",
+      "slug": "gcp-functions",
+      "name": "Cloud Functions",
+      "category": "devops",
+      "site": "https://cloud.google.com/functions",
+      "icon": "simple-icons:googlecloud",
+      "color": "#4285F4",
+      "packageNames": [
+        "gcp-functions",
+        "cloud-functions",
+        "cloudfunctions",
+        "cloud_functions"
+      ]
+    },
+    {
+      "id": "cmhg6p1sv008j7pl8k6qb9twz",
+      "slug": "gcp-cloud-run",
+      "name": "Cloud Run",
+      "category": "devops",
+      "site": "https://cloud.google.com/run",
+      "icon": "simple-icons:googlecloud",
+      "color": "#4285F4",
+      "packageNames": [
+        "gcp-cloud-run",
+        "cloud-run",
+        "cloudrun",
+        "cloud_run"
+      ]
+    },
+    {
+      "id": "cmhepfzlr00207pas7bclauu7",
+      "slug": "cloudflare",
+      "name": "Cloudflare",
+      "category": "devops",
+      "site": "https://www.cloudflare.com",
+      "icon": "simple-icons:cloudflare",
+      "color": "#F38020",
+      "packageNames": [
+        "@cloudflare/workers-types"
+      ]
+    },
+    {
+      "id": "cmhg6p05400897pl84oxgm5z9",
+      "slug": "cloudflare-pages",
+      "name": "Cloudflare Pages",
+      "category": "devops",
+      "site": "https://pages.cloudflare.com",
+      "icon": "simple-icons:cloudflarepages",
+      "color": "#F38020",
+      "packageNames": [
+        "cloudflare-pages",
+        "cloudflarepages",
+        "cloudflare_pages"
+      ]
+    },
+    {
+      "id": "cmhg6p0bd008a7pl82893s4ca",
+      "slug": "cloudflare-workers",
+      "name": "Cloudflare Workers",
+      "category": "devops",
+      "site": "https://workers.cloudflare.com",
+      "icon": "simple-icons:cloudflareworkers",
+      "color": "#F38020",
+      "packageNames": [
+        "cloudflare-workers",
+        "cloudflareworkers",
+        "cloudflare_workers"
+      ]
+    },
+    {
+      "id": "cmhepfut2001l7pasfistwe9m",
+      "slug": "cockroachdb",
+      "name": "CockroachDB",
+      "category": "database",
+      "site": "https://www.cockroachlabs.com",
+      "icon": "simple-icons:cockroachlabs",
+      "color": "#6933FF",
+      "packageNames": [
+        "cockroachdb"
+      ]
+    },
+    {
+      "id": "cmhg6p2ff008p7pl8m5gpophz",
+      "slug": "consul",
+      "name": "Consul",
+      "category": "devops",
+      "site": "https://www.consul.io",
+      "icon": "simple-icons:consul",
+      "color": "#F04C88",
+      "packageNames": [
+        "consul"
+      ]
+    },
+    {
+      "id": "cmhg6olrn005w7pl8a0vii7r5",
+      "slug": "cowboy",
+      "name": "Cowboy",
+      "category": "backend",
+      "site": "https://ninenines.eu/docs/en/cowboy/2.9",
+      "icon": "simple-icons:erlang",
+      "color": "#A90533",
+      "packageNames": [
+        "cowboy",
+        "lw-data",
+        "barrelgun"
+      ]
+    },
+    {
+      "id": "cmhepnwn9001i7p5obsyw66mx",
+      "slug": "crystal",
+      "name": "Crystal",
+      "category": "language",
+      "site": "https://crystal-lang.org",
+      "icon": "simple-icons:crystal",
+      "color": "#00D8FF",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oxja007s7pl84r3c8wzc",
+      "slug": "cucumber",
+      "name": "Cucumber",
+      "category": "testing",
+      "site": "https://cucumber.io",
+      "icon": "simple-icons:cucumber",
+      "color": "#23D96C",
+      "packageNames": [
+        "cucumber"
+      ]
+    },
+    {
+      "id": "cmhepg3as002a7pasv56cy6j1",
+      "slug": "cypress",
+      "name": "Cypress",
+      "category": "testing",
+      "site": "https://www.cypress.io",
+      "icon": "simple-icons:cypress",
+      "color": "#17202C",
+      "packageNames": [
+        "cypress"
+      ]
+    },
+    {
+      "id": "cmhg6ofr8004d7pl875inwj88",
+      "slug": "d-lang",
+      "name": "D",
+      "category": "language",
+      "site": "https://dlang.org",
+      "icon": "simple-icons:dlang",
+      "color": "#E95420",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ojg800597pl8jhfg8g18",
+      "slug": "daisyui",
+      "name": "DaisyUI",
+      "category": "frontend",
+      "site": "https://daisyui.com",
+      "icon": "simple-icons:daisyui",
+      "color": "#5A0FC8",
+      "packageNames": [
+        "@daisyui/core"
+      ]
+    },
+    {
+      "id": "cmhepfn1u000x7past005dsbr",
+      "slug": "dart",
+      "name": "Dart",
+      "category": "language",
+      "site": "https://dart.dev",
+      "icon": "simple-icons:dart",
+      "color": "#0175C2",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6opmd006g7pl8zaslbhak",
+      "slug": "databases",
+      "name": "Databases",
+      "category": "database",
+      "site": "https://www.encode.io/databases",
+      "icon": "simple-icons:databases",
+      "color": "#009688",
+      "packageNames": [
+        "databases"
+      ]
+    },
+    {
+      "id": "cmhepgd8y002z7pasi803wvgm",
+      "slug": "datadog",
+      "name": "Datadog",
+      "category": "devops",
+      "site": "https://www.datadoghq.com",
+      "icon": "simple-icons:datadog",
+      "color": "#632CA6",
+      "packageNames": [
+        "datadog"
+      ]
+    },
+    {
+      "id": "cmhg6p7kh009t7pl8ox43f36l",
+      "slug": "datadog-platform",
+      "name": "Datadog Platform",
+      "category": "devops",
+      "site": "https://www.datadoghq.com",
+      "icon": "simple-icons:datadog",
+      "color": "#632CA6",
+      "packageNames": [
+        "datadog-platform",
+        "datadogplatform",
+        "datadog_platform"
+      ]
+    },
+    {
+      "id": "cmhg6panh00aj7pl8mq1856qa",
+      "slug": "dayjs",
+      "name": "Day.js",
+      "category": "frontend",
+      "site": "https://day.js.org",
+      "icon": "simple-icons:dayjs",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "dayjs",
+        "day.js",
+        "@dayjs/core"
+      ]
+    },
+    {
+      "id": "cmhg6pl5100d07pl868ec9k2h",
+      "slug": "delayed-job",
+      "name": "Delayed Job",
+      "category": "backend",
+      "site": "https://github.com/collectiveidea/delayed_job",
+      "icon": "mdi:clock-alert",
+      "color": "#FF9800",
+      "packageNames": [
+        "delayed-job",
+        "delayedjob",
+        "delayed_job"
+      ]
+    },
+    {
+      "id": "cmhepo1gi001r7p5ohb37eprl",
+      "slug": "delphi",
+      "name": "Delphi",
+      "category": "language",
+      "site": "https://www.embarcadero.com/products/delphi",
+      "icon": "simple-icons:delphi",
+      "color": "#EE1F35",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p32j008x7pl846m1qent",
+      "slug": "deno",
+      "name": "Deno",
+      "category": "language",
+      "site": "https://deno.com",
+      "icon": "simple-icons:deno",
+      "color": "#EF4444",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oz6i00837pl8ib4tk6us",
+      "slug": "deno-deploy",
+      "name": "Deno Deploy",
+      "category": "devops",
+      "site": "https://deno.com/deploy",
+      "icon": "simple-icons:deno",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "deno-deploy",
+        "denodeploy",
+        "deno_deploy"
+      ]
+    },
+    {
+      "id": "cmhg6p51g009d7pl8nncxwmzg",
+      "slug": "detox",
+      "name": "Detox",
+      "category": "mobile",
+      "site": "https://wix.github.io/Detox",
+      "icon": "simple-icons:detox",
+      "color": "#10B981",
+      "packageNames": [
+        "detox"
+      ]
+    },
+    {
+      "id": "cmhg6oyfj00807pl8g1zjhru0",
+      "slug": "digitalocean",
+      "name": "DigitalOcean",
+      "category": "devops",
+      "site": "https://www.digitalocean.com",
+      "icon": "simple-icons:digitalocean",
+      "color": "#0080FF",
+      "packageNames": [
+        "digitalocean"
+      ]
+    },
+    {
+      "id": "cmhepfort00127pasore2w8bf",
+      "slug": "django",
+      "name": "Django",
+      "category": "backend",
+      "site": "https://www.djangoproject.com",
+      "icon": "simple-icons:django",
+      "color": "#44B78B",
+      "packageNames": [
+        "django"
+      ]
+    },
+    {
+      "id": "cmheo1ncp000b7pz0fy81d4z8",
+      "slug": "docker",
+      "name": "Docker",
+      "category": "devops",
+      "site": "https://www.docker.com",
+      "icon": "simple-icons:docker",
+      "color": "#2496ED",
+      "packageNames": [
+        "docker"
+      ]
+    },
+    {
+      "id": "cmhg6oriz006r7pl86zi9xwva",
+      "slug": "doobie",
+      "name": "Doobie",
+      "category": "database",
+      "site": "https://tpolecat.github.io/doobie",
+      "icon": "simple-icons:doobie",
+      "color": "#DC322F",
+      "packageNames": [
+        "doobie"
+      ]
+    },
+    {
+      "id": "cmhg6piy100ce7pl8gqom524m",
+      "slug": "dramatiq",
+      "name": "Dramatiq",
+      "category": "backend",
+      "site": "https://dramatiq.io",
+      "icon": "mdi:drama-masks",
+      "color": "#9C27B0",
+      "packageNames": [
+        "dramatiq"
+      ]
+    },
+    {
+      "id": "cmhg6ontb00697pl8vr3d4pr6",
+      "slug": "drizzle",
+      "name": "Drizzle",
+      "category": "database",
+      "site": "https://orm.drizzle.team",
+      "icon": "simple-icons:drizzle",
+      "color": "#FFDCB6",
+      "packageNames": [
+        "drizzle"
+      ]
+    },
+    {
+      "id": "cmhg6ompm00647pl8xf2viwcm",
+      "slug": "dropwizard",
+      "name": "Dropwizard",
+      "category": "backend",
+      "site": "https://www.dropwizard.io",
+      "icon": "mdi:water",
+      "color": "#2196F3",
+      "packageNames": [
+        "dropwizard",
+        "generator-angular-dropwizard",
+        "generator-wl-itsm-dropwizard"
+      ]
+    },
+    {
+      "id": "cmhepfu6v001j7pasmi7bgrjt",
+      "slug": "dynamodb",
+      "name": "DynamoDB",
+      "category": "database",
+      "site": "https://aws.amazon.com/dynamodb",
+      "icon": "simple-icons:amazondynamodb",
+      "color": "#4053D6",
+      "packageNames": [
+        "dynamodb"
+      ]
+    },
+    {
+      "id": "cmhk2mguu00037pis46nj01j3",
+      "slug": "eslint",
+      "name": "ESLint",
+      "category": "frontend",
+      "site": "https://eslint.org",
+      "icon": "simple-icons:eslint",
+      "color": "#4B32C3",
+      "packageNames": [
+        "eslint",
+        "eslint-config-next"
+      ]
+    },
+    {
+      "id": "cmhepfqr400187pasmx5boytx",
+      "slug": "echo",
+      "name": "Echo",
+      "category": "backend",
+      "site": "https://echo.labstack.com",
+      "icon": "simple-icons:go",
+      "color": "#00ADD8",
+      "packageNames": [
+        "echo",
+        "github.com/labstack/echo"
+      ]
+    },
+    {
+      "id": "cmhg6or75006o7pl8q1hidw7k",
+      "slug": "ecto",
+      "name": "Ecto",
+      "category": "database",
+      "site": "https://hexdocs.pm/ecto",
+      "icon": "simple-icons:elixir",
+      "color": "#4B275F",
+      "packageNames": [
+        "ecto"
+      ]
+    },
+    {
+      "id": "cmhg6p7vt009w7pl8dbq5i5sm",
+      "slug": "elastic-stack",
+      "name": "Elastic Stack",
+      "category": "devops",
+      "site": "https://www.elastic.co",
+      "icon": "simple-icons:elastic",
+      "color": "#005571",
+      "packageNames": [
+        "elastic-stack",
+        "elasticstack",
+        "elastic_stack"
+      ]
+    },
+    {
+      "id": "cmhepftvq001i7pasf571aj3v",
+      "slug": "elasticsearch",
+      "name": "Elasticsearch",
+      "category": "database",
+      "site": "https://www.elastic.co",
+      "icon": "simple-icons:elasticsearch",
+      "color": "#005571",
+      "packageNames": [
+        "@elastic/elasticsearch",
+        "elasticsearch"
+      ]
+    },
+    {
+      "id": "cmhg6oho7004t7pl8y3r2xhse",
+      "slug": "eleventy",
+      "name": "Eleventy",
+      "category": "frontend",
+      "site": "https://www.11ty.dev",
+      "icon": "simple-icons:eleventy",
+      "color": "#06B6D4",
+      "packageNames": [
+        "@eleventy/core"
+      ]
+    },
+    {
+      "id": "cmhepnogg00127p5odgk8pxy0",
+      "slug": "elixir",
+      "name": "Elixir",
+      "category": "language",
+      "site": "https://elixir-lang.org",
+      "icon": "simple-icons:elixir",
+      "color": "#4B275F",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepnxa0001j7p5o7gtiyq8b",
+      "slug": "elm",
+      "name": "Elm",
+      "category": "language",
+      "site": "https://elm-lang.org",
+      "icon": "simple-icons:elm",
+      "color": "#1293D8",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ojxo005f7pl8hntflz7n",
+      "slug": "elysia",
+      "name": "Elysia",
+      "category": "backend",
+      "site": "https://elysiajs.com",
+      "icon": "mdi:lightning-bolt",
+      "color": "#6366F1",
+      "packageNames": [
+        "elysia",
+        "elysia-helmet"
+      ]
+    },
+    {
+      "id": "cmhepfhn3000g7pasypd6v4nj",
+      "slug": "emotion",
+      "name": "Emotion",
+      "category": "frontend",
+      "site": "https://emotion.sh",
+      "icon": "mdi:emoticon",
+      "color": "#D36AC2",
+      "packageNames": [
+        "@emotion/react",
+        "@emotion/styled",
+        "@emotion/core"
+      ]
+    },
+    {
+      "id": "cmhepnots00137p5ocidzl2k5",
+      "slug": "erlang",
+      "name": "Erlang",
+      "category": "language",
+      "site": "https://www.erlang.org",
+      "icon": "simple-icons:erlang",
+      "color": "#A90533",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ode8003z7pl88bdvpaaz",
+      "slug": "ethersjs",
+      "name": "Ethers.js",
+      "category": "crypto",
+      "site": "https://ethers.org",
+      "icon": "simple-icons:ethereum",
+      "color": "#627EEA",
+      "packageNames": [
+        "ethers.js"
+      ]
+    },
+    {
+      "id": "cmhepgall002r7passne332eq",
+      "slug": "expo",
+      "name": "Expo",
+      "category": "mobile",
+      "site": "https://expo.dev",
+      "icon": "simple-icons:expo",
+      "color": "#4630EB",
+      "packageNames": [
+        "expo",
+        "@expo/metro-runtime"
+      ]
+    },
+    {
+      "id": "cmhepfo4700107pasd0jz0kz3",
+      "slug": "express",
+      "name": "Express",
+      "category": "backend",
+      "site": "https://expressjs.com",
+      "icon": "simple-icons:express",
+      "color": "#FFFFFF",
+      "packageNames": [
+        "express",
+        "body-parser",
+        "cors",
+        "bodyparser"
+      ]
+    },
+    {
+      "id": "cmhepnuih001e7p5optrlxxd6",
+      "slug": "fsharp",
+      "name": "F#",
+      "category": "language",
+      "site": "https://fsharp.org",
+      "icon": "simple-icons:fsharp",
+      "color": "#378BBA",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oxub007v7pl853va5con",
+      "slug": "factory-bot",
+      "name": "Factory Bot",
+      "category": "testing",
+      "site": "https://github.com/thoughtbot/factory_bot",
+      "icon": "simple-icons:factorybot",
+      "color": "#EE0220",
+      "packageNames": [
+        "factory-bot",
+        "factorybot",
+        "factory_bot"
+      ]
+    },
+    {
+      "id": "cmhg6oum3007d7pl8li8rte69",
+      "slug": "faker",
+      "name": "Faker",
+      "category": "testing",
+      "site": "https://faker.readthedocs.io",
+      "icon": "simple-icons:faker",
+      "color": "#06B6D4",
+      "packageNames": [
+        "faker"
+      ]
+    },
+    {
+      "id": "cmhg6oxyj007w7pl8wi077bhp",
+      "slug": "faker-ruby",
+      "name": "Faker",
+      "category": "testing",
+      "site": "https://github.com/faker-ruby/faker",
+      "icon": "simple-icons:faker",
+      "color": "#06B6D4",
+      "packageNames": [
+        "faker-ruby",
+        "faker"
+      ]
+    },
+    {
+      "id": "cmheo1jl000007pz0o6kp1igc",
+      "slug": "fastapi",
+      "name": "FastAPI",
+      "category": "backend",
+      "site": "https://fastapi.tiangolo.com",
+      "icon": "simple-icons:fastapi",
+      "color": "#009688",
+      "packageNames": [
+        "fastapi"
+      ]
+    },
+    {
+      "id": "cmhg6ok0d005g7pl82piurlj7",
+      "slug": "fastify",
+      "name": "Fastify",
+      "category": "backend",
+      "site": "https://www.fastify.io",
+      "icon": "simple-icons:fastify",
+      "color": "#FFF100",
+      "packageNames": [
+        "fastify"
+      ]
+    },
+    {
+      "id": "cmhg6oke5005k7pl8i8mlo6mc",
+      "slug": "feathers",
+      "name": "Feathers",
+      "category": "backend",
+      "site": "https://feathersjs.com",
+      "icon": "mdi:feather",
+      "color": "#00BCD4",
+      "packageNames": [
+        "feathers",
+        "feathers-sync",
+        "feathers-blob"
+      ]
+    },
+    {
+      "id": "cmhg6pb4n00am7pl80w0qtjd4",
+      "slug": "fetch-api",
+      "name": "Fetch API",
+      "category": "frontend",
+      "site": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+      "icon": "mdi:web",
+      "color": "#00A0E3",
+      "packageNames": [
+        "fetch-api",
+        "fetchapi",
+        "fetch_api",
+        "@fetch-api/core"
+      ]
+    },
+    {
+      "id": "cmhk2r70z00077p6sagpe3482",
+      "slug": "fetch",
+      "name": "Fetch API",
+      "category": "frontend",
+      "site": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+      "icon": "mdi:web",
+      "color": "#00A0E3",
+      "packageNames": [
+        "node-fetch",
+        "whatwg-fetch"
+      ]
+    },
+    {
+      "id": "cmhepgbp3002u7pas4ah532q2",
+      "slug": "figma",
+      "name": "Figma",
+      "category": "design",
+      "site": "https://www.figma.com",
+      "icon": "simple-icons:figma",
+      "color": "#F24E1E",
+      "packageNames": [
+        "figma"
+      ]
+    },
+    {
+      "id": "cmhg6pdev00b07pl87kvktk6z",
+      "slug": "final-form",
+      "name": "Final Form",
+      "category": "frontend",
+      "site": "https://final-form.org/react",
+      "icon": "simple-icons:finalform",
+      "color": "#61DAFB",
+      "packageNames": [
+        "final-form",
+        "finalform",
+        "final_form",
+        "@final-form/core"
+      ]
+    },
+    {
+      "id": "cmheo1oz9000g7pz04neplolc",
+      "slug": "firebase",
+      "name": "Firebase",
+      "category": "backend",
+      "site": "https://firebase.google.com",
+      "icon": "simple-icons:firebase",
+      "color": "#FFCA28",
+      "packageNames": [
+        "firebase",
+        "@firebase/app"
+      ]
+    },
+    {
+      "id": "cmhepfp3a00137pasfrpxq8yt",
+      "slug": "flask",
+      "name": "Flask",
+      "category": "backend",
+      "site": "https://flask.palletsprojects.com",
+      "icon": "simple-icons:flask",
+      "color": "#3776AB",
+      "packageNames": [
+        "flask"
+      ]
+    },
+    {
+      "id": "cmhg6p8fu00a07pl8063s4ldx",
+      "slug": "fluent-bit",
+      "name": "Fluent Bit",
+      "category": "devops",
+      "site": "https://fluentbit.io",
+      "icon": "simple-icons:fluentbit",
+      "color": "#49BDA5",
+      "packageNames": [
+        "fluent-bit",
+        "fluentbit",
+        "fluent_bit"
+      ]
+    },
+    {
+      "id": "cmhg6p8bi009z7pl8l1e74606",
+      "slug": "fluentd",
+      "name": "Fluentd",
+      "category": "devops",
+      "site": "https://www.fluentd.org",
+      "icon": "simple-icons:fluentd",
+      "color": "#0E83C8",
+      "packageNames": [
+        "fluentd"
+      ]
+    },
+    {
+      "id": "cmhepgaad002q7pasq7mt79m8",
+      "slug": "flutter",
+      "name": "Flutter",
+      "category": "mobile",
+      "site": "https://flutter.dev",
+      "icon": "simple-icons:flutter",
+      "color": "#02569B",
+      "packageNames": [
+        "flutter"
+      ]
+    },
+    {
+      "id": "cmhg6p02b00887pl8cvke06yq",
+      "slug": "fly-apps",
+      "name": "Fly Apps",
+      "category": "devops",
+      "site": "https://fly.io/apps",
+      "icon": "simple-icons:flyio",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "fly-apps",
+        "flyapps",
+        "fly_apps"
+      ]
+    },
+    {
+      "id": "cmhg6oyvw00827pl85o86fi1v",
+      "slug": "flyio",
+      "name": "Fly.io",
+      "category": "devops",
+      "site": "https://fly.io",
+      "icon": "simple-icons:flyio",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "fly.io"
+      ]
+    },
+    {
+      "id": "cmhg6pd6f00ay7pl8l09wqb5j",
+      "slug": "formik",
+      "name": "Formik",
+      "category": "frontend",
+      "site": "https://formik.org",
+      "icon": "simple-icons:formik",
+      "color": "#61DAFB",
+      "packageNames": [
+        "@formik/core"
+      ]
+    },
+    {
+      "id": "cmhepnzq6001o7p5or3zk9x19",
+      "slug": "fortran",
+      "name": "Fortran",
+      "category": "language",
+      "site": "https://fortran-lang.org",
+      "icon": "simple-icons:fortran",
+      "color": "#734F96",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ojsq005d7pl801sen4fh",
+      "slug": "foundation",
+      "name": "Foundation",
+      "category": "frontend",
+      "site": "https://get.foundation",
+      "icon": "simple-icons:foundation",
+      "color": "#008CBA",
+      "packageNames": [
+        "@foundation/core"
+      ]
+    },
+    {
+      "id": "cmhg6oe9900437pl8f4qzz23o",
+      "slug": "foundry",
+      "name": "Foundry",
+      "category": "crypto",
+      "site": "https://getfoundry.sh",
+      "icon": "simple-icons:foundry",
+      "color": "#FF6B35",
+      "packageNames": [
+        "foundry"
+      ]
+    },
+    {
+      "id": "cmhepgcmu002x7pasmwn0q574",
+      "slug": "framer",
+      "name": "Framer",
+      "category": "design",
+      "site": "https://www.framer.com",
+      "icon": "simple-icons:framer",
+      "color": "#0055FF",
+      "packageNames": [
+        "framer",
+        "framer-motion"
+      ]
+    },
+    {
+      "id": "cmhk2mgbw00007pis9sk0kfq3",
+      "slug": "framer-motion",
+      "name": "Framer Motion",
+      "category": "frontend",
+      "site": "https://www.framer.com/motion",
+      "icon": "simple-icons:framer",
+      "color": "#0055FF",
+      "packageNames": [
+        "framer-motion"
+      ]
+    },
+    {
+      "id": "cmhk2r83b000a7p6sbcxwafl8",
+      "slug": "gsap",
+      "name": "GSAP",
+      "category": "frontend",
+      "site": "https://greensock.com/gsap",
+      "icon": "simple-icons:greensock",
+      "color": "#88CE02",
+      "packageNames": [
+        "gsap"
+      ]
+    },
+    {
+      "id": "cmhg6ohfu004r7pl8jmw1502a",
+      "slug": "gatsby",
+      "name": "Gatsby",
+      "category": "frontend",
+      "site": "https://www.gatsbyjs.com",
+      "icon": "simple-icons:gatsby",
+      "color": "#663399",
+      "packageNames": [
+        "@gatsby/core"
+      ]
+    },
+    {
+      "id": "cmhepfqcb00177pas8429pm43",
+      "slug": "gin",
+      "name": "Gin",
+      "category": "backend",
+      "site": "https://gin-gonic.com",
+      "icon": "simple-icons:go",
+      "color": "#00ADD8",
+      "packageNames": [
+        "gin",
+        "github.com/gin-gonic/gin"
+      ]
+    },
+    {
+      "id": "cmhepfxmv001u7pas44rajyuf",
+      "slug": "github-actions",
+      "name": "GitHub Actions",
+      "category": "devops",
+      "site": "https://github.com/features/actions",
+      "icon": "simple-icons:githubactions",
+      "color": "#2088FF",
+      "packageNames": [
+        "github-actions",
+        "githubactions",
+        "github_actions"
+      ]
+    },
+    {
+      "id": "cmhepfxym001v7pasuyx5mc51",
+      "slug": "gitlab",
+      "name": "GitLab CI",
+      "category": "devops",
+      "site": "https://about.gitlab.com",
+      "icon": "simple-icons:gitlab",
+      "color": "#FC6D26",
+      "packageNames": [
+        "@gitlab/ci",
+        "gitlab-ci",
+        "gitlabci",
+        "gitlab_ci"
+      ]
+    },
+    {
+      "id": "cmhg6p3hj00917pl8w4cfuudb",
+      "slug": "gluestack",
+      "name": "Gluestack",
+      "category": "mobile",
+      "site": "https://gluestack.io",
+      "icon": "simple-icons:gluestackui",
+      "color": "#0052FF",
+      "packageNames": [
+        "gluestack"
+      ]
+    },
+    {
+      "id": "cmheo1kzs00047pz0cdcw2b4j",
+      "slug": "golang",
+      "name": "Go",
+      "category": "language",
+      "site": "https://go.dev",
+      "icon": "simple-icons:go",
+      "color": "#00ADD8",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oybj007z7pl8a9ab8mvg",
+      "slug": "gcp",
+      "name": "Google Cloud",
+      "category": "devops",
+      "site": "https://cloud.google.com",
+      "icon": "simple-icons:googlecloud",
+      "color": "#4285F4",
+      "packageNames": [
+        "google-cloud",
+        "googlecloud",
+        "google_cloud"
+      ]
+    },
+    {
+      "id": "cmhg6pbir00ap7pl8fj5orktp",
+      "slug": "got",
+      "name": "Got",
+      "category": "backend",
+      "site": "https://github.com/sindresorhus/got",
+      "icon": "mdi:download",
+      "color": "#4CAF50",
+      "packageNames": [
+        "got",
+        "gh-got",
+        "got-scraping"
+      ]
+    },
+    {
+      "id": "cmhepgdv900317pasatjfmfcg",
+      "slug": "grafana",
+      "name": "Grafana",
+      "category": "devops",
+      "site": "https://grafana.com",
+      "icon": "simple-icons:grafana",
+      "color": "#F46800",
+      "packageNames": [
+        "grafana"
+      ]
+    },
+    {
+      "id": "cmhg6pkpt00cv7pl8i5mbqft0",
+      "slug": "grape",
+      "name": "Grape",
+      "category": "backend",
+      "site": "https://github.com/ruby-grape/grape",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": [
+        "grape",
+        "grenache-grape",
+        "grape-cli"
+      ]
+    },
+    {
+      "id": "cmheo1pmw000i7pz0ln0gbku9",
+      "slug": "graphql",
+      "name": "GraphQL",
+      "category": "api",
+      "site": "https://graphql.org",
+      "icon": "simple-icons:graphql",
+      "color": "#E10098",
+      "packageNames": [
+        "graphql"
+      ]
+    },
+    {
+      "id": "cmhg6ohk1004s7pl84w2i7353",
+      "slug": "gridsome",
+      "name": "Gridsome",
+      "category": "frontend",
+      "site": "https://gridsome.org",
+      "icon": "simple-icons:gridsome",
+      "color": "#00A672",
+      "packageNames": [
+        "@gridsome/core"
+      ]
+    },
+    {
+      "id": "cmhg6ofip004c7pl82v5ycaev",
+      "slug": "groovy",
+      "name": "Groovy",
+      "category": "language",
+      "site": "https://groovy-lang.org",
+      "icon": "simple-icons:apachegroovy",
+      "color": "#4298B8",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oh08004n7pl8l403yrje",
+      "slug": "htmx",
+      "name": "HTMX",
+      "category": "frontend",
+      "site": "https://htmx.org",
+      "icon": "simple-icons:htmx",
+      "color": "#1C9CF6",
+      "packageNames": [
+        "@htmx/core"
+      ]
+    },
+    {
+      "id": "cmhg6otqu00787pl81z37nuaa",
+      "slug": "httpx",
+      "name": "HTTPX",
+      "category": "testing",
+      "site": "https://www.python-httpx.org",
+      "icon": "simple-icons:httpx",
+      "color": "#FF3980",
+      "packageNames": [
+        "httpx"
+      ]
+    },
+    {
+      "id": "cmhg6pi6v00c97pl8j5nqkiox",
+      "slug": "httpx-python",
+      "name": "HTTPX (Python)",
+      "category": "backend",
+      "site": "https://www.python-httpx.org",
+      "icon": "simple-icons:httpx",
+      "color": "#009688",
+      "packageNames": [
+        "httpx-python",
+        "httpx-(python)",
+        "httpx(python)",
+        "httpx_(python)"
+      ]
+    },
+    {
+      "id": "cmhg6pkmx00cu7pl8neqx6aqx",
+      "slug": "hanami",
+      "name": "Hanami",
+      "category": "backend",
+      "site": "https://hanamirb.org",
+      "icon": "simple-icons:hanami",
+      "color": "#CC342D",
+      "packageNames": [
+        "hanami",
+        "hanami-assets",
+        "hubot-hanami",
+        "hanami-ui"
+      ]
+    },
+    {
+      "id": "cmhg6ok6l005i7pl87bsp7ep0",
+      "slug": "hapi",
+      "name": "Hapi",
+      "category": "backend",
+      "site": "https://hapi.dev",
+      "icon": "mdi:circle-multiple",
+      "color": "#00BCD4",
+      "packageNames": [
+        "hapi",
+        "hapi-pino"
+      ]
+    },
+    {
+      "id": "cmhg6odxx00417pl85yafy8cf",
+      "slug": "hardhat",
+      "name": "Hardhat",
+      "category": "crypto",
+      "site": "https://hardhat.org",
+      "icon": "simple-icons:hardhat",
+      "color": "#FFF8DC",
+      "packageNames": [
+        "hardhat"
+      ]
+    },
+    {
+      "id": "cmhepno1700117p5ovcgrwhhi",
+      "slug": "haskell",
+      "name": "Haskell",
+      "category": "language",
+      "site": "https://www.haskell.org",
+      "icon": "simple-icons:haskell",
+      "color": "#5D4F85",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oj8h00577pl8d9s1wsgv",
+      "slug": "headlessui",
+      "name": "Headless UI",
+      "category": "frontend",
+      "site": "https://headlessui.com",
+      "icon": "simple-icons:headlessui",
+      "color": "#66E3FF",
+      "packageNames": [
+        "headless-ui",
+        "headless_ui",
+        "@headlessui/core"
+      ]
+    },
+    {
+      "id": "cmhg6pdqc00b27pl8z80p7kt5",
+      "slug": "helmet",
+      "name": "Helmet",
+      "category": "backend",
+      "site": "https://helmetjs.github.io",
+      "icon": "mdi:shield-check",
+      "color": "#00BCD4",
+      "packageNames": [
+        "helmet",
+        "react-helmet-async"
+      ]
+    },
+    {
+      "id": "cmhg6oyl500817pl8cc8z8qoa",
+      "slug": "heroku",
+      "name": "Heroku",
+      "category": "devops",
+      "site": "https://www.heroku.com",
+      "icon": "simple-icons:heroku",
+      "color": "#430098",
+      "packageNames": [
+        "heroku"
+      ]
+    },
+    {
+      "id": "cmhg6p9hu00a67pl80kyygkym",
+      "slug": "honeycomb",
+      "name": "Honeycomb",
+      "category": "devops",
+      "site": "https://www.honeycomb.io",
+      "icon": "simple-icons:honeycomb",
+      "color": "#FFB000",
+      "packageNames": [
+        "honeycomb"
+      ]
+    },
+    {
+      "id": "cmhg6ojv8005e7pl80y0hklav",
+      "slug": "hono",
+      "name": "Hono",
+      "category": "backend",
+      "site": "https://hono.dev",
+      "icon": "simple-icons:hono",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "hono",
+        "hono-openapi"
+      ]
+    },
+    {
+      "id": "cmhg6ohsz004u7pl8ulhcfea9",
+      "slug": "hugo",
+      "name": "Hugo",
+      "category": "frontend",
+      "site": "https://gohugo.io",
+      "icon": "simple-icons:hugo",
+      "color": "#FF4088",
+      "packageNames": [
+        "@hugo/core"
+      ]
+    },
+    {
+      "id": "cmhg6oeyn00497pl8r5sal5x1",
+      "slug": "ipfs",
+      "name": "IPFS",
+      "category": "crypto",
+      "site": "https://ipfs.tech",
+      "icon": "simple-icons:ipfs",
+      "color": "#65C2CB",
+      "packageNames": [
+        "ipfs"
+      ]
+    },
+    {
+      "id": "cmhk2r52e00007p6s42r4z7dz",
+      "slug": "iconify",
+      "name": "Iconify",
+      "category": "frontend",
+      "site": "https://iconify.design",
+      "icon": "simple-icons:iconify",
+      "color": "#1769AA",
+      "packageNames": [
+        "@iconify/react",
+        "iconify",
+        "@iconify/react"
+      ]
+    },
+    {
+      "id": "cmhg6p69g009j7pl8k7mlg2cc",
+      "slug": "invision",
+      "name": "InVision",
+      "category": "design",
+      "site": "https://www.invisionapp.com",
+      "icon": "simple-icons:invision",
+      "color": "#FF3366",
+      "packageNames": [
+        "invision"
+      ]
+    },
+    {
+      "id": "cmhepg1uk00277pasf3po4md5",
+      "slug": "insomnia",
+      "name": "Insomnia",
+      "category": "api",
+      "site": "https://insomnia.rest",
+      "icon": "simple-icons:insomnia",
+      "color": "#5849BE",
+      "packageNames": [
+        "insomnia"
+      ]
+    },
+    {
+      "id": "cmhg6phb000by7pl8pt6756x9",
+      "slug": "inversify",
+      "name": "InversifyJS",
+      "category": "backend",
+      "site": "https://inversify.io",
+      "icon": "mdi:refresh-circle",
+      "color": "#FF5722",
+      "packageNames": [
+        "inversifyjs"
+      ]
+    },
+    {
+      "id": "cmhepgayj002s7pas7l2muzfx",
+      "slug": "ionic",
+      "name": "Ionic",
+      "category": "mobile",
+      "site": "https://ionicframework.com",
+      "icon": "simple-icons:ionic",
+      "color": "#3880FF",
+      "packageNames": [
+        "@ionic/core",
+        "@ionic/react",
+        "@ionic/angular"
+      ]
+    },
+    {
+      "id": "cmhepg8np002l7pas9uo3tm81",
+      "slug": "jwt",
+      "name": "JWT",
+      "category": "auth",
+      "site": "https://jwt.io",
+      "icon": "simple-icons:jsonwebtokens",
+      "color": "#F8991D",
+      "packageNames": [
+        "jwt"
+      ]
+    },
+    {
+      "id": "cmhg6p96100a27pl844u65vey",
+      "slug": "jaeger",
+      "name": "Jaeger",
+      "category": "devops",
+      "site": "https://www.jaegertracing.io",
+      "icon": "simple-icons:jaeger",
+      "color": "#1E40AF",
+      "packageNames": [
+        "jaeger"
+      ]
+    },
+    {
+      "id": "cmhg6oser006z7pl8nxdn5c9u",
+      "slug": "jasmine",
+      "name": "Jasmine",
+      "category": "testing",
+      "site": "https://jasmine.github.io",
+      "icon": "simple-icons:jasmine",
+      "color": "#8A4182",
+      "packageNames": [
+        "jasmine"
+      ]
+    },
+    {
+      "id": "cmhepfl6f000r7pas9sdkcl0e",
+      "slug": "java",
+      "name": "Java",
+      "category": "language",
+      "site": "https://www.java.com",
+      "icon": "logos:java",
+      "color": "#ED8B00",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepfjvu000n7pasjrbupus0",
+      "slug": "javascript",
+      "name": "JavaScript",
+      "category": "language",
+      "site": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      "icon": "simple-icons:javascript",
+      "color": "#F7DF1E",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ohwg004v7pl8tffgfu72",
+      "slug": "jekyll",
+      "name": "Jekyll",
+      "category": "frontend",
+      "site": "https://jekyllrb.com",
+      "icon": "simple-icons:jekyll",
+      "color": "#CC0000",
+      "packageNames": [
+        "@jekyll/core"
+      ]
+    },
+    {
+      "id": "cmhepfxao001t7pasxa9thc78",
+      "slug": "jenkins",
+      "name": "Jenkins",
+      "category": "devops",
+      "site": "https://www.jenkins.io",
+      "icon": "simple-icons:jenkins",
+      "color": "#D24939",
+      "packageNames": [
+        "jenkins"
+      ]
+    },
+    {
+      "id": "cmhepg24o00287pasd5hkxu23",
+      "slug": "jest",
+      "name": "Jest",
+      "category": "testing",
+      "site": "https://jestjs.io",
+      "icon": "simple-icons:jest",
+      "color": "#C21325",
+      "packageNames": [
+        "jest",
+        "@jest/core"
+      ]
+    },
+    {
+      "id": "cmhg6p4ep00997pl8zgqvb3lt",
+      "slug": "compose",
+      "name": "Jetpack Compose",
+      "category": "mobile",
+      "site": "https://developer.android.com/jetpack/compose",
+      "icon": "simple-icons:kotlin",
+      "color": "#7F52FF",
+      "packageNames": [
+        "jetpack-compose",
+        "jetpackcompose",
+        "jetpack_compose"
+      ]
+    },
+    {
+      "id": "cmhg6omva00657pl8msny8x7p",
+      "slug": "jetty",
+      "name": "Jetty",
+      "category": "backend",
+      "site": "https://eclipse.dev/jetty",
+      "icon": "simple-icons:eclipsejetty",
+      "color": "#FC390E",
+      "packageNames": [
+        "jetty",
+        "jetty-chart",
+        "jetty-plus"
+      ]
+    },
+    {
+      "id": "cmhg6pcjv00av7pl8layzc2yv",
+      "slug": "joi",
+      "name": "Joi",
+      "category": "backend",
+      "site": "https://joi.dev",
+      "icon": "simple-icons:joi",
+      "color": "#00758F",
+      "packageNames": [
+        "joi",
+        "express-joi-validations",
+        "joi-to-json"
+      ]
+    },
+    {
+      "id": "cmhepfiwz000k7pasu8z9m1ak",
+      "slug": "jotai",
+      "name": "Jotai",
+      "category": "frontend",
+      "site": "https://jotai.org",
+      "icon": "simple-icons:jotai",
+      "color": "#333333",
+      "packageNames": [
+        "jotai",
+        "@jotai/core"
+      ]
+    },
+    {
+      "id": "cmhepntyj001d7p5orux3qt0d",
+      "slug": "julia",
+      "name": "Julia",
+      "category": "language",
+      "site": "https://julialang.org",
+      "icon": "simple-icons:julia",
+      "color": "#9558B2",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6osbl006y7pl8buvpgpz0",
+      "slug": "karma",
+      "name": "Karma",
+      "category": "testing",
+      "site": "https://karma-runner.github.io",
+      "icon": "simple-icons:karma",
+      "color": "#0D9B47",
+      "packageNames": [
+        "karma"
+      ]
+    },
+    {
+      "id": "cmhg6p81y009x7pl88ds1ohmb",
+      "slug": "kibana",
+      "name": "Kibana",
+      "category": "devops",
+      "site": "https://www.elastic.co/kibana",
+      "icon": "simple-icons:kibana",
+      "color": "#005571",
+      "packageNames": [
+        "kibana"
+      ]
+    },
+    {
+      "id": "cmhg6ok40005h7pl81wmiphly",
+      "slug": "koa",
+      "name": "Koa",
+      "category": "backend",
+      "site": "https://koajs.com",
+      "icon": "simple-icons:koa",
+      "color": "#333333",
+      "packageNames": [
+        "koa",
+        "@koa/router"
+      ]
+    },
+    {
+      "id": "cmhepfmes000v7pasu6szu7zg",
+      "slug": "kotlin",
+      "name": "Kotlin",
+      "category": "language",
+      "site": "https://kotlinlang.org",
+      "icon": "simple-icons:kotlin",
+      "color": "#7F52FF",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p4kd009a7pl8ay8evvl5",
+      "slug": "kotlin-multiplatform",
+      "name": "Kotlin Multiplatform",
+      "category": "mobile",
+      "site": "https://kotlinlang.org/docs/multiplatform.html",
+      "icon": "simple-icons:kotlin",
+      "color": "#7F52FF",
+      "packageNames": [
+        "kotlin-multiplatform",
+        "kotlinmultiplatform",
+        "kotlin_multiplatform"
+      ]
+    },
+    {
+      "id": "cmhg6om21005z7pl8yingid42",
+      "slug": "ktor",
+      "name": "Ktor",
+      "category": "backend",
+      "site": "https://ktor.io",
+      "icon": "simple-icons:ktor",
+      "color": "#7F52FF",
+      "packageNames": [
+        "ktor",
+        "create-nx-ktor"
+      ]
+    },
+    {
+      "id": "cmhg6om4r00607pl867wyuh37",
+      "slug": "ktor-native",
+      "name": "Ktor Native",
+      "category": "backend",
+      "site": "https://ktor.io",
+      "icon": "simple-icons:kotlin",
+      "color": "#7F52FF",
+      "packageNames": [
+        "ktor-native",
+        "ktornative",
+        "ktor_native"
+      ]
+    },
+    {
+      "id": "cmhepfvou001o7pasd3dpeqr5",
+      "slug": "kubernetes",
+      "name": "Kubernetes",
+      "category": "devops",
+      "site": "https://kubernetes.io",
+      "icon": "simple-icons:kubernetes",
+      "color": "#326CE5",
+      "packageNames": [
+        "kubernetes"
+      ]
+    },
+    {
+      "id": "cmhg6pbww00ar7pl8262pu88s",
+      "slug": "ky",
+      "name": "Ky",
+      "category": "frontend",
+      "site": "https://github.com/sindresorhus/ky",
+      "icon": "simple-icons:ky",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "@ky/core"
+      ]
+    },
+    {
+      "id": "cmhg6op00006a7pl8x9q4mujo",
+      "slug": "kysely",
+      "name": "Kysely",
+      "category": "database",
+      "site": "https://kysely.dev",
+      "icon": "simple-icons:kysely",
+      "color": "#10B981",
+      "packageNames": [
+        "kysely"
+      ]
+    },
+    {
+      "id": "cmhk2r5b000017p6s10fn7gbo",
+      "slug": "lenis",
+      "name": "Lenis",
+      "category": "frontend",
+      "site": "https://lenis.studiofreight.com",
+      "icon": "mdi:arrow-down",
+      "color": "#6366F1",
+      "packageNames": [
+        "lenis"
+      ]
+    },
+    {
+      "id": "cmhg6p9kx00a77pl833u5xzyh",
+      "slug": "lightstep",
+      "name": "Lightstep",
+      "category": "devops",
+      "site": "https://lightstep.com",
+      "icon": "simple-icons:lightstep",
+      "color": "#00A8FF",
+      "packageNames": [
+        "lightstep",
+        "lightstep-tracer",
+        "lightstep-opentelemetry-launcher-node"
+      ]
+    },
+    {
+      "id": "cmhg6ogk3004k7pl8za179trq",
+      "slug": "lit",
+      "name": "Lit",
+      "category": "frontend",
+      "site": "https://lit.dev",
+      "icon": "simple-icons:lit",
+      "color": "#324FFF",
+      "packageNames": [
+        "@lit/core"
+      ]
+    },
+    {
+      "id": "cmhg6pa3d00ae7pl8eq3r1wrb",
+      "slug": "lodash",
+      "name": "Lodash",
+      "category": "frontend",
+      "site": "https://lodash.com",
+      "icon": "simple-icons:lodash",
+      "color": "#3492FF",
+      "packageNames": [
+        "lodash",
+        "@lodash/core"
+      ]
+    },
+    {
+      "id": "cmhg6p876009y7pl8r6ontzg0",
+      "slug": "logstash",
+      "name": "Logstash",
+      "category": "devops",
+      "site": "https://www.elastic.co/logstash",
+      "icon": "simple-icons:logstash",
+      "color": "#005571",
+      "packageNames": [
+        "logstash"
+      ]
+    },
+    {
+      "id": "cmhg6pjxi00cm7pl8jy6g3u5b",
+      "slug": "loguru",
+      "name": "Loguru",
+      "category": "backend",
+      "site": "https://github.com/Delgan/loguru",
+      "icon": "mdi:file-document-outline",
+      "color": "#4CAF50",
+      "packageNames": [
+        "loguru",
+        "loguru-node",
+        "kens-pythontools"
+      ]
+    },
+    {
+      "id": "cmhg6p8kk00a17pl86ummrs40",
+      "slug": "loki",
+      "name": "Loki",
+      "category": "devops",
+      "site": "https://grafana.com/oss/loki",
+      "icon": "simple-icons:grafanaloki",
+      "color": "#F46800",
+      "packageNames": [
+        "loki"
+      ]
+    },
+    {
+      "id": "cmhg6okgt005l7pl8r0rcoj3k",
+      "slug": "loopback",
+      "name": "LoopBack",
+      "category": "backend",
+      "site": "https://loopback.io",
+      "icon": "simple-icons:loopback",
+      "color": "#3F83F6",
+      "packageNames": [
+        "loopback",
+        "loopback-connector",
+        "loopback-datasource-juggler"
+      ]
+    },
+    {
+      "id": "cmhk2r87r000b7p6solmbr3ax",
+      "slug": "lottie",
+      "name": "Lottie",
+      "category": "frontend",
+      "site": "https://lottiefiles.com",
+      "icon": "simple-icons:lottiefiles",
+      "color": "#00D0AF",
+      "packageNames": [
+        "lottie-react",
+        "lottie-web",
+        "react-lottie"
+      ]
+    },
+    {
+      "id": "cmhepnqpz00177p5oyfvwzt5b",
+      "slug": "lua",
+      "name": "Lua",
+      "category": "language",
+      "site": "https://www.lua.org",
+      "icon": "simple-icons:lua",
+      "color": "#2C2D72",
+      "packageNames": []
+    },
+    {
+      "id": "cmhk2mgjn00017pis2igtviv9",
+      "slug": "lucide",
+      "name": "Lucide",
+      "category": "frontend",
+      "site": "https://lucide.dev",
+      "icon": "simple-icons:lucide",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "lucide-react",
+        "lucide"
+      ]
+    },
+    {
+      "id": "cmhg6pat600ak7pl8wpxqvbel",
+      "slug": "luxon",
+      "name": "Luxon",
+      "category": "frontend",
+      "site": "https://moment.github.io/luxon",
+      "icon": "simple-icons:luxon",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "@luxon/core"
+      ]
+    },
+    {
+      "id": "cmhepnzby001n7p5ojgmqe685",
+      "slug": "matlab",
+      "name": "MATLAB",
+      "category": "language",
+      "site": "https://www.mathworks.com/products/matlab.html",
+      "icon": "simple-icons:mathworks",
+      "color": "#0076A8",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p4q7009b7pl8qq1yz4bq",
+      "slug": "maestro",
+      "name": "Maestro",
+      "category": "mobile",
+      "site": "https://maestro.mobile.dev",
+      "icon": "simple-icons:maestro",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "maestro"
+      ]
+    },
+    {
+      "id": "cmhg6oix100557pl8mu6x10a4",
+      "slug": "mantine",
+      "name": "Mantine",
+      "category": "frontend",
+      "site": "https://mantine.dev",
+      "icon": "simple-icons:mantine",
+      "color": "#339AF0",
+      "packageNames": [
+        "@mantine/core"
+      ]
+    },
+    {
+      "id": "cmhg6p6uv009o7pl8q573lty7",
+      "slug": "marvel",
+      "name": "Marvel",
+      "category": "design",
+      "site": "https://marvelapp.com",
+      "icon": "simple-icons:marvelapp",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "marvel"
+      ]
+    },
+    {
+      "id": "cmhg6oioi00537pl8kcxkxub7",
+      "slug": "material-ui",
+      "name": "Material-UI",
+      "category": "frontend",
+      "site": "https://mui.com",
+      "icon": "simple-icons:mui",
+      "color": "#007FFF",
+      "packageNames": [
+        "material-ui",
+        "@material-ui/core"
+      ]
+    },
+    {
+      "id": "cmhk2r7td00097p6sb54x8pa5",
+      "slug": "mui",
+      "name": "Material-UI (MUI)",
+      "category": "frontend",
+      "site": "https://mui.com",
+      "icon": "simple-icons:mui",
+      "color": "#007FFF",
+      "packageNames": [
+        "@mui/material",
+        "@mui/core",
+        "material-ui"
+      ]
+    },
+    {
+      "id": "cmhg6oec300447pl8gor8kmgj",
+      "slug": "metamask",
+      "name": "MetaMask",
+      "category": "crypto",
+      "site": "https://metamask.io",
+      "icon": "simple-icons:metamask",
+      "color": "#F6851B",
+      "packageNames": [
+        "metamask"
+      ]
+    },
+    {
+      "id": "cmhg6omav00627pl8rj8dlnmm",
+      "slug": "micronaut",
+      "name": "Micronaut",
+      "category": "backend",
+      "site": "https://micronaut.io",
+      "icon": "mdi:rocket",
+      "color": "#4CAF50",
+      "packageNames": [
+        "micronaut",
+        "generator-jhipster-micronaut",
+        "generator-micronaut-ddd",
+        "praxar-accounting2"
+      ]
+    },
+    {
+      "id": "cmhg6ox56007p7pl88phm2bvy",
+      "slug": "minitest",
+      "name": "Minitest",
+      "category": "testing",
+      "site": "https://github.com/seattlerb/minitest",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": [
+        "minitest"
+      ]
+    },
+    {
+      "id": "cmhg6oi0y004w7pl8sf1stiha",
+      "slug": "mobx",
+      "name": "MobX",
+      "category": "frontend",
+      "site": "https://mobx.js.org",
+      "icon": "simple-icons:mobx",
+      "color": "#FF9955",
+      "packageNames": [
+        "mobx",
+        "mobx-react",
+        "@mobx/core"
+      ]
+    },
+    {
+      "id": "cmhepg5tu002e7pas5rrq2ka2",
+      "slug": "mocha",
+      "name": "Mocha",
+      "category": "testing",
+      "site": "https://mochajs.org",
+      "icon": "simple-icons:mocha",
+      "color": "#8D6748",
+      "packageNames": [
+        "mocha"
+      ]
+    },
+    {
+      "id": "cmhg6paht00ai7pl851zocexl",
+      "slug": "moment",
+      "name": "Moment.js",
+      "category": "frontend",
+      "site": "https://momentjs.com",
+      "icon": "simple-icons:momentjs",
+      "color": "#2D8659",
+      "packageNames": [
+        "moment",
+        "moment.js",
+        "@moment/core"
+      ]
+    },
+    {
+      "id": "cmhepfs11001c7pasdjii0was",
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "category": "database",
+      "site": "https://www.mongodb.com",
+      "icon": "simple-icons:mongodb",
+      "color": "#47A248",
+      "packageNames": [
+        "mongodb"
+      ]
+    },
+    {
+      "id": "cmhg6opp4006h7pl8kicwj0cs",
+      "slug": "mongoengine",
+      "name": "MongoEngine",
+      "category": "database",
+      "site": "https://mongoengine.org",
+      "icon": "simple-icons:mongodb",
+      "color": "#47A248",
+      "packageNames": [
+        "mongoengine"
+      ]
+    },
+    {
+      "id": "cmhg6op2p006b7pl8ctsysh3w",
+      "slug": "mongoose",
+      "name": "Mongoose",
+      "category": "database",
+      "site": "https://mongoosejs.com",
+      "icon": "simple-icons:mongoose",
+      "color": "#880000",
+      "packageNames": [
+        "mongoose"
+      ]
+    },
+    {
+      "id": "cmhg6pe4200b57pl84u31xiz7",
+      "slug": "morgan",
+      "name": "Morgan",
+      "category": "backend",
+      "site": "https://github.com/expressjs/morgan",
+      "icon": "mdi:chart-line",
+      "color": "#9C27B0",
+      "packageNames": [
+        "morgan",
+        "morgan-body"
+      ]
+    },
+    {
+      "id": "cmhg6oq00006i7pl8f0ygf0sk",
+      "slug": "motor",
+      "name": "Motor",
+      "category": "database",
+      "site": "https://motor.readthedocs.io",
+      "icon": "simple-icons:mongodb",
+      "color": "#47A248",
+      "packageNames": [
+        "motor"
+      ]
+    },
+    {
+      "id": "cmhg6peu500bb7pl8shtqw35v",
+      "slug": "multer",
+      "name": "Multer",
+      "category": "backend",
+      "site": "https://github.com/expressjs/multer",
+      "icon": "mdi:upload",
+      "color": "#FF9800",
+      "packageNames": [
+        "multer",
+        "multer-s3"
+      ]
+    },
+    {
+      "id": "cmhepfrpi001b7pas6dvftoc8",
+      "slug": "mysql",
+      "name": "MySQL",
+      "category": "database",
+      "site": "https://www.mysql.com",
+      "icon": "simple-icons:mysql",
+      "color": "#4479A1",
+      "packageNames": [
+        "mysql2",
+        "mysql"
+      ]
+    },
+    {
+      "id": "cmhg6p39n008z7pl8b6pq0o9h",
+      "slug": "native-base",
+      "name": "NativeBase",
+      "category": "mobile",
+      "site": "https://nativebase.io",
+      "icon": "simple-icons:nativebase",
+      "color": "#2D3748",
+      "packageNames": [
+        "native-base",
+        "nativebase"
+      ]
+    },
+    {
+      "id": "cmhepfohj00117pasvb4qn38v",
+      "slug": "nestjs",
+      "name": "NestJS",
+      "category": "backend",
+      "site": "https://nestjs.com",
+      "icon": "simple-icons:nestjs",
+      "color": "#E0234E",
+      "packageNames": [
+        "@nestjs/core",
+        "@nestjs/common"
+      ]
+    },
+    {
+      "id": "cmhepfylz001x7pasrgcry0eh",
+      "slug": "netlify",
+      "name": "Netlify",
+      "category": "devops",
+      "site": "https://www.netlify.com",
+      "icon": "simple-icons:netlify",
+      "color": "#00C7B7",
+      "packageNames": [
+        "@netlify/build"
+      ]
+    },
+    {
+      "id": "cmhg6p0mf008c7pl8s3t2ven0",
+      "slug": "netlify-platform",
+      "name": "Netlify Platform",
+      "category": "devops",
+      "site": "https://www.netlify.com",
+      "icon": "simple-icons:netlify",
+      "color": "#00C7B7",
+      "packageNames": [
+        "netlify-platform",
+        "netlifyplatform",
+        "netlify_platform"
+      ]
+    },
+    {
+      "id": "cmhepgdjy00307pasxrqoehqz",
+      "slug": "newrelic",
+      "name": "New Relic",
+      "category": "devops",
+      "site": "https://newrelic.com",
+      "icon": "simple-icons:newrelic",
+      "color": "#008C99",
+      "packageNames": [
+        "new-relic",
+        "new_relic"
+      ]
+    },
+    {
+      "id": "cmhg6p7na009u7pl8iy1jevwl",
+      "slug": "new-relic-platform",
+      "name": "New Relic Platform",
+      "category": "devops",
+      "site": "https://newrelic.com",
+      "icon": "simple-icons:newrelic",
+      "color": "#008C99",
+      "packageNames": [
+        "new-relic-platform",
+        "newrelicplatform",
+        "new_relic_platform"
+      ]
+    },
+    {
+      "id": "cmheo1k2g00017pz0tklbohkj",
+      "slug": "nextjs",
+      "name": "Next.js",
+      "category": "frontend",
+      "site": "https://nextjs.org",
+      "icon": "simple-icons:nextdotjs",
+      "color": "#0070F3",
+      "packageNames": [
+        "next.js",
+        "@nextjs/core"
+      ]
+    },
+    {
+      "id": "cmhepg7r9002i7pas5vkgzujj",
+      "slug": "nextauth",
+      "name": "NextAuth.js",
+      "category": "auth",
+      "site": "https://next-auth.js.org",
+      "icon": "simple-icons:nextdotjs",
+      "color": "#0070F3",
+      "packageNames": [
+        "next-auth",
+        "nextauth",
+        "@auth/core",
+        "@auth/prisma-adapter",
+        "nextauth.js"
+      ]
+    },
+    {
+      "id": "cmhepfzwt00217paska8wkvq7",
+      "slug": "nginx",
+      "name": "Nginx",
+      "category": "devops",
+      "site": "https://www.nginx.com",
+      "icon": "simple-icons:nginx",
+      "color": "#009639",
+      "packageNames": [
+        "nginx"
+      ]
+    },
+    {
+      "id": "cmhg6os4g006w7pl8zidysl91",
+      "slug": "nightwatch",
+      "name": "Nightwatch",
+      "category": "testing",
+      "site": "https://nightwatchjs.org",
+      "icon": "simple-icons:nightwatch",
+      "color": "#6366F1",
+      "packageNames": [
+        "nightwatch"
+      ]
+    },
+    {
+      "id": "cmhepnw3t001h7p5ouv7xg1hz",
+      "slug": "nim",
+      "name": "Nim",
+      "category": "language",
+      "site": "https://nim-lang.org",
+      "icon": "simple-icons:nim",
+      "color": "#FFE953",
+      "packageNames": []
+    },
+    {
+      "id": "cmheo1mqp00097pz0mbu9hx5r",
+      "slug": "nodedotjs",
+      "name": "Node.js",
+      "category": "backend",
+      "site": "https://nodejs.org",
+      "icon": "simple-icons:nodedotjs",
+      "color": "#3C873A",
+      "packageNames": [
+        "node",
+        "nodejs",
+        "node-fetch",
+        "fetch",
+        "node.js"
+      ]
+    },
+    {
+      "id": "cmhg6pfgx00bh7pl8cga3uta0",
+      "slug": "nodemailer",
+      "name": "Nodemailer",
+      "category": "backend",
+      "site": "https://nodemailer.com",
+      "icon": "mdi:email",
+      "color": "#FF6B9D",
+      "packageNames": [
+        "nodemailer",
+        "nodemailer-shared",
+        "nodemailer-smtp-transport"
+      ]
+    },
+    {
+      "id": "cmhg6phtc00c57pl8dvhypqdg",
+      "slug": "nodemon",
+      "name": "Nodemon",
+      "category": "backend",
+      "site": "https://nodemon.io",
+      "icon": "simple-icons:nodemon",
+      "color": "#76D04B",
+      "packageNames": [
+        "nodemon",
+        "gulp-nodemon",
+        "nodemon-webpack-plugin",
+        "grunt-nodemon"
+      ]
+    },
+    {
+      "id": "cmhg6p2ch008o7pl8u910m39j",
+      "slug": "nomad",
+      "name": "Nomad",
+      "category": "devops",
+      "site": "https://www.nomadproject.io",
+      "icon": "simple-icons:hashicorp",
+      "color": "#60DEA9",
+      "packageNames": [
+        "nomad"
+      ]
+    },
+    {
+      "id": "cmhepfdwg00057pasgg4esasw",
+      "slug": "nuxt",
+      "name": "Nuxt",
+      "category": "frontend",
+      "site": "https://nuxt.com",
+      "icon": "simple-icons:nuxtdotjs",
+      "color": "#00DC82",
+      "packageNames": [
+        "@nuxt/core"
+      ]
+    },
+    {
+      "id": "cmhepg8d4002k7pasmnk7xxf9",
+      "slug": "oauth",
+      "name": "OAuth",
+      "category": "auth",
+      "site": "https://oauth.net",
+      "icon": "logos:oauth",
+      "color": "#4285F4",
+      "packageNames": [
+        "oauth"
+      ]
+    },
+    {
+      "id": "cmhepnv57001f7p5om2ao88an",
+      "slug": "ocaml",
+      "name": "OCaml",
+      "category": "language",
+      "site": "https://ocaml.org",
+      "icon": "simple-icons:ocaml",
+      "color": "#EC6813",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oq8m006k7pl89j3d7rf7",
+      "slug": "ormar",
+      "name": "ORMAR",
+      "category": "database",
+      "site": "https://collerek.github.io/ormar",
+      "icon": "simple-icons:ormar",
+      "color": "#3B82F6",
+      "packageNames": [
+        "ormar"
+      ]
+    },
+    {
+      "id": "cmhepnsp1001b7p5omuxnyttq",
+      "slug": "objective-c",
+      "name": "Objective-C",
+      "category": "language",
+      "site": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC",
+      "icon": "simple-icons:apple",
+      "color": "#3C9CD7",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p9f300a57pl82fta4je1",
+      "slug": "opentelemetry",
+      "name": "OpenTelemetry",
+      "category": "devops",
+      "site": "https://opentelemetry.io",
+      "icon": "simple-icons:opentelemetry",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "opentelemetry"
+      ]
+    },
+    {
+      "id": "cmhg6p6ma009m7pl8jyrt6sj9",
+      "slug": "origami",
+      "name": "Origami Studio",
+      "category": "design",
+      "site": "https://origami.design",
+      "icon": "simple-icons:origamistudio",
+      "color": "#7C4DFF",
+      "packageNames": [
+        "origami-studio",
+        "origamistudio",
+        "origami_studio"
+      ]
+    },
+    {
+      "id": "cmhepflst000t7paswgdtujnv",
+      "slug": "php",
+      "name": "PHP",
+      "category": "language",
+      "site": "https://www.php.net",
+      "icon": "simple-icons:php",
+      "color": "#777BB4",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6phqv00c47pl8cgmhqem0",
+      "slug": "pm2",
+      "name": "PM2",
+      "category": "backend",
+      "site": "https://pm2.keymetrics.io",
+      "icon": "simple-icons:pm2",
+      "color": "#2B037A",
+      "packageNames": [
+        "pm2",
+        "pm2-sysmonit"
+      ]
+    },
+    {
+      "id": "cmhg6p2l7008r7pl86sekplpv",
+      "slug": "packer",
+      "name": "Packer",
+      "category": "devops",
+      "site": "https://www.packer.io",
+      "icon": "simple-icons:hashicorp",
+      "color": "#02D8EF",
+      "packageNames": [
+        "packer"
+      ]
+    },
+    {
+      "id": "cmhepg9np002o7pasjg84sai8",
+      "slug": "paddle",
+      "name": "Paddle",
+      "category": "payments",
+      "site": "https://paddle.com",
+      "icon": "simple-icons:paddle",
+      "color": "#0065FF",
+      "packageNames": [
+        "paddle"
+      ]
+    },
+    {
+      "id": "cmhg6pkzf00cz7pl8r09vp30f",
+      "slug": "passenger",
+      "name": "Passenger",
+      "category": "backend",
+      "site": "https://www.phusionpassenger.com",
+      "icon": "mdi:passenger",
+      "color": "#00BCD4",
+      "packageNames": [
+        "passenger",
+        "bh-mj-passenger",
+        "emoji-passenger-ship"
+      ]
+    },
+    {
+      "id": "cmhepg81w002j7pas406sxrr0",
+      "slug": "passport",
+      "name": "Passport.js",
+      "category": "auth",
+      "site": "http://www.passportjs.org",
+      "icon": "simple-icons:passport",
+      "color": "#34E27A",
+      "packageNames": [
+        "passport",
+        "passport-local",
+        "passport.js"
+      ]
+    },
+    {
+      "id": "cmhepg9an002n7pasevjgycom",
+      "slug": "paypal",
+      "name": "PayPal",
+      "category": "payments",
+      "site": "https://www.paypal.com",
+      "icon": "simple-icons:paypal",
+      "color": "#00457C",
+      "packageNames": [
+        "paypal-rest-sdk",
+        "@paypal/payouts-sdk"
+      ]
+    },
+    {
+      "id": "cmhg6op90006d7pl8ysj3ji76",
+      "slug": "peewee",
+      "name": "Peewee",
+      "category": "database",
+      "site": "https://docs.peewee-orm.com",
+      "icon": "simple-icons:peewee",
+      "color": "#3776AB",
+      "packageNames": [
+        "peewee"
+      ]
+    },
+    {
+      "id": "cmhg6p659009i7pl81x2dk136",
+      "slug": "penpot",
+      "name": "Penpot",
+      "category": "design",
+      "site": "https://penpot.app",
+      "icon": "simple-icons:penpot",
+      "color": "#1389FD",
+      "packageNames": [
+        "penpot"
+      ]
+    },
+    {
+      "id": "cmhepnr9s00187p5oohwchh73",
+      "slug": "perl",
+      "name": "Perl",
+      "category": "language",
+      "site": "https://www.perl.org",
+      "icon": "simple-icons:perl",
+      "color": "#39457E",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6olf3005u7pl83has49ff",
+      "slug": "phoenix",
+      "name": "Phoenix",
+      "category": "backend",
+      "site": "https://www.phoenixframework.org",
+      "icon": "simple-icons:elixir",
+      "color": "#FD4F00",
+      "packageNames": [
+        "phoenix"
+      ]
+    },
+    {
+      "id": "cmhg6oqli006l7pl8o8y4e3v9",
+      "slug": "piccolo",
+      "name": "Piccolo ORM",
+      "category": "database",
+      "site": "https://piccolo-orm.com",
+      "icon": "simple-icons:piccolo",
+      "color": "#10B981",
+      "packageNames": [
+        "piccolo-orm",
+        "piccoloorm",
+        "piccolo_orm"
+      ]
+    },
+    {
+      "id": "cmhg6phiv00c17pl8b9u5bkui",
+      "slug": "pino",
+      "name": "Pino",
+      "category": "backend",
+      "site": "https://getpino.io",
+      "icon": "simple-icons:pino",
+      "color": "#06B6D4",
+      "packageNames": [
+        "pino",
+        "pino-abstract-transport",
+        "pino-pretty",
+        "pino-std-serializers"
+      ]
+    },
+    {
+      "id": "cmhepfv3d001m7pas4jn05miu",
+      "slug": "planetscale",
+      "name": "PlanetScale",
+      "category": "database",
+      "site": "https://planetscale.com",
+      "icon": "simple-icons:planetscale",
+      "color": "#F2F2F2",
+      "packageNames": [
+        "planetscale",
+        "kysely-planetscale"
+      ]
+    },
+    {
+      "id": "cmhg6ozib00857pl8kduw02dp",
+      "slug": "planetscale-platform",
+      "name": "PlanetScale Platform",
+      "category": "devops",
+      "site": "https://planetscale.com",
+      "icon": "simple-icons:planetscale",
+      "color": "#F2F2F2",
+      "packageNames": [
+        "planetscale-platform",
+        "planetscaleplatform",
+        "planetscale_platform"
+      ]
+    },
+    {
+      "id": "cmhg6olxd005y7pl8fesn02ha",
+      "slug": "play-framework",
+      "name": "Play Framework",
+      "category": "backend",
+      "site": "https://www.playframework.com",
+      "icon": "simple-icons:play",
+      "color": "#DC322F",
+      "packageNames": [
+        "play-framework",
+        "playframework",
+        "play_framework"
+      ]
+    },
+    {
+      "id": "cmhepg3ym002b7pasqi8seamn",
+      "slug": "playwright",
+      "name": "Playwright",
+      "category": "testing",
+      "site": "https://playwright.dev",
+      "icon": "simple-icons:playwright",
+      "color": "#2EAD33",
+      "packageNames": [
+        "playwright",
+        "@playwright/test"
+      ]
+    },
+    {
+      "id": "cmhg6pf8h00be7pl87uzb2mkc",
+      "slug": "playwright-core",
+      "name": "Playwright Core",
+      "category": "backend",
+      "site": "https://playwright.dev",
+      "icon": "simple-icons:playwright",
+      "color": "#2EAD33",
+      "packageNames": [
+        "playwright-core",
+        "playwrightcore",
+        "playwright_core"
+      ]
+    },
+    {
+      "id": "cmhg6olo9005v7pl8kqwkgen3",
+      "slug": "plug",
+      "name": "Plug",
+      "category": "backend",
+      "site": "https://hexdocs.pm/plug",
+      "icon": "simple-icons:elixir",
+      "color": "#4B275F",
+      "packageNames": [
+        "plug",
+        "datatables.net-plugins",
+        "express-basic-auth"
+      ]
+    },
+    {
+      "id": "cmhg6ok97005j7pl83tus7l76",
+      "slug": "polka",
+      "name": "Polka",
+      "category": "backend",
+      "site": "https://github.com/lukeed/polka",
+      "icon": "mdi:music-note",
+      "color": "#E91E63",
+      "packageNames": [
+        "polka"
+      ]
+    },
+    {
+      "id": "cmhg6opgn006f7pl8fkbg2n3f",
+      "slug": "pony",
+      "name": "Pony ORM",
+      "category": "database",
+      "site": "https://ponyorm.org",
+      "icon": "simple-icons:ponyorm",
+      "color": "#EC4899",
+      "packageNames": [
+        "pony-orm",
+        "ponyorm",
+        "pony_orm"
+      ]
+    },
+    {
+      "id": "cmheo1pb5000h7pz0sb06u468",
+      "slug": "postgresql",
+      "name": "PostgreSQL",
+      "category": "database",
+      "site": "https://postgresql.org",
+      "icon": "simple-icons:postgresql",
+      "color": "#336791",
+      "packageNames": [
+        "pg",
+        "postgres",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "cmhepg1hq00267pasok5u8eqo",
+      "slug": "postman",
+      "name": "Postman",
+      "category": "api",
+      "site": "https://www.postman.com",
+      "icon": "simple-icons:postman",
+      "color": "#FF6C37",
+      "packageNames": [
+        "postman"
+      ]
+    },
+    {
+      "id": "cmhepns81001a7p5o7mzhnnu4",
+      "slug": "powershell",
+      "name": "PowerShell",
+      "category": "language",
+      "site": "https://learn.microsoft.com/powershell",
+      "icon": "simple-icons:powershell",
+      "color": "#5391FE",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ogar004h7pl8twzg36tt",
+      "slug": "preact",
+      "name": "Preact",
+      "category": "frontend",
+      "site": "https://preactjs.com",
+      "icon": "simple-icons:preact",
+      "color": "#673AB8",
+      "packageNames": [
+        "@preact/core"
+      ]
+    },
+    {
+      "id": "cmhg6p6gn009l7pl8jnzscy2e",
+      "slug": "principle",
+      "name": "Principle",
+      "category": "design",
+      "site": "https://principleformac.com",
+      "icon": "mdi:application-cog",
+      "color": "#5C5C5C",
+      "packageNames": [
+        "principle"
+      ]
+    },
+    {
+      "id": "cmheo1no5000c7pz0ehjkyk3w",
+      "slug": "prisma",
+      "name": "Prisma",
+      "category": "database",
+      "site": "https://www.prisma.io",
+      "icon": "simple-icons:prisma",
+      "color": "#2D3748",
+      "packageNames": [
+        "prisma",
+        "@prisma/client"
+      ]
+    },
+    {
+      "id": "cmhg6og82004g7pl80xplqqc9",
+      "slug": "prolog",
+      "name": "Prolog",
+      "category": "language",
+      "site": "https://www.swi-prolog.org",
+      "icon": "simple-icons:prolog",
+      "color": "#74283C",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepge6e00327pasjil1nxcw",
+      "slug": "prometheus",
+      "name": "Prometheus",
+      "category": "devops",
+      "site": "https://prometheus.io",
+      "icon": "simple-icons:prometheus",
+      "color": "#E6522C",
+      "packageNames": [
+        "prometheus"
+      ]
+    },
+    {
+      "id": "cmhg6p6xu009p7pl8zrr05860",
+      "slug": "proto-io",
+      "name": "Proto.io",
+      "category": "design",
+      "site": "https://proto.io",
+      "icon": "simple-icons:protoio",
+      "color": "#3B82F6",
+      "packageNames": [
+        "proto-io",
+        "proto.io"
+      ]
+    },
+    {
+      "id": "cmhg6p2qp008t7pl8nvq811c8",
+      "slug": "pulumi",
+      "name": "Pulumi",
+      "category": "devops",
+      "site": "https://www.pulumi.com",
+      "icon": "simple-icons:pulumi",
+      "color": "#8A3391",
+      "packageNames": [
+        "pulumi"
+      ]
+    },
+    {
+      "id": "cmhg6pksa00cw7pl8kv55ll7z",
+      "slug": "puma",
+      "name": "Puma",
+      "category": "backend",
+      "site": "https://puma.io",
+      "icon": "simple-icons:puma",
+      "color": "#533C92",
+      "packageNames": [
+        "puma",
+        "puma-schematics",
+        "pulsepumaui"
+      ]
+    },
+    {
+      "id": "cmhg6orxq006u7pl8bkwcurac",
+      "slug": "puppeteer",
+      "name": "Puppeteer",
+      "category": "testing",
+      "site": "https://pptr.dev",
+      "icon": "simple-icons:puppeteer",
+      "color": "#40B5A4",
+      "packageNames": [
+        "puppeteer"
+      ]
+    },
+    {
+      "id": "cmhg6pf5b00bd7pl8svagnbc3",
+      "slug": "puppeteer-core",
+      "name": "Puppeteer Core",
+      "category": "backend",
+      "site": "https://pptr.dev",
+      "icon": "simple-icons:puppeteer",
+      "color": "#40B5A4",
+      "packageNames": [
+        "puppeteer-core",
+        "puppeteercore",
+        "puppeteer_core"
+      ]
+    },
+    {
+      "id": "cmhg6olcg005t7pl8v3p4v8vt",
+      "slug": "pydantic",
+      "name": "Pydantic",
+      "category": "backend",
+      "site": "https://docs.pydantic.dev",
+      "icon": "simple-icons:pydantic",
+      "color": "#E92063",
+      "packageNames": [
+        "pydantic"
+      ]
+    },
+    {
+      "id": "cmheo1lbo00057pz07o5t3d46",
+      "slug": "python",
+      "name": "Python",
+      "category": "language",
+      "site": "https://python.org",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6osin00707pl8cytws0d7",
+      "slug": "qunit",
+      "name": "QUnit",
+      "category": "testing",
+      "site": "https://qunitjs.com",
+      "icon": "simple-icons:qunit",
+      "color": "#F59E0B",
+      "packageNames": [
+        "qunit"
+      ]
+    },
+    {
+      "id": "cmhg6omhd00637pl8y7nmrmh4",
+      "slug": "quarkus",
+      "name": "Quarkus",
+      "category": "backend",
+      "site": "https://quarkus.io",
+      "icon": "simple-icons:quarkus",
+      "color": "#4695EB",
+      "packageNames": [
+        "quarkus",
+        "dodex-quarkus",
+        "generator-jhipster-quarkus"
+      ]
+    },
+    {
+      "id": "cmhg6ol32005q7pl88tkri91f",
+      "slug": "quart",
+      "name": "Quart",
+      "category": "backend",
+      "site": "https://quart.palletsprojects.com",
+      "icon": "mdi:cube-outline",
+      "color": "#2196F3",
+      "packageNames": [
+        "quart"
+      ]
+    },
+    {
+      "id": "cmhg6orlo006s7pl82s406mdv",
+      "slug": "quill",
+      "name": "Quill",
+      "category": "database",
+      "site": "https://getquill.io",
+      "icon": "simple-icons:quill",
+      "color": "#06B6D4",
+      "packageNames": [
+        "quill"
+      ]
+    },
+    {
+      "id": "cmhg6oggs004j7pl8g13z2hrt",
+      "slug": "qwik",
+      "name": "Qwik",
+      "category": "frontend",
+      "site": "https://qwik.builder.io",
+      "icon": "simple-icons:qwik",
+      "color": "#654FF0",
+      "packageNames": [
+        "@qwik/core"
+      ]
+    },
+    {
+      "id": "cmhepnq4000167p5ofinpmhfu",
+      "slug": "r",
+      "name": "R",
+      "category": "language",
+      "site": "https://www.r-project.org",
+      "icon": "simple-icons:r",
+      "color": "#276DC3",
+      "packageNames": []
+    },
+    {
+      "id": "cmhepg15p00257pasw1z5zqrg",
+      "slug": "rest",
+      "name": "REST API",
+      "category": "api",
+      "site": "https://restfulapi.net",
+      "icon": "mdi:api",
+      "color": "#FF5733",
+      "packageNames": [
+        "rest-api",
+        "restapi",
+        "rest_api"
+      ]
+    },
+    {
+      "id": "cmhg6p3re00947pl8g72h5xxe",
+      "slug": "rn-elements",
+      "name": "RN Elements",
+      "category": "mobile",
+      "site": "https://reactnativeelements.com",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "rn-elements",
+        "rnelements",
+        "rn_elements"
+      ]
+    },
+    {
+      "id": "cmhg6pish00cd7pl8fx3msyfh",
+      "slug": "rq",
+      "name": "RQ",
+      "category": "backend",
+      "site": "https://python-rq.org",
+      "icon": "mdi:queue",
+      "color": "#FF9800",
+      "packageNames": [
+        "rq",
+        "qcy-rq-personalcenter",
+        "rq-library-wasm",
+        "rq-utils"
+      ]
+    },
+    {
+      "id": "cmhg6owzi007o7pl8fr7z271b",
+      "slug": "rspec",
+      "name": "RSpec",
+      "category": "testing",
+      "site": "https://rspec.info",
+      "icon": "simple-icons:rspec",
+      "color": "#EE0220",
+      "packageNames": [
+        "rspec"
+      ]
+    },
+    {
+      "id": "cmhg6pkh800cs7pl8p3m5uats",
+      "slug": "rack",
+      "name": "Rack",
+      "category": "backend",
+      "site": "https://github.com/rack/rack",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": [
+        "rack",
+        "cypress-on-rails"
+      ]
+    },
+    {
+      "id": "cmhg6ofzz004e7pl87854caf6",
+      "slug": "racket",
+      "name": "Racket",
+      "category": "language",
+      "site": "https://racket-lang.org",
+      "icon": "simple-icons:racket",
+      "color": "#9F1D20",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6ojb600587pl8o9w8g3fo",
+      "slug": "radix-ui",
+      "name": "Radix UI",
+      "category": "frontend",
+      "site": "https://www.radix-ui.com",
+      "icon": "simple-icons:radixui",
+      "color": "#161618",
+      "packageNames": [
+        "radix-ui",
+        "radixui",
+        "radix_ui",
+        "@radix-ui/core"
+      ]
+    },
+    {
+      "id": "cmhepfyxk001y7pas9zuo6f5g",
+      "slug": "railway",
+      "name": "Railway",
+      "category": "devops",
+      "site": "https://railway.app",
+      "icon": "simple-icons:railway",
+      "color": "#0B0D0E",
+      "packageNames": [
+        "railway"
+      ]
+    },
+    {
+      "id": "cmhg6ozr000867pl8joy85drj",
+      "slug": "railway-platform",
+      "name": "Railway Platform",
+      "category": "devops",
+      "site": "https://railway.app",
+      "icon": "simple-icons:railway",
+      "color": "#0B0D0E",
+      "packageNames": [
+        "railway-platform",
+        "railwayplatform",
+        "railway_platform"
+      ]
+    },
+    {
+      "id": "cmhg6oeoy00477pl8utgv82et",
+      "slug": "rainbowkit",
+      "name": "RainbowKit",
+      "category": "crypto",
+      "site": "https://rainbowkit.com",
+      "icon": "simple-icons:rainbowkit",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "rainbowkit"
+      ]
+    },
+    {
+      "id": "cmhg6pa9o00ag7pl8gazb0pw6",
+      "slug": "ramda",
+      "name": "Ramda",
+      "category": "frontend",
+      "site": "https://ramdajs.com",
+      "icon": "simple-icons:ramda",
+      "color": "#7D2AE8",
+      "packageNames": [
+        "@ramda/core",
+        "ramda"
+      ]
+    },
+    {
+      "id": "cmhg6p9v100ab7pl8q3d0yqwe",
+      "slug": "raygun",
+      "name": "Raygun",
+      "category": "devops",
+      "site": "https://raygun.com",
+      "icon": "simple-icons:raygun",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "raygun"
+      ]
+    },
+    {
+      "id": "cmheo1kdz00027pz0vrw5dpay",
+      "slug": "react",
+      "name": "React",
+      "category": "frontend",
+      "site": "https://react.dev",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "react",
+        "react-dom",
+        "@react/core",
+        "react-native"
+      ]
+    },
+    {
+      "id": "cmhg6pdks00b17pl8avfi4v1t",
+      "slug": "react-final-form",
+      "name": "React Final Form",
+      "category": "frontend",
+      "site": "https://final-form.org/react",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "react-final-form",
+        "reactfinalform",
+        "react_final_form",
+        "@react-final-form/core"
+      ]
+    },
+    {
+      "id": "cmhk2r68100067p6smu51bkv4",
+      "slug": "react-helmet",
+      "name": "React Helmet",
+      "category": "frontend",
+      "site": "https://github.com/nfl/react-helmet",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "react-helmet",
+        "react-helmet-async"
+      ]
+    },
+    {
+      "id": "cmhg6pd9a00az7pl8htwejntg",
+      "slug": "react-hook-form",
+      "name": "React Hook Form",
+      "category": "frontend",
+      "site": "https://react-hook-form.com",
+      "icon": "simple-icons:reacthookform",
+      "color": "#EC5990",
+      "packageNames": [
+        "react-hook-form",
+        "reacthookform",
+        "react_hook_form",
+        "@react-hook-form/core"
+      ]
+    },
+    {
+      "id": "cmhepg9ys002p7pas4e6v5goe",
+      "slug": "react-native",
+      "name": "React Native",
+      "category": "mobile",
+      "site": "https://reactnative.dev",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "react-native",
+        "reactnative",
+        "react_native"
+      ]
+    },
+    {
+      "id": "cmhg6p3nc00937pl84pjjjmnb",
+      "slug": "react-native-elements",
+      "name": "React Native Elements",
+      "category": "mobile",
+      "site": "https://reactnativeelements.com",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "react-native-elements",
+        "reactnativeelements",
+        "react_native_elements"
+      ]
+    },
+    {
+      "id": "cmhg6p3kb00927pl8m84jjqao",
+      "slug": "react-native-paper",
+      "name": "React Native Paper",
+      "category": "mobile",
+      "site": "https://reactnativepaper.com",
+      "icon": "simple-icons:react",
+      "color": "#61DAFB",
+      "packageNames": [
+        "react-native-paper",
+        "reactnativepaper",
+        "react_native_paper"
+      ]
+    },
+    {
+      "id": "cmhk2r62v00057p6sigdeapd2",
+      "slug": "react-router",
+      "name": "React Router",
+      "category": "frontend",
+      "site": "https://reactrouter.com",
+      "icon": "simple-icons:reactrouter",
+      "color": "#CA4245",
+      "packageNames": [
+        "react-router",
+        "react-router-dom",
+        "@react-router/core"
+      ]
+    },
+    {
+      "id": "cmhk2r8ca000c7p6smo3mc0y6",
+      "slug": "react-testing-library",
+      "name": "React Testing Library",
+      "category": "testing",
+      "site": "https://testing-library.com/react",
+      "icon": "simple-icons:testinglibrary",
+      "color": "#E33332",
+      "packageNames": [
+        "@testing-library/react",
+        "@testing-library/jest-dom"
+      ]
+    },
+    {
+      "id": "cmhepnxqz001k7p5odo9dlwj9",
+      "slug": "reason",
+      "name": "Reason",
+      "category": "language",
+      "site": "https://reasonml.github.io",
+      "icon": "simple-icons:reason",
+      "color": "#DD4B39",
+      "packageNames": []
+    },
+    {
+      "id": "cmhk2mgp300027pis3vkksyri",
+      "slug": "recharts",
+      "name": "Recharts",
+      "category": "frontend",
+      "site": "https://recharts.org",
+      "icon": "simple-icons:recharts",
+      "color": "#8884D8",
+      "packageNames": [
+        "recharts"
+      ]
+    },
+    {
+      "id": "cmhepfj8u000l7pasqz7m6l0j",
+      "slug": "recoil",
+      "name": "Recoil",
+      "category": "frontend",
+      "site": "https://recoiljs.org",
+      "icon": "simple-icons:recoil",
+      "color": "#007AF4",
+      "packageNames": [
+        "recoil",
+        "@recoil/core"
+      ]
+    },
+    {
+      "id": "cmheo1n1g000a7pz0y97hjo2b",
+      "slug": "redis",
+      "name": "Redis",
+      "category": "database",
+      "site": "https://redis.io",
+      "icon": "simple-icons:redis",
+      "color": "#DC382D",
+      "packageNames": [
+        "redis",
+        "ioredis"
+      ]
+    },
+    {
+      "id": "cmhg6pgoi00bq7pl8e4w6t8fz",
+      "slug": "redis-om",
+      "name": "Redis OM",
+      "category": "backend",
+      "site": "https://github.com/redis/redis-om-node",
+      "icon": "simple-icons:redis",
+      "color": "#DC382D",
+      "packageNames": [
+        "redis-om",
+        "redisom",
+        "redis_om"
+      ]
+    },
+    {
+      "id": "cmhepfia3000i7pasg5y05dq1",
+      "slug": "redux",
+      "name": "Redux",
+      "category": "frontend",
+      "site": "https://redux.js.org",
+      "icon": "simple-icons:redux",
+      "color": "#764ABC",
+      "packageNames": [
+        "redux",
+        "@reduxjs/toolkit",
+        "@redux/core"
+      ]
+    },
+    {
+      "id": "cmhg6ohbo004q7pl83ipqxfq4",
+      "slug": "redwoodjs",
+      "name": "RedwoodJS",
+      "category": "frontend",
+      "site": "https://redwoodjs.com",
+      "icon": "simple-icons:redwoodjs",
+      "color": "#BF4722",
+      "packageNames": [
+        "@redwoodjs/core"
+      ]
+    },
+    {
+      "id": "cmhg6oig000507pl8rghh8c1f",
+      "slug": "relay",
+      "name": "Relay",
+      "category": "frontend",
+      "site": "https://relay.dev",
+      "icon": "simple-icons:relay",
+      "color": "#F26B00",
+      "packageNames": [
+        "@relay/core"
+      ]
+    },
+    {
+      "id": "cmhepfe7p00067pas5fednsls",
+      "slug": "remix",
+      "name": "Remix",
+      "category": "frontend",
+      "site": "https://remix.run",
+      "icon": "simple-icons:remix",
+      "color": "#F7F7F7",
+      "packageNames": [
+        "remix",
+        "@remix-run/node",
+        "@remix-run/react",
+        "@remix/core"
+      ]
+    },
+    {
+      "id": "cmhepfz8k001z7pasup182rr3",
+      "slug": "render",
+      "name": "Render",
+      "category": "devops",
+      "site": "https://render.com",
+      "icon": "simple-icons:render",
+      "color": "#46E3B7",
+      "packageNames": [
+        "render"
+      ]
+    },
+    {
+      "id": "cmhg6ozwp00877pl8t00lh4sm",
+      "slug": "render-platform",
+      "name": "Render Platform",
+      "category": "devops",
+      "site": "https://render.com",
+      "icon": "simple-icons:render",
+      "color": "#46E3B7",
+      "packageNames": [
+        "render-platform",
+        "renderplatform",
+        "render_platform"
+      ]
+    },
+    {
+      "id": "cmhg6orcp006p7pl82byti7ks",
+      "slug": "repo",
+      "name": "Repo",
+      "category": "database",
+      "site": "https://hexdocs.pm/ecto_sql/Ecto.Repo.html",
+      "icon": "simple-icons:elixir",
+      "color": "#4B275F",
+      "packageNames": [
+        "repo"
+      ]
+    },
+    {
+      "id": "cmhg6pi2s00c87pl8u0sih8nm",
+      "slug": "requests",
+      "name": "Requests",
+      "category": "backend",
+      "site": "https://requests.readthedocs.io",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "requests",
+        "timed-out"
+      ]
+    },
+    {
+      "id": "cmhg6plav00d27pl8lqk67pq1",
+      "slug": "resque",
+      "name": "Resque",
+      "category": "backend",
+      "site": "https://github.com/resque/resque",
+      "icon": "simple-icons:resque",
+      "color": "#DC382D",
+      "packageNames": [
+        "resque",
+        "node-resque",
+        "adonis-resque",
+        "screwdriver-executor-queue"
+      ]
+    },
+    {
+      "id": "cmhg6pjrh00ck7pl8uduq3t38",
+      "slug": "rich",
+      "name": "Rich",
+      "category": "backend",
+      "site": "https://rich.readthedocs.io",
+      "icon": "simple-icons:rich",
+      "color": "#FFC107",
+      "packageNames": [
+        "rich"
+      ]
+    },
+    {
+      "id": "cmhg6p9nc00a87pl8rw2gxjxr",
+      "slug": "rollbar",
+      "name": "Rollbar",
+      "category": "devops",
+      "site": "https://rollbar.com",
+      "icon": "simple-icons:rollbar",
+      "color": "#F00",
+      "packageNames": [
+        "rollbar"
+      ]
+    },
+    {
+      "id": "cmhepffiv000a7pasw10vphn9",
+      "slug": "rollup",
+      "name": "Rollup",
+      "category": "frontend",
+      "site": "https://rollupjs.org",
+      "icon": "simple-icons:rollupdotjs",
+      "color": "#EC4A3F",
+      "packageNames": [
+        "@rollup/core"
+      ]
+    },
+    {
+      "id": "cmhepfm3l000u7pasj8etfh3l",
+      "slug": "ruby",
+      "name": "Ruby",
+      "category": "language",
+      "site": "https://www.ruby-lang.org",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6plp500d67pl82h88o93p",
+      "slug": "rrb",
+      "name": "Ruby Background Jobs",
+      "category": "backend",
+      "site": "https://github.com/ruby-background-jobs",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": [
+        "ruby-background-jobs",
+        "rubybackgroundjobs",
+        "ruby_background_jobs"
+      ]
+    },
+    {
+      "id": "cmhepfpeo00147pas7gzgssen",
+      "slug": "rails",
+      "name": "Ruby on Rails",
+      "category": "backend",
+      "site": "https://rubyonrails.org",
+      "icon": "simple-icons:rubyonrails",
+      "color": "#CC0000",
+      "packageNames": [
+        "ruby-on-rails",
+        "rubyonrails",
+        "ruby_on_rails"
+      ]
+    },
+    {
+      "id": "cmhepfku6000q7pasoa69cfkh",
+      "slug": "rust",
+      "name": "Rust",
+      "category": "language",
+      "site": "https://www.rust-lang.org",
+      "icon": "simple-icons:rust",
+      "color": "#CE422B",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6op68006c7pl8q5nzxdhn",
+      "slug": "sqlalchemy",
+      "name": "SQLAlchemy",
+      "category": "database",
+      "site": "https://www.sqlalchemy.org",
+      "icon": "simple-icons:sqlalchemy",
+      "color": "#D71F00",
+      "packageNames": [
+        "sqlalchemy"
+      ]
+    },
+    {
+      "id": "cmhg6oqvt006m7pl8teo0qy12",
+      "slug": "sqlmodel",
+      "name": "SQLModel",
+      "category": "database",
+      "site": "https://sqlmodel.tiangolo.com",
+      "icon": "simple-icons:sqlmodel",
+      "color": "#009688",
+      "packageNames": [
+        "sqlmodel"
+      ]
+    },
+    {
+      "id": "cmhepfui2001k7pasuzuichou",
+      "slug": "sqlite",
+      "name": "SQLite",
+      "category": "database",
+      "site": "https://www.sqlite.org",
+      "icon": "simple-icons:sqlite",
+      "color": "#0E7FC0",
+      "packageNames": [
+        "better-sqlite3",
+        "sqlite3"
+      ]
+    },
+    {
+      "id": "cmhg6p300008w7pl8hzgqk51u",
+      "slug": "sst",
+      "name": "SST",
+      "category": "devops",
+      "site": "https://sst.dev",
+      "icon": "simple-icons:sst",
+      "color": "#FF9E64",
+      "packageNames": [
+        "sst"
+      ]
+    },
+    {
+      "id": "cmhg6oiiq00517pl8r7yabblx",
+      "slug": "swr",
+      "name": "SWR",
+      "category": "frontend",
+      "site": "https://swr.vercel.app",
+      "icon": "simple-icons:swr",
+      "color": "#06B6D4",
+      "packageNames": [
+        "@swr/core"
+      ]
+    },
+    {
+      "id": "cmhg6okw9005o7pl8k5q5wpuo",
+      "slug": "sanic",
+      "name": "Sanic",
+      "category": "backend",
+      "site": "https://sanicframework.org",
+      "icon": "simple-icons:sanic",
+      "color": "#0084D4",
+      "packageNames": [
+        "sanic",
+        "sanic-for-pythoneer",
+        "sanic-yijiu-3-zhongwen-wendang"
+      ]
+    },
+    {
+      "id": "cmhepfgzb000e7paskj4gfe6y",
+      "slug": "sass",
+      "name": "Sass",
+      "category": "frontend",
+      "site": "https://sass-lang.com",
+      "icon": "simple-icons:sass",
+      "color": "#CC6699",
+      "packageNames": [
+        "sass",
+        "node-sass",
+        "@sass/core"
+      ]
+    },
+    {
+      "id": "cmhepnp6l00147p5o6gzqjdpf",
+      "slug": "scala",
+      "name": "Scala",
+      "category": "language",
+      "site": "https://www.scala-lang.org",
+      "icon": "simple-icons:scala",
+      "color": "#DC322F",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6og5j004f7pl80hagyxhq",
+      "slug": "scheme",
+      "name": "Scheme",
+      "category": "language",
+      "site": "https://www.scheme.com",
+      "icon": "simple-icons:scheme",
+      "color": "#1F4E79",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6pa0p00ad7pl8o4efl4dv",
+      "slug": "scout",
+      "name": "Scout",
+      "category": "devops",
+      "site": "https://scoutapm.com",
+      "icon": "simple-icons:scoutapm",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "scout"
+      ]
+    },
+    {
+      "id": "cmhepg6f2002f7pasvr2vcz2m",
+      "slug": "selenium",
+      "name": "Selenium",
+      "category": "testing",
+      "site": "https://www.selenium.dev",
+      "icon": "simple-icons:selenium",
+      "color": "#43B02A",
+      "packageNames": [
+        "selenium-webdriver"
+      ]
+    },
+    {
+      "id": "cmhg6ojk6005a7pl8kw2ao2im",
+      "slug": "semantic-ui",
+      "name": "Semantic UI",
+      "category": "frontend",
+      "site": "https://semantic-ui.com",
+      "icon": "simple-icons:semanticuireact",
+      "color": "#35BDB2",
+      "packageNames": [
+        "semantic-ui",
+        "semanticui",
+        "semantic_ui",
+        "@semantic-ui/core"
+      ]
+    },
+    {
+      "id": "cmhepgcxu002y7pasqusdtusu",
+      "slug": "sentry",
+      "name": "Sentry",
+      "category": "devops",
+      "site": "https://sentry.io",
+      "icon": "simple-icons:sentry",
+      "color": "#FB4226",
+      "packageNames": [
+        "sentry"
+      ]
+    },
+    {
+      "id": "cmhg6onc800687pl8tfz81fws",
+      "slug": "sequelize",
+      "name": "Sequelize",
+      "category": "database",
+      "site": "https://sequelize.org",
+      "icon": "simple-icons:sequelize",
+      "color": "#52B0E7",
+      "packageNames": [
+        "sequelize"
+      ]
+    },
+    {
+      "id": "cmhg6p2w6008v7pl887p8dzwr",
+      "slug": "serverless",
+      "name": "Serverless Framework",
+      "category": "devops",
+      "site": "https://www.serverless.com",
+      "icon": "simple-icons:serverless",
+      "color": "#FD5750",
+      "packageNames": [
+        "serverless-framework",
+        "serverlessframework",
+        "serverless_framework"
+      ]
+    },
+    {
+      "id": "cmhg6pf2y00bc7pl8chtggtnp",
+      "slug": "sharp",
+      "name": "Sharp",
+      "category": "backend",
+      "site": "https://sharp.pixelplumbing.com",
+      "icon": "mdi:image",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "sharp"
+      ]
+    },
+    {
+      "id": "cmhepnro200197p5o679pbxsr",
+      "slug": "shell",
+      "name": "Shell",
+      "category": "language",
+      "site": "https://www.gnu.org/software/bash",
+      "icon": "simple-icons:gnubash",
+      "color": "#4EAA25",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oxeg007r7pl82lfelhjq",
+      "slug": "shoulda",
+      "name": "Shoulda",
+      "category": "testing",
+      "site": "https://github.com/thoughtbot/shoulda-matchers",
+      "icon": "simple-icons:ruby",
+      "color": "#EE0220",
+      "packageNames": [
+        "shoulda"
+      ]
+    },
+    {
+      "id": "cmhg6pl7r00d17pl8y693z418",
+      "slug": "sidekiq",
+      "name": "Sidekiq",
+      "category": "backend",
+      "site": "https://sidekiq.org",
+      "icon": "simple-icons:sidekiq",
+      "color": "#DC382D",
+      "packageNames": [
+        "sidekiq",
+        "ts-sidekiq"
+      ]
+    },
+    {
+      "id": "cmhg6oy3j007x7pl8aodu2dbw",
+      "slug": "simplecov",
+      "name": "SimpleCov",
+      "category": "testing",
+      "site": "https://github.com/simplecov-ruby/simplecov",
+      "icon": "simple-icons:simplecov",
+      "color": "#C0C0C0",
+      "packageNames": [
+        "simplecov"
+      ]
+    },
+    {
+      "id": "cmhg6pkjo00ct7pl8kcqerhup",
+      "slug": "sinatra",
+      "name": "Sinatra",
+      "category": "backend",
+      "site": "https://sinatrarb.com",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": [
+        "sinatra",
+        "pretender",
+        "generator-angular-sinatra"
+      ]
+    },
+    {
+      "id": "cmhepgc0b002v7pasu2e6xr7s",
+      "slug": "sketch",
+      "name": "Sketch",
+      "category": "design",
+      "site": "https://www.sketch.com",
+      "icon": "simple-icons:sketch",
+      "color": "#F7B500",
+      "packageNames": [
+        "sketch"
+      ]
+    },
+    {
+      "id": "cmhg6org3006q7pl81b789e3l",
+      "slug": "slick",
+      "name": "Slick",
+      "category": "database",
+      "site": "https://scala-slick.org",
+      "icon": "simple-icons:slick",
+      "color": "#DC322F",
+      "packageNames": [
+        "slick"
+      ]
+    },
+    {
+      "id": "cmhg6pfmr00bi7pl81tv6c091",
+      "slug": "socket-io",
+      "name": "Socket.IO",
+      "category": "backend",
+      "site": "https://socket.io",
+      "icon": "simple-icons:socketdotio",
+      "color": "#3B82F6",
+      "packageNames": [
+        "socket-io",
+        "socket.io"
+      ]
+    },
+    {
+      "id": "cmhg6oge6004i7pl803kx2zh9",
+      "slug": "solidjs",
+      "name": "SolidJS",
+      "category": "frontend",
+      "site": "https://www.solidjs.com",
+      "icon": "simple-icons:solid",
+      "color": "#4C51BF",
+      "packageNames": [
+        "@solidjs/core"
+      ]
+    },
+    {
+      "id": "cmhg6od7g003x7pl8nzyesnd0",
+      "slug": "solidity",
+      "name": "Solidity",
+      "category": "crypto",
+      "site": "https://soliditylang.org",
+      "icon": "simple-icons:solidity",
+      "color": "#363636",
+      "packageNames": [
+        "solidity"
+      ]
+    },
+    {
+      "id": "cmhg6p7sz009v7pl8o8g0142t",
+      "slug": "splunk",
+      "name": "Splunk",
+      "category": "devops",
+      "site": "https://www.splunk.com",
+      "icon": "simple-icons:splunk",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "splunk"
+      ]
+    },
+    {
+      "id": "cmhepfppx00157pasi8u11r1f",
+      "slug": "spring",
+      "name": "Spring Boot",
+      "category": "backend",
+      "site": "https://spring.io/projects/spring-boot",
+      "icon": "simple-icons:springboot",
+      "color": "#6DB33F",
+      "packageNames": [
+        "spring-boot",
+        "springboot",
+        "spring_boot"
+      ]
+    },
+    {
+      "id": "cmhg6ol6h005r7pl89tqy428g",
+      "slug": "starlette",
+      "name": "Starlette",
+      "category": "backend",
+      "site": "https://www.starlette.io",
+      "icon": "mdi:star",
+      "color": "#FFD700",
+      "packageNames": [
+        "starlette",
+        "starlette-sass-helpers"
+      ]
+    },
+    {
+      "id": "cmhg6ogwq004m7pl8rddcptgu",
+      "slug": "stimulus",
+      "name": "Stimulus",
+      "category": "frontend",
+      "site": "https://stimulus.hotwired.dev",
+      "icon": "simple-icons:stimulus",
+      "color": "#77E8B9",
+      "packageNames": [
+        "@stimulus/core"
+      ]
+    },
+    {
+      "id": "cmheo1qcu000k7pz0133v7j7d",
+      "slug": "stripe",
+      "name": "Stripe",
+      "category": "payments",
+      "site": "https://stripe.com",
+      "icon": "simple-icons:stripe",
+      "color": "#635BFF",
+      "packageNames": [
+        "stripe",
+        "@stripe/stripe-js"
+      ]
+    },
+    {
+      "id": "cmhepfgl1000d7pasmfqf29c6",
+      "slug": "styled-components",
+      "name": "Styled Components",
+      "category": "frontend",
+      "site": "https://styled-components.com",
+      "icon": "simple-icons:styledcomponents",
+      "color": "#DB7093",
+      "packageNames": [
+        "styled-components",
+        "styledcomponents",
+        "styled_components",
+        "@styled-components/core"
+      ]
+    },
+    {
+      "id": "cmhg6pldw00d37pl862se9s7j",
+      "slug": "sucker-punch",
+      "name": "Sucker Punch",
+      "category": "backend",
+      "site": "https://github.com/brandonhilkert/sucker_punch",
+      "icon": "mdi:boxing-glove",
+      "color": "#FF5722",
+      "packageNames": [
+        "sucker-punch",
+        "suckerpunch",
+        "sucker_punch"
+      ]
+    },
+    {
+      "id": "cmheo1pxv000j7pz0g7r9u5yn",
+      "slug": "supabase",
+      "name": "Supabase",
+      "category": "database",
+      "site": "https://supabase.io",
+      "icon": "simple-icons:supabase",
+      "color": "#3ECF8E",
+      "packageNames": [
+        "@supabase/supabase-js"
+      ]
+    },
+    {
+      "id": "cmhg6ozdo00847pl8v6wy3mzi",
+      "slug": "supabase-platform",
+      "name": "Supabase Platform",
+      "category": "devops",
+      "site": "https://supabase.com",
+      "icon": "simple-icons:supabase",
+      "color": "#3ECF8E",
+      "packageNames": [
+        "supabase-platform",
+        "supabaseplatform",
+        "supabase_platform"
+      ]
+    },
+    {
+      "id": "cmhg6pbn200aq7pl84t7hcta5",
+      "slug": "superagent",
+      "name": "Superagent",
+      "category": "backend",
+      "site": "https://visionmedia.github.io/superagent",
+      "icon": "mdi:rocket-launch",
+      "color": "#E91E63",
+      "packageNames": [
+        "superagent",
+        "superagent-proxy",
+        "supertest"
+      ]
+    },
+    {
+      "id": "cmheo1m0p00077pz06ufnqaje",
+      "slug": "svelte",
+      "name": "Svelte",
+      "category": "frontend",
+      "site": "https://svelte.dev",
+      "icon": "simple-icons:svelte",
+      "color": "#FF3E00",
+      "packageNames": [
+        "svelte",
+        "@sveltejs/kit",
+        "@svelte/core"
+      ]
+    },
+    {
+      "id": "cmhg6oh35004o7pl82dyzou0f",
+      "slug": "sveltekit",
+      "name": "SvelteKit",
+      "category": "frontend",
+      "site": "https://kit.svelte.dev",
+      "icon": "simple-icons:svelte",
+      "color": "#FF3E00",
+      "packageNames": [
+        "@sveltekit/core"
+      ]
+    },
+    {
+      "id": "cmhepfmqh000w7pasebrpar9a",
+      "slug": "swift",
+      "name": "Swift",
+      "category": "language",
+      "site": "https://swift.org",
+      "icon": "simple-icons:swift",
+      "color": "#FA7343",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p3xl00967pl8kacjig46",
+      "slug": "swiftui",
+      "name": "SwiftUI",
+      "category": "mobile",
+      "site": "https://developer.apple.com/xcode/swiftui",
+      "icon": "simple-icons:swift",
+      "color": "#FA7343",
+      "packageNames": [
+        "swiftui"
+      ]
+    },
+    {
+      "id": "cmhg6osy800727pl8nt5fobf0",
+      "slug": "tap",
+      "name": "TAP",
+      "category": "testing",
+      "site": "https://node-tap.org",
+      "icon": "simple-icons:tap",
+      "color": "#0D638C",
+      "packageNames": [
+        "tap"
+      ]
+    },
+    {
+      "id": "cmhk2mh0k00047pisex33ohsz",
+      "slug": "tsx",
+      "name": "TSX",
+      "category": "frontend",
+      "site": "https://github.com/esbuild-kit/tsx",
+      "icon": "simple-icons:typescript",
+      "color": "#3178C6",
+      "packageNames": [
+        "tsx"
+      ]
+    },
+    {
+      "id": "cmhg6ph7w00bx7pl8g4sa2xoq",
+      "slug": "tsyringe",
+      "name": "TSyringe",
+      "category": "backend",
+      "site": "https://github.com/microsoft/tsyringe",
+      "icon": "mdi:syringe",
+      "color": "#E91E63",
+      "packageNames": [
+        "tsyringe"
+      ]
+    },
+    {
+      "id": "cmhg6phdp00bz7pl8eb3bafaf",
+      "slug": "tsyringe-di",
+      "name": "TSyringe DI",
+      "category": "backend",
+      "site": "https://github.com/microsoft/tsyringe",
+      "icon": "simple-icons:tsyringe",
+      "color": "#3178C6",
+      "packageNames": [
+        "tsyringe-di",
+        "tsyringedi",
+        "tsyringe_di"
+      ]
+    },
+    {
+      "id": "cmheo1mda00087pz0qp727usn",
+      "slug": "tailwindcss",
+      "name": "Tailwind CSS",
+      "category": "frontend",
+      "site": "https://tailwindcss.com",
+      "icon": "simple-icons:tailwindcss",
+      "color": "#06B6D4",
+      "packageNames": [
+        "tailwindcss",
+        "@tailwindcss/cli",
+        "tailwind-css",
+        "tailwind_css",
+        "@tailwindcss/core"
+      ]
+    },
+    {
+      "id": "cmhg6p3d800907pl8p3zia4px",
+      "slug": "tamagui",
+      "name": "Tamagui",
+      "category": "mobile",
+      "site": "https://tamagui.dev",
+      "icon": "simple-icons:tamagui",
+      "color": "#0066FF",
+      "packageNames": [
+        "tamagui"
+      ]
+    },
+    {
+      "id": "cmheo1onj000f7pz0m9355pbp",
+      "slug": "tanstack-query",
+      "name": "TanStack Query",
+      "category": "frontend",
+      "site": "https://tanstack.com/query",
+      "icon": "simple-icons:reactquery",
+      "color": "#FF4154",
+      "packageNames": [
+        "tanstack-query",
+        "tanstackquery",
+        "tanstack_query",
+        "@tanstack-query/core"
+      ]
+    },
+    {
+      "id": "cmhg6ot4b00737pl80ek439ps",
+      "slug": "tape",
+      "name": "Tape",
+      "category": "testing",
+      "site": "https://github.com/substack/tape",
+      "icon": "simple-icons:tape",
+      "color": "#EC4899",
+      "packageNames": [
+        "tape"
+      ]
+    },
+    {
+      "id": "cmhepnymd001m7p5ou1tbl2tp",
+      "slug": "tcl",
+      "name": "Tcl",
+      "category": "language",
+      "site": "https://www.tcl.tk",
+      "icon": "simple-icons:tcl",
+      "color": "#E8CC3C",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p9ca00a47pl8tkg0sb6o",
+      "slug": "tempo",
+      "name": "Tempo",
+      "category": "devops",
+      "site": "https://grafana.com/oss/tempo",
+      "icon": "simple-icons:grafana",
+      "color": "#F46800",
+      "packageNames": [
+        "tempo"
+      ]
+    },
+    {
+      "id": "cmhepfwmn001r7paslcmlduwj",
+      "slug": "terraform",
+      "name": "Terraform",
+      "category": "devops",
+      "site": "https://www.terraform.io",
+      "icon": "simple-icons:terraform",
+      "color": "#7B42BC",
+      "packageNames": [
+        "terraform"
+      ]
+    },
+    {
+      "id": "cmhg6os1a006v7pl8mud50u1g",
+      "slug": "testcafe",
+      "name": "TestCafe",
+      "category": "testing",
+      "site": "https://testcafe.io",
+      "icon": "simple-icons:testcafe",
+      "color": "#36B6D4",
+      "packageNames": [
+        "testcafe"
+      ]
+    },
+    {
+      "id": "cmhepg4ly002c7pasooieyzhj",
+      "slug": "testing-library",
+      "name": "Testing Library",
+      "category": "testing",
+      "site": "https://testing-library.com",
+      "icon": "simple-icons:testinglibrary",
+      "color": "#E33332",
+      "packageNames": [
+        "testing-library",
+        "testinglibrary",
+        "testing_library"
+      ]
+    },
+    {
+      "id": "cmhg6of7b004a7pl810b1bmwi",
+      "slug": "the-graph",
+      "name": "The Graph",
+      "category": "crypto",
+      "site": "https://thegraph.com",
+      "icon": "simple-icons:thegraph",
+      "color": "#6C4CDF",
+      "packageNames": [
+        "the-graph",
+        "thegraph",
+        "the_graph"
+      ]
+    },
+    {
+      "id": "cmhg6pkx500cy7pl8xao2uen9",
+      "slug": "thin",
+      "name": "Thin",
+      "category": "backend",
+      "site": "https://github.com/macournoyer/thin",
+      "icon": "mdi:code-braces",
+      "color": "#00BCD4",
+      "packageNames": [
+        "thin",
+        "thin-hook",
+        "broccoli-node-info",
+        "vue-thin-modal"
+      ]
+    },
+    {
+      "id": "cmhg6oevm00487pl8v0c6b01p",
+      "slug": "thirdweb",
+      "name": "Thirdweb",
+      "category": "crypto",
+      "site": "https://thirdweb.com",
+      "icon": "simple-icons:thirdweb",
+      "color": "#3773F5",
+      "packageNames": [
+        "thirdweb"
+      ]
+    },
+    {
+      "id": "cmhg6okti005n7pl8rabhnexo",
+      "slug": "tornado",
+      "name": "Tornado",
+      "category": "backend",
+      "site": "https://www.tornadoweb.org",
+      "icon": "mdi:weather-tornado",
+      "color": "#4CAF50",
+      "packageNames": [
+        "tornado",
+        "tornado-xsrf"
+      ]
+    },
+    {
+      "id": "cmhg6pihd00cb7pl8q3265a60",
+      "slug": "tornado-python",
+      "name": "Tornado (Python)",
+      "category": "backend",
+      "site": "https://www.tornadoweb.org",
+      "icon": "simple-icons:tornado",
+      "color": "#E14C42",
+      "packageNames": [
+        "tornado-python",
+        "tornado-(python)",
+        "tornado(python)",
+        "tornado_(python)"
+      ]
+    },
+    {
+      "id": "cmhg6opdc006e7pl803capjaf",
+      "slug": "tortoise",
+      "name": "Tortoise ORM",
+      "category": "database",
+      "site": "https://tortoise.github.io",
+      "icon": "simple-icons:tortoise",
+      "color": "#FF6B35",
+      "packageNames": [
+        "tortoise-orm",
+        "tortoiseorm",
+        "tortoise_orm"
+      ]
+    },
+    {
+      "id": "cmhg6oe3q00427pl8ncov9le3",
+      "slug": "truffle",
+      "name": "Truffle",
+      "category": "crypto",
+      "site": "https://trufflesuite.com",
+      "icon": "simple-icons:truffle",
+      "color": "#5E464D",
+      "packageNames": [
+        "truffle"
+      ]
+    },
+    {
+      "id": "cmhepffw2000b7pasgtlt5fxb",
+      "slug": "turbopack",
+      "name": "Turbopack",
+      "category": "frontend",
+      "site": "https://turbo.build",
+      "icon": "simple-icons:turborepo",
+      "color": "#EF4444",
+      "packageNames": [
+        "@turbopack/core"
+      ]
+    },
+    {
+      "id": "cmhg6on4500677pl8me77044v",
+      "slug": "typeorm",
+      "name": "TypeORM",
+      "category": "database",
+      "site": "https://typeorm.io",
+      "icon": "simple-icons:typeorm",
+      "color": "#FE0902",
+      "packageNames": [
+        "typeorm"
+      ]
+    },
+    {
+      "id": "cmheo1koq00037pz0i72o382m",
+      "slug": "typescript",
+      "name": "TypeScript",
+      "category": "language",
+      "site": "https://www.typescriptlang.org",
+      "icon": "simple-icons:typescript",
+      "color": "#3178c6",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6pjoa00cj7pl8ujfzxpbs",
+      "slug": "typer",
+      "name": "Typer",
+      "category": "backend",
+      "site": "https://typer.tiangolo.com",
+      "icon": "simple-icons:typer",
+      "color": "#009688",
+      "packageNames": [
+        "typer",
+        "media-typer"
+      ]
+    },
+    {
+      "id": "cmhg6p43c00977pl8932g9ksf",
+      "slug": "uikit",
+      "name": "UIKit",
+      "category": "mobile",
+      "site": "https://developer.apple.com/documentation/uikit",
+      "icon": "simple-icons:apple",
+      "color": "#EC4899",
+      "packageNames": [
+        "uikit"
+      ]
+    },
+    {
+      "id": "cmhg6p7er009s7pl8wch6umcv",
+      "slug": "uxpin",
+      "name": "UXPin",
+      "category": "design",
+      "site": "https://www.uxpin.com",
+      "icon": "simple-icons:uxpin",
+      "color": "#FF3446",
+      "packageNames": [
+        "uxpin"
+      ]
+    },
+    {
+      "id": "cmhg6pa6e00af7pl8qnyorvj3",
+      "slug": "underscore",
+      "name": "Underscore.js",
+      "category": "frontend",
+      "site": "https://underscorejs.org",
+      "icon": "simple-icons:underscorejs",
+      "color": "#0371B5",
+      "packageNames": [
+        "underscore.js",
+        "@underscore/core",
+        "underscore"
+      ]
+    },
+    {
+      "id": "cmhg6on1000667pl8819n2wqg",
+      "slug": "undertow",
+      "name": "Undertow",
+      "category": "backend",
+      "site": "https://undertow.io",
+      "icon": "mdi:arrow-down",
+      "color": "#FF5722",
+      "packageNames": [
+        "undertow",
+        "a-lbum-do-wnload-avai-lable-file-undertow-rn478-tccpok",
+        "node-lwan"
+      ]
+    },
+    {
+      "id": "cmhg6pkur00cx7pl8izfn8nlk",
+      "slug": "unicorn",
+      "name": "Unicorn",
+      "category": "backend",
+      "site": "https://yhbt.net/unicorn",
+      "icon": "mdi:unicorn",
+      "color": "#9C27B0",
+      "packageNames": [
+        "unicorn",
+        "titleize",
+        "find-versions"
+      ]
+    },
+    {
+      "id": "cmhepo0u0001q7p5o9ao7mdok",
+      "slug": "vbnet",
+      "name": "VB.NET",
+      "category": "language",
+      "site": "https://dotnet.microsoft.com/languages/vb",
+      "icon": "simple-icons:dotnet",
+      "color": "#512BD4",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6oxph007u7pl8tvxjqjg4",
+      "slug": "vcr",
+      "name": "VCR",
+      "category": "testing",
+      "site": "https://github.com/vcr/vcr",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "vcr"
+      ]
+    },
+    {
+      "id": "cmhg6ouxc007f7pl8rfgplaon",
+      "slug": "vcrpy",
+      "name": "VCR.py",
+      "category": "testing",
+      "site": "https://vcrpy.readthedocs.io",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "vcr.py"
+      ]
+    },
+    {
+      "id": "cmhg6p2nw008s7pl83dbq8q30",
+      "slug": "vagrant",
+      "name": "Vagrant",
+      "category": "devops",
+      "site": "https://www.vagrantup.com",
+      "icon": "simple-icons:vagrant",
+      "color": "#1868F2",
+      "packageNames": [
+        "vagrant"
+      ]
+    },
+    {
+      "id": "cmhg6oi79004y7pl8xobkpvxa",
+      "slug": "valtio",
+      "name": "Valtio",
+      "category": "frontend",
+      "site": "https://github.com/pmndrs/valtio",
+      "icon": "simple-icons:valtio",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "@valtio/core"
+      ]
+    },
+    {
+      "id": "cmhg6p2ig008q7pl8eeum6rkp",
+      "slug": "vault",
+      "name": "Vault",
+      "category": "devops",
+      "site": "https://www.vaultproject.io",
+      "icon": "simple-icons:hashicorp",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "vault"
+      ]
+    },
+    {
+      "id": "cmheo1o15000d7pz0p231zpnj",
+      "slug": "vercel",
+      "name": "Vercel",
+      "category": "devops",
+      "site": "https://vercel.com",
+      "icon": "simple-icons:vercel",
+      "color": "#FFFFFF",
+      "packageNames": [
+        "vercel",
+        "@vercel/node"
+      ]
+    },
+    {
+      "id": "cmhg6p0gk008b7pl8h4j6w3sx",
+      "slug": "vercel-platform",
+      "name": "Vercel Platform",
+      "category": "devops",
+      "site": "https://vercel.com",
+      "icon": "simple-icons:vercel",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "vercel-platform",
+        "vercelplatform",
+        "vercel_platform"
+      ]
+    },
+    {
+      "id": "cmhg6om7v00617pl8vgdont8i",
+      "slug": "vertx",
+      "name": "Vert.x",
+      "category": "backend",
+      "site": "https://vertx.io",
+      "icon": "mdi:language-java",
+      "color": "#ED8B00",
+      "packageNames": [
+        "vert.x"
+      ]
+    },
+    {
+      "id": "cmhg6oem600467pl894ieaqjg",
+      "slug": "viem",
+      "name": "Viem",
+      "category": "crypto",
+      "site": "https://viem.sh",
+      "icon": "simple-icons:viem",
+      "color": "#1C4ED8",
+      "packageNames": [
+        "viem"
+      ]
+    },
+    {
+      "id": "cmheo1oc9000e7pz0vhp5u5td",
+      "slug": "vite",
+      "name": "Vite",
+      "category": "frontend",
+      "site": "https://vitejs.dev",
+      "icon": "simple-icons:vite",
+      "color": "#646CFF",
+      "packageNames": [
+        "vite",
+        "@vitejs/plugin-react",
+        "@vite/core"
+      ]
+    },
+    {
+      "id": "cmhepg2l100297pas6c6e9f95",
+      "slug": "vitest",
+      "name": "Vitest",
+      "category": "testing",
+      "site": "https://vitest.dev",
+      "icon": "simple-icons:vitest",
+      "color": "#6E9F18",
+      "packageNames": [
+        "vitest"
+      ]
+    },
+    {
+      "id": "cmheo1lov00067pz0q7b2ohbf",
+      "slug": "vuejs",
+      "name": "Vue.js",
+      "category": "frontend",
+      "site": "https://vuejs.org",
+      "icon": "logos:vue",
+      "color": "#42b883",
+      "packageNames": [
+        "vue",
+        "@vue/core",
+        "vuejs",
+        "vue.js",
+        "@vuejs/core"
+      ]
+    },
+    {
+      "id": "cmhg6oehu00457pl8ili06rck",
+      "slug": "wagmi",
+      "name": "Wagmi",
+      "category": "crypto",
+      "site": "https://wagmi.sh",
+      "icon": "simple-icons:wagmi",
+      "color": "#FC72FF",
+      "packageNames": [
+        "wagmi"
+      ]
+    },
+    {
+      "id": "cmhg6odgv00407pl8v6gjd59c",
+      "slug": "web3js",
+      "name": "Web3.js",
+      "category": "crypto",
+      "site": "https://web3js.readthedocs.io",
+      "icon": "simple-icons:web3dotjs",
+      "color": "#F16822",
+      "packageNames": [
+        "web3.js"
+      ]
+    },
+    {
+      "id": "cmhg6os7y006x7pl8h14h7v8f",
+      "slug": "webdriverio",
+      "name": "WebdriverIO",
+      "category": "testing",
+      "site": "https://webdriver.io",
+      "icon": "simple-icons:webdriverio",
+      "color": "#EA5906",
+      "packageNames": [
+        "webdriverio"
+      ]
+    },
+    {
+      "id": "cmhepff7g00097pasrxtqora6",
+      "slug": "webpack",
+      "name": "Webpack",
+      "category": "frontend",
+      "site": "https://webpack.js.org",
+      "icon": "simple-icons:webpack",
+      "color": "#8DD6F9",
+      "packageNames": [
+        "webpack",
+        "webpack-cli",
+        "@webpack/core"
+      ]
+    },
+    {
+      "id": "cmhg6plha00d47pl8cck1ecbn",
+      "slug": "whenever",
+      "name": "Whenever",
+      "category": "backend",
+      "site": "https://github.com/javan/whenever",
+      "icon": "mdi:calendar-repeat",
+      "color": "#9C27B0",
+      "packageNames": [
+        "whenever",
+        "axios-retry",
+        "grunt-contrib-watch",
+        "react-waypoint"
+      ]
+    },
+    {
+      "id": "cmhg6phgb00c07pl8rvj7wawo",
+      "slug": "winston",
+      "name": "Winston",
+      "category": "backend",
+      "site": "https://github.com/winstonjs/winston",
+      "icon": "simple-icons:winston",
+      "color": "#2F8FD7",
+      "packageNames": [
+        "winston",
+        "winston-transport"
+      ]
+    },
+    {
+      "id": "cmhg6oi4b004x7pl896jo3b0c",
+      "slug": "xstate",
+      "name": "XState",
+      "category": "frontend",
+      "site": "https://xstate.js.org",
+      "icon": "simple-icons:xstate",
+      "color": "#2C3E50",
+      "packageNames": [
+        "@xstate/core"
+      ]
+    },
+    {
+      "id": "cmhepgbes002t7pasm5k27crm",
+      "slug": "xamarin",
+      "name": "Xamarin",
+      "category": "mobile",
+      "site": "https://dotnet.microsoft.com/apps/xamarin",
+      "icon": "simple-icons:xamarin",
+      "color": "#3498DB",
+      "packageNames": [
+        "xamarin"
+      ]
+    },
+    {
+      "id": "cmhg6pce200au7pl8p9iaatne",
+      "slug": "yup",
+      "name": "Yup",
+      "category": "frontend",
+      "site": "https://github.com/jquense/yup",
+      "icon": "simple-icons:yup",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "@yup/core",
+        "yup"
+      ]
+    },
+    {
+      "id": "cmhg6p6s2009n7pl815kh2lq9",
+      "slug": "zeplin",
+      "name": "Zeplin",
+      "category": "design",
+      "site": "https://zeplin.io",
+      "icon": "simple-icons:zeplin",
+      "color": "#FDBD39",
+      "packageNames": [
+        "zeplin"
+      ]
+    },
+    {
+      "id": "cmhepnvjg001g7p5o4ns9ze94",
+      "slug": "zig",
+      "name": "Zig",
+      "category": "language",
+      "site": "https://ziglang.org",
+      "icon": "simple-icons:zig",
+      "color": "#F7A41D",
+      "packageNames": []
+    },
+    {
+      "id": "cmhg6p99c00a37pl80aw29s6h",
+      "slug": "zipkin",
+      "name": "Zipkin",
+      "category": "devops",
+      "site": "https://zipkin.io",
+      "icon": "simple-icons:zipkin",
+      "color": "#FCA657",
+      "packageNames": [
+        "zipkin"
+      ]
+    },
+    {
+      "id": "cmhg6pc8a00at7pl8jwvao8ix",
+      "slug": "zod",
+      "name": "Zod",
+      "category": "frontend",
+      "site": "https://zod.dev",
+      "icon": "simple-icons:zod",
+      "color": "#3E63DD",
+      "packageNames": [
+        "zod",
+        "@zod/core"
+      ]
+    },
+    {
+      "id": "cmhepfill000j7pasqbwa77if",
+      "slug": "zustand",
+      "name": "Zustand",
+      "category": "frontend",
+      "site": "https://zustand-demo.pmnd.rs",
+      "icon": "simple-icons:zustand",
+      "color": "#443C3C",
+      "packageNames": [
+        "zustand",
+        "@zustand/core"
+      ]
+    },
+    {
+      "id": "cmhg6pie500ca7pl8mlwjq5oo",
+      "slug": "aiohttp",
+      "name": "aiohttp",
+      "category": "backend",
+      "site": "https://docs.aiohttp.org",
+      "icon": "simple-icons:aiohttp",
+      "color": "#2C5FAA",
+      "packageNames": [
+        "aiohttp",
+        "aiohttp-zhongwen-wendang",
+        "generator-aiohttp-uvloop",
+        "wsrpc-python"
+      ]
+    },
+    {
+      "id": "cmhg6pelm00b97pl8byvb8k8i",
+      "slug": "bcrypt",
+      "name": "bcrypt",
+      "category": "backend",
+      "site": "https://github.com/kelektiv/node.bcrypt.js",
+      "icon": "mdi:lock",
+      "color": "#FFD700",
+      "packageNames": [
+        "bcrypt",
+        "bcryptjs"
+      ]
+    },
+    {
+      "id": "cmhg6pe7m00b67pl8d812lci6",
+      "slug": "body-parser",
+      "name": "body-parser",
+      "category": "backend",
+      "site": "https://github.com/expressjs/body-parser",
+      "icon": "simple-icons:express",
+      "color": "#3C873A",
+      "packageNames": [
+        "body-parser"
+      ]
+    },
+    {
+      "id": "cmhg6ph2d00bv7pl86zwt063x",
+      "slug": "class-transformer",
+      "name": "class-transformer",
+      "category": "backend",
+      "site": "https://github.com/typestack/class-transformer",
+      "icon": "mdi:refresh",
+      "color": "#00BCD4",
+      "packageNames": [
+        "class-transformer"
+      ]
+    },
+    {
+      "id": "cmhg6pcv200ax7pl8ixsmx4gq",
+      "slug": "class-validator",
+      "name": "class-validator",
+      "category": "backend",
+      "site": "https://github.com/typestack/class-validator",
+      "icon": "simple-icons:classvalidator",
+      "color": "#E0234E",
+      "packageNames": [
+        "class-validator"
+      ]
+    },
+    {
+      "id": "cmhg6pe0k00b47pl8tmilvgg8",
+      "slug": "compression",
+      "name": "compression",
+      "category": "backend",
+      "site": "https://github.com/expressjs/compression",
+      "icon": "mdi:file-compress",
+      "color": "#4CAF50",
+      "packageNames": [
+        "compression"
+      ]
+    },
+    {
+      "id": "cmhg6phwj00c67pl8x8h4pidw",
+      "slug": "concurrently",
+      "name": "concurrently",
+      "category": "backend",
+      "site": "https://github.com/open-cli-tools/concurrently",
+      "icon": "mdi:multiplication",
+      "color": "#00BCD4",
+      "packageNames": [
+        "concurrently",
+        "p-map",
+        "p-filter"
+      ]
+    },
+    {
+      "id": "cmhg6ped600b77pl843hzxtl5",
+      "slug": "cookie-parser",
+      "name": "cookie-parser",
+      "category": "backend",
+      "site": "https://github.com/expressjs/cookie-parser",
+      "icon": "mdi:cookie",
+      "color": "#FF9500",
+      "packageNames": [
+        "cookie-parser"
+      ]
+    },
+    {
+      "id": "cmhg6phzn00c77pl8as48xd16",
+      "slug": "cross-env",
+      "name": "cross-env",
+      "category": "backend",
+      "site": "https://github.com/kentcdodds/cross-env",
+      "icon": "mdi:application-cog",
+      "color": "#FFA500",
+      "packageNames": [
+        "cross-env"
+      ]
+    },
+    {
+      "id": "cmhg6pabz00ah7pl8r8xepc33",
+      "slug": "date-fns",
+      "name": "date-fns",
+      "category": "frontend",
+      "site": "https://date-fns.org",
+      "icon": "simple-icons:datefns",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "date-fns",
+        "@date-fns/core"
+      ]
+    },
+    {
+      "id": "cmhg6phoe00c37pl8j60ub9yk",
+      "slug": "debug",
+      "name": "debug",
+      "category": "backend",
+      "site": "https://github.com/visionmedia/debug",
+      "icon": "mdi:bug",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "debug",
+        "debug-fabulous"
+      ]
+    },
+    {
+      "id": "cmhg6otil00777pl87arap1yy",
+      "slug": "doctest",
+      "name": "doctest",
+      "category": "testing",
+      "site": "https://github.com/doctest/doctest",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "doctest"
+      ]
+    },
+    {
+      "id": "cmhg6pefx00b87pl8f411vbl4",
+      "slug": "dotenv",
+      "name": "dotenv",
+      "category": "backend",
+      "site": "https://github.com/motdotla/dotenv",
+      "icon": "simple-icons:dotenv",
+      "color": "#ECD53F",
+      "packageNames": [
+        "dotenv",
+        "dotenv-expand",
+        "dotenv-defaults"
+      ]
+    },
+    {
+      "id": "cmhg6pgwk00bt7pl8orjwt16c",
+      "slug": "express-rate-limit",
+      "name": "express-rate-limit",
+      "category": "backend",
+      "site": "https://github.com/express-rate-limit/express-rate-limit",
+      "icon": "simple-icons:express",
+      "color": "#FFFFFF",
+      "packageNames": [
+        "express-rate-limit"
+      ]
+    },
+    {
+      "id": "cmhg6pgzv00bu7pl8uh9klv4u",
+      "slug": "express-validator",
+      "name": "express-validator",
+      "category": "backend",
+      "site": "https://express-validator.github.io",
+      "icon": "mdi:check-circle",
+      "color": "#4CAF50",
+      "packageNames": [
+        "express-validator"
+      ]
+    },
+    {
+      "id": "cmhg6oug8007c7pl8w2btlzvp",
+      "slug": "factory-boy",
+      "name": "factory_boy",
+      "category": "testing",
+      "site": "https://factoryboy.readthedocs.io",
+      "icon": "simple-icons:factorybot",
+      "color": "#3776AB",
+      "packageNames": [
+        "factory-boy",
+        "factory_boy"
+      ]
+    },
+    {
+      "id": "cmhg6ouas007b7pl8svh907az",
+      "slug": "freezegun",
+      "name": "freezegun",
+      "category": "testing",
+      "site": "https://github.com/spulec/freezegun",
+      "icon": "mdi:clock-outline",
+      "color": "#3776AB",
+      "packageNames": [
+        "freezegun"
+      ]
+    },
+    {
+      "id": "cmhg6pgiz00bp7pl8cs9l70jp",
+      "slug": "ioredis",
+      "name": "ioredis",
+      "category": "backend",
+      "site": "https://github.com/redis/ioredis",
+      "icon": "simple-icons:redis",
+      "color": "#DC382D",
+      "packageNames": [
+        "ioredis"
+      ]
+    },
+    {
+      "id": "cmhg6pfe200bg7pl8yc7boat3",
+      "slug": "jsdom",
+      "name": "jsdom",
+      "category": "backend",
+      "site": "https://github.com/jsdom/jsdom",
+      "icon": "mdi:dom",
+      "color": "#3F51B5",
+      "packageNames": [
+        "jsdom",
+        "jest-environment-jsdom-fourteen"
+      ]
+    },
+    {
+      "id": "cmhg6pera00ba7pl8y7lgd9v3",
+      "slug": "jsonwebtoken",
+      "name": "jsonwebtoken",
+      "category": "backend",
+      "site": "https://github.com/auth0/node-jsonwebtoken",
+      "icon": "simple-icons:jsonwebtokens",
+      "color": "#F8991D",
+      "packageNames": [
+        "jsonwebtoken",
+        "jsonwebtoken-esm"
+      ]
+    },
+    {
+      "id": "cmhg6ourq007e7pl8981yeu9m",
+      "slug": "mock",
+      "name": "mock",
+      "category": "testing",
+      "site": "https://docs.python.org/3/library/unittest.mock.html",
+      "icon": "simple-icons:mockito",
+      "color": "#8B5CF6",
+      "packageNames": [
+        "mock"
+      ]
+    },
+    {
+      "id": "cmhg6pg9q00bn7pl82qh4uhdk",
+      "slug": "node-cron",
+      "name": "node-cron",
+      "category": "backend",
+      "site": "https://github.com/node-cron/node-cron",
+      "icon": "mdi:clock-outline",
+      "color": "#2196F3",
+      "packageNames": [
+        "node-cron"
+      ]
+    },
+    {
+      "id": "cmhg6pbaa00an7pl8h91h1gab",
+      "slug": "node-fetch",
+      "name": "node-fetch",
+      "category": "backend",
+      "site": "https://github.com/node-fetch/node-fetch",
+      "icon": "mdi:web",
+      "color": "#00A0E3",
+      "packageNames": [
+        "node-fetch"
+      ]
+    },
+    {
+      "id": "cmhg6pgfy00bo7pl8vxycrzjn",
+      "slug": "node-schedule",
+      "name": "node-schedule",
+      "category": "backend",
+      "site": "https://github.com/node-schedule/node-schedule",
+      "icon": "mdi:calendar-check",
+      "color": "#3F51B5",
+      "packageNames": [
+        "node-schedule"
+      ]
+    },
+    {
+      "id": "cmhg6otcf00757pl8y04zjcei",
+      "slug": "nose",
+      "name": "nose",
+      "category": "testing",
+      "site": "https://nose.readthedocs.io",
+      "icon": "mdi:test-tube",
+      "color": "#3776AB",
+      "packageNames": [
+        "nose"
+      ]
+    },
+    {
+      "id": "cmhg6ov8p007h7pl843fn6fov",
+      "slug": "nose-timer",
+      "name": "nose-timer",
+      "category": "testing",
+      "site": "https://github.com/mahmoudimus/nose-timer",
+      "icon": "mdi:test-tube",
+      "color": "#3776AB",
+      "packageNames": [
+        "nose-timer"
+      ]
+    },
+    {
+      "id": "cmhg6otfp00767pl8wqxpbd2a",
+      "slug": "nose2",
+      "name": "nose2",
+      "category": "testing",
+      "site": "https://nose2.readthedocs.io",
+      "icon": "mdi:test-tube",
+      "color": "#3776AB",
+      "packageNames": [
+        "nose2"
+      ]
+    },
+    {
+      "id": "cmhepg57y002d7pasamzdzmbl",
+      "slug": "pytest",
+      "name": "pytest",
+      "category": "testing",
+      "site": "https://pytest.org",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest"
+      ]
+    },
+    {
+      "id": "cmhg6ovx7007l7pl8ss11or5j",
+      "slug": "pytest-asyncio",
+      "name": "pytest-asyncio",
+      "category": "testing",
+      "site": "https://pytest-asyncio.readthedocs.io",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest-asyncio"
+      ]
+    },
+    {
+      "id": "cmhg6ovd3007i7pl8vikd24xy",
+      "slug": "pytest-cov",
+      "name": "pytest-cov",
+      "category": "testing",
+      "site": "https://pytest-cov.readthedocs.io",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest-cov"
+      ]
+    },
+    {
+      "id": "cmhg6owih007m7pl8a4pognhi",
+      "slug": "pytest-django",
+      "name": "pytest-django",
+      "category": "testing",
+      "site": "https://pytest-django.readthedocs.io",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest-django"
+      ]
+    },
+    {
+      "id": "cmhg6owva007n7pl8rgtmqbmq",
+      "slug": "pytest-flask",
+      "name": "pytest-flask",
+      "category": "testing",
+      "site": "https://pytest-flask.readthedocs.io",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest-flask"
+      ]
+    },
+    {
+      "id": "cmhg6ovsm007k7pl8ga65uo8w",
+      "slug": "pytest-mock",
+      "name": "pytest-mock",
+      "category": "testing",
+      "site": "https://pytest-mock.readthedocs.io",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest-mock"
+      ]
+    },
+    {
+      "id": "cmhg6ovk3007j7pl82o8673al",
+      "slug": "pytest-xdist",
+      "name": "pytest-xdist",
+      "category": "testing",
+      "site": "https://pytest-xdist.readthedocs.io",
+      "icon": "simple-icons:pytest",
+      "color": "#0A9EDC",
+      "packageNames": [
+        "pytest-xdist"
+      ]
+    },
+    {
+      "id": "cmhg6pkcg00cq7pl8txdgp8km",
+      "slug": "python-crontab",
+      "name": "python-crontab",
+      "category": "backend",
+      "site": "https://github.com/doctormo/python-crontab",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "python-crontab"
+      ]
+    },
+    {
+      "id": "cmhg6pjf500ch7pl8gtjlzc68",
+      "slug": "python-decouple",
+      "name": "python-decouple",
+      "category": "backend",
+      "site": "https://github.com/henriquebastos/python-decouple",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "python-decouple"
+      ]
+    },
+    {
+      "id": "cmhg6pj9j00cg7pl86kkif7hg",
+      "slug": "python-dotenv",
+      "name": "python-dotenv",
+      "category": "backend",
+      "site": "https://github.com/theskumar/python-dotenv",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "python-dotenv"
+      ]
+    },
+    {
+      "id": "cmhg6pk3600co7pl8e01rpxyr",
+      "slug": "python-json-logger",
+      "name": "python-json-logger",
+      "category": "backend",
+      "site": "https://github.com/madzak/python-json-logger",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "python-json-logger"
+      ]
+    },
+    {
+      "id": "cmhg6pgty00bs7pl82z4gpqev",
+      "slug": "rate-limiter-flexible",
+      "name": "rate-limiter-flexible",
+      "category": "backend",
+      "site": "https://github.com/animir/node-rate-limiter-flexible",
+      "icon": "mdi:speedometer",
+      "color": "#FF9800",
+      "packageNames": [
+        "rate-limiter-flexible"
+      ]
+    },
+    {
+      "id": "cmhg6pc2m00as7pl8umsef043",
+      "slug": "redaxios",
+      "name": "redaxios",
+      "category": "frontend",
+      "site": "https://github.com/developit/redaxios",
+      "icon": "simple-icons:redaxios",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "@redaxios/core"
+      ]
+    },
+    {
+      "id": "cmhg6ph5600bw7pl8ri89d03a",
+      "slug": "reflect-metadata",
+      "name": "reflect-metadata",
+      "category": "backend",
+      "site": "https://github.com/rbuckton/reflect-metadata",
+      "icon": "mdi:mirror",
+      "color": "#9C27B0",
+      "packageNames": [
+        "reflect-metadata"
+      ]
+    },
+    {
+      "id": "cmhg6otwb00797pl82yc13ide",
+      "slug": "responses",
+      "name": "responses",
+      "category": "testing",
+      "site": "https://github.com/getsentry/responses",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "responses"
+      ]
+    },
+    {
+      "id": "cmhg6pket00cr7pl80j7emg0v",
+      "slug": "schedule",
+      "name": "schedule",
+      "category": "backend",
+      "site": "https://github.com/dbader/schedule",
+      "icon": "mdi:calendar-clock",
+      "color": "#2196F3",
+      "packageNames": [
+        "schedule"
+      ]
+    },
+    {
+      "id": "cmhg6oj2s00567pl8pvawlli9",
+      "slug": "shadcn",
+      "name": "shadcn/ui",
+      "category": "frontend",
+      "site": "https://ui.shadcn.com",
+      "icon": "simple-icons:shadcnui",
+      "color": "#06B6D4",
+      "packageNames": [
+        "shadcn/ui",
+        "@shadcn/core"
+      ]
+    },
+    {
+      "id": "cmhk2r7ju00087p6svuaqsyzl",
+      "slug": "shadcn-ui",
+      "name": "shadcn/ui",
+      "category": "frontend",
+      "site": "https://ui.shadcn.com",
+      "icon": "simple-icons:shadcnui",
+      "color": "#06B6D4",
+      "packageNames": [
+        "shadcn/ui",
+        "@shadcn/ui"
+      ]
+    },
+    {
+      "id": "cmhg6pk0d00cn7pl8dphdl2i7",
+      "slug": "structlog",
+      "name": "structlog",
+      "category": "backend",
+      "site": "https://www.structlog.org",
+      "icon": "mdi:structure",
+      "color": "#3F51B5",
+      "packageNames": [
+        "structlog",
+        "quick-helper"
+      ]
+    },
+    {
+      "id": "cmhepg0u700247pas8g2q26bc",
+      "slug": "tRPC",
+      "name": "tRPC",
+      "category": "api",
+      "site": "https://trpc.io",
+      "icon": "simple-icons:trpc",
+      "color": "#2596BE",
+      "packageNames": [
+        "trpc"
+      ]
+    },
+    {
+      "id": "cmhk2r5gn00027p6s769bl41p",
+      "slug": "tailwind-merge",
+      "name": "tailwind-merge",
+      "category": "frontend",
+      "site": "https://github.com/dcastil/tailwind-merge",
+      "icon": "simple-icons:tailwindcss",
+      "color": "#06B6D4",
+      "packageNames": [
+        "tailwind-merge",
+        "tw-merge"
+      ]
+    },
+    {
+      "id": "cmhk2r5ld00037p6sutabdzn4",
+      "slug": "tailwind-variants",
+      "name": "tailwind-variants",
+      "category": "frontend",
+      "site": "https://www.tailwind-variants.org",
+      "icon": "simple-icons:tailwindcss",
+      "color": "#06B6D4",
+      "packageNames": [
+        "tailwind-variants",
+        "tv"
+      ]
+    },
+    {
+      "id": "cmhg6oxap007q7pl8nomacpcg",
+      "slug": "test-unit",
+      "name": "test-unit",
+      "category": "testing",
+      "site": "https://github.com/test-unit/test-unit",
+      "icon": "simple-icons:ruby",
+      "color": "#CC342D",
+      "packageNames": [
+        "test-unit"
+      ]
+    },
+    {
+      "id": "cmhg6ov35007g7pl8badu1rea",
+      "slug": "tox",
+      "name": "tox",
+      "category": "testing",
+      "site": "https://tox.wiki",
+      "icon": "simple-icons:tox",
+      "color": "#89B509",
+      "packageNames": [
+        "tox"
+      ]
+    },
+    {
+      "id": "cmhg6pjud00cl7pl87qd8hvt0",
+      "slug": "tqdm",
+      "name": "tqdm",
+      "category": "backend",
+      "site": "https://tqdm.github.io",
+      "icon": "simple-icons:tqdm",
+      "color": "#FF6B6B",
+      "packageNames": [
+        "tqdm",
+        "ts-tqdm",
+        "node-console-progress-bar-tqdm"
+      ]
+    },
+    {
+      "id": "cmhg6pbf300ao7pl8lgpd6bm9",
+      "slug": "undici",
+      "name": "undici",
+      "category": "backend",
+      "site": "https://github.com/nodejs/undici",
+      "icon": "simple-icons:nodedotjs",
+      "color": "#3C873A",
+      "packageNames": [
+        "undici",
+        "undici-types"
+      ]
+    },
+    {
+      "id": "cmhg6ot7500747pl8amo73wdu",
+      "slug": "unittest",
+      "name": "unittest",
+      "category": "testing",
+      "site": "https://docs.python.org/3/library/unittest.html",
+      "icon": "simple-icons:python",
+      "color": "#3776AB",
+      "packageNames": [
+        "unittest"
+      ]
+    },
+    {
+      "id": "cmhg6pk5z00cp7pl8srgeyn5a",
+      "slug": "watchdog",
+      "name": "watchdog",
+      "category": "backend",
+      "site": "https://github.com/gorakhargosh/watchdog",
+      "icon": "mdi:dog",
+      "color": "#FF5722",
+      "packageNames": [
+        "watchdog"
+      ]
+    },
+    {
+      "id": "cmhg6pfsd00bj7pl8bv4nzsfe",
+      "slug": "ws",
+      "name": "ws",
+      "category": "backend",
+      "site": "https://github.com/websockets/ws",
+      "icon": "simple-icons:websocket",
+      "color": "#00D9FF",
+      "packageNames": [
+        "ws"
+      ]
+    },
+    {
+      "id": "cmhg6pfya00bk7pl865i4gouo",
+      "slug": "uws",
+      "name": "µWebSockets",
+      "category": "backend",
+      "site": "https://github.com/uNetworking/uWebSockets",
+      "icon": "simple-icons:websocket",
+      "color": "#00D9FF",
+      "packageNames": [
+        "µwebsockets"
+      ]
+    }
+  ]
+}

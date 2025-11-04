@@ -32,7 +32,6 @@ export default function ProjectPage() {
   const [project, setProject] = useState<any>(null);
   const [tools, setTools] = useState<any[]>([]);
   const [author, setAuthor] = useState<any>(null);
-  const [repoInfo, setRepoInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,7 +39,7 @@ export default function ProjectPage() {
       try {
         const [projectData, toolsData] = await Promise.all([
           api.projects.get(projectId),
-          api.tools.list({ limit: 200 }),
+          api.tools.list({ limit: 1000 }), // Fetch all tools to ensure matching works
         ]);
         setProject(projectData);
         setTools(toolsData);
@@ -50,15 +49,8 @@ export default function ProjectPage() {
           setAuthor(authorData);
         }
 
-        // If repoUrl exists, fetch additional GitHub info
-        if (projectData.repoUrl && session) {
-          try {
-            const repoData = await api.github.analyze(projectData.repoUrl);
-            setRepoInfo(repoData);
-          } catch (error) {
-            console.error("Failed to fetch repo info:", error);
-          }
-        }
+        // Tools are already stored in database from sync - no need to re-detect
+        // repoInfo is only used for additional metadata like topics, which we can add later
       } catch (error) {
         console.error("Failed to load project:", error);
       } finally {
@@ -86,11 +78,8 @@ export default function ProjectPage() {
     );
   }
 
-  // Merge tools from project and repoInfo, filter out unknown tools
-  const allToolIcons = Array.from(new Set([
-    ...(project.tools || []),
-    ...(repoInfo?.tools || []),
-  ]));
+  // Tools are already stored in database from sync - no need to merge with repoInfo
+  const allToolIcons = Array.from(new Set(project.tools || []));
   
   // Filter to only show tools that exist in database
   const allTools = allToolIcons.filter((icon: string) => {
@@ -120,18 +109,15 @@ export default function ProjectPage() {
           </div>
           <aside className="flex flex-col gap-3 items-end ml-auto">
             <div className="flex gap-1 mb-2">
-              <span className="bg-black/60 border border-[var(--border)] rounded text-xs text-white px-2 py-1 shadow">★ {project.stars || repoInfo?.stars || 0}</span>
+              <span className="bg-black/60 border border-[var(--border)] rounded text-xs text-white px-2 py-1 shadow">★ {project.stars || 0}</span>
               <span className="bg-black/60 border border-[var(--border)] rounded text-xs text-white px-2 py-1 shadow">{allTools.length} Tools</span>
-              {repoInfo?.language && (
-                <span className="bg-black/60 border border-[var(--border)] rounded text-xs text-white px-2 py-1 shadow">{repoInfo.language}</span>
-              )}
             </div>
             <div className="flex gap-2">
               <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[var(--primary)] px-5 py-2 text-sm font-bold text-black shadow hover:scale-105 transition">
                 View on GitHub ↗
               </a>
-              {(project.demoUrl || repoInfo?.homepage) && (
-                <a href={project.demoUrl || repoInfo?.homepage} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[var(--primary)] px-5 py-2 text-sm font-semibold text-[var(--primary)] bg-white/10 shadow hover:bg-[var(--primary)]/10 transition">
+              {project.demoUrl && (
+                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[var(--primary)] px-5 py-2 text-sm font-semibold text-[var(--primary)] bg-white/10 shadow hover:bg-[var(--primary)]/10 transition">
                   Live Demo
                 </a>
               )}
@@ -147,7 +133,7 @@ export default function ProjectPage() {
           <div className="bg-[var(--surface)] rounded-xl p-6 border border-[var(--border)] shadow">
             <div className="font-serif text-lg text-[var(--text)] mb-2 font-semibold">About</div>
             <div className="text-[var(--text-muted)] mb-2 leading-relaxed">
-              {project.about || project.description || repoInfo?.description || "No description available for this project."}
+              {project.about || project.description || "No description available for this project."}
             </div>
             {project.reflection && (
               <div className="mt-4 pt-4 border-t border-[var(--border)]">
@@ -193,18 +179,6 @@ export default function ProjectPage() {
                 );
               })}
             </div>
-            {repoInfo?.topics && repoInfo.topics.length > 0 && (
-              <div className="mt-6 pt-6 border-t border-[var(--border)]">
-                <div className="mb-3 text-sm uppercase tracking-wide text-[var(--text-muted)] font-semibold">GitHub Topics</div>
-                <div className="flex flex-wrap gap-2">
-                  {repoInfo.topics.map((topic: string) => (
-                    <span key={topic} className="px-3 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text-muted)] hover:border-[var(--primary)] transition">
-                      {topic}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
           </>
         ) : (
           <div className="text-center py-8 text-[var(--text-muted)]">
