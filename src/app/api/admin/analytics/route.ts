@@ -92,6 +92,7 @@ export async function GET(request: NextRequest) {
       sessionMetrics,
       engagementMetrics,
       eventTypeDistribution,
+      pageDurations,
     ] = await Promise.all([
       // Total events
       (prisma as any).analyticsEvent.count({ where }),
@@ -284,16 +285,45 @@ export async function GET(request: NextRequest) {
         }));
       }),
       
-      // Session metrics
-      ((prisma as any).analyticsEvent.groupBy({
-        by: ["sessionId"],
+      // Session metrics - calculate duration from session start to end
+      ((prisma as any).analyticsEvent.findMany({
         where: { ...where, sessionId: { not: null } },
-        _count: { sessionId: true },
-        _avg: { duration: true },
-      }) as Promise<Array<{ sessionId: string | null; _count: { sessionId: number }; _avg: { duration: number | null } }>>).then((sessions: Array<{ sessionId: string | null; _count: { sessionId: number }; _avg: { duration: number | null } }>) => {
+        select: { sessionId: true, createdAt: true, duration: true, eventType: true },
+        orderBy: { createdAt: "asc" },
+      }) as Promise<Array<{ sessionId: string | null; createdAt: Date; duration: number | null; eventType: string }>>).then((events: Array<{ sessionId: string | null; createdAt: Date; duration: number | null; eventType: string }>) => {
+        // Group events by session
+        const sessionMap = new Map<string, { start: Date; end: Date; events: number }>();
+        
+        events.forEach((event) => {
+          if (!event.sessionId) return;
+          
+          if (!sessionMap.has(event.sessionId)) {
+            sessionMap.set(event.sessionId, {
+              start: event.createdAt,
+              end: event.createdAt,
+              events: 0,
+            });
+          }
+          
+          const session = sessionMap.get(event.sessionId)!;
+          session.end = event.createdAt > session.end ? event.createdAt : session.end;
+          session.events++;
+        });
+        
+        const sessions = Array.from(sessionMap.values());
         const totalSessions = sessions.length;
-        const avgSessionDuration = sessions.reduce((sum, s) => sum + (s._avg.duration || 0), 0) / totalSessions || 0;
-        const avgEventsPerSession = sessions.reduce((sum, s) => sum + s._count.sessionId, 0) / totalSessions || 0;
+        
+        // Calculate average session duration from start to end
+        const totalSessionDuration = sessions.reduce((sum, s) => {
+          const duration = s.end.getTime() - s.start.getTime();
+          return sum + duration;
+        }, 0);
+        const avgSessionDuration = totalSessions > 0 ? totalSessionDuration / totalSessions : 0;
+        
+        // Calculate average events per session
+        const totalEvents = sessions.reduce((sum, s) => sum + s.events, 0);
+        const avgEventsPerSession = totalSessions > 0 ? totalEvents / totalSessions : 0;
+        
         return {
           totalSessions,
           avgSessionDuration: Math.round(avgSessionDuration),
@@ -331,6 +361,72 @@ export async function GET(request: NextRequest) {
         _count: { eventType: true },
         orderBy: { _count: { eventType: "desc" } },
       }) as Promise<Array<{ eventType: string; _count: { eventType: number } }>>),
+      
+      // Average session time per page (aggregate subroutes to main routes)
+      ((prisma as any).analyticsEvent.findMany({
+        where: { ...where, eventType: "page_view_end", duration: { not: null }, path: { not: null } },
+        select: { path: true, duration: true },
+      }) as Promise<Array<{ path: string | null; duration: number | null }>>).then((events: Array<{ path: string | null; duration: number | null }>) => {
+        // Helper function to normalize path to main route
+        function normalizePath(path: string): string {
+          if (!path) return "/";
+          
+          // Remove leading slash and split
+          const parts = path.replace(/^\//, "").split("/");
+          const mainRoute = parts[0] || "";
+          
+          // Map common routes
+          const routeMap: Record<string, string> = {
+            "": "/",
+            "home": "/home",
+            "discover": "/discover",
+            "lists": "/lists",
+            "projects": "/projects",
+            "logs": "/logs",
+            "log": "/logs",
+            "profile": "/profile",
+            "tools": "/tools",
+            "settings": "/settings",
+            "stack-card": "/stack-card",
+          };
+          
+          // If first part matches a known route, return it
+          if (routeMap[mainRoute]) {
+            return routeMap[mainRoute];
+          }
+          
+          // Otherwise return root or first segment
+          return mainRoute ? `/${mainRoute}` : "/";
+        }
+        
+        // Group by normalized path and calculate averages
+        const pageDurations = new Map<string, { total: number; count: number }>();
+        
+        events.forEach((event) => {
+          if (!event.path || !event.duration) return;
+          
+          const normalizedPath = normalizePath(event.path);
+          const durationInSeconds = event.duration / 1000; // Convert ms to seconds
+          
+          if (!pageDurations.has(normalizedPath)) {
+            pageDurations.set(normalizedPath, { total: 0, count: 0 });
+          }
+          
+          const pageData = pageDurations.get(normalizedPath)!;
+          pageData.total += durationInSeconds;
+          pageData.count++;
+        });
+        
+        // Calculate averages and format
+        return Array.from(pageDurations.entries())
+          .map(([path, data]) => ({
+            path,
+            avgTime: data.count > 0 ? Math.round((data.total / data.count) * 100) / 100 : 0,
+            sessions: data.count,
+          }))
+          .sort((a, b) => b.avgTime - a.avgTime)
+          .slice(0, 20); // Top 20 pages
+      }),
     ])
 
     return NextResponse.json({
@@ -365,6 +461,11 @@ export async function GET(request: NextRequest) {
         referrers: referrerSources,
         hourly: hourlyDistribution,
       },
+      pageDurations: (pageDurations as Array<{ path: string; avgTime: number; sessions: number }>).map((p) => ({
+        path: p.path,
+        avgTime: p.avgTime,
+        sessions: p.sessions,
+      })),
       eventsByType: (eventsByType as Array<{ eventType: string; _count: { eventType: number } }>).map((e) => ({
         type: e.eventType,
         count: e._count.eventType,

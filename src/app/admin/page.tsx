@@ -59,6 +59,7 @@ type AnalyticsData = {
     referrers: Array<{ referrer: string; count: number }>;
     hourly: Array<{ hour: number; count: number }>;
   };
+  pageDurations: Array<{ path: string; avgTime: number; sessions: number }>;
   eventsByType: Array<{ type: string; count: number }>;
   eventsByDay: Array<{ date: string; count: number }>;
   topPages: Array<{ path: string; count: number }>;
@@ -326,6 +327,15 @@ export default function AdminDashboard() {
           <ChartCard title="Traffic Sources" description="Top referrers driving traffic">
             <div className="h-[500px] overflow-y-auto custom-scrollbar">
               <ReferrerChart data={data.traffic.referrers} />
+            </div>
+          </ChartCard>
+        </div>
+
+        {/* Average Session Time per Page */}
+        <div className="mb-8">
+          <ChartCard title="Average Session Time per Page" description="Average time users spend on each page route">
+            <div className="h-[500px] overflow-y-auto custom-scrollbar">
+              <PageDurationsChart data={data.pageDurations} />
             </div>
           </ChartCard>
         </div>
@@ -966,6 +976,65 @@ function HourlyChart({ data }: { data: Array<{ hour: number; count: number }> })
           fill="var(--primary)"
           radius={[4, 4, 0, 0]}
         />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function PageDurationsChart({ data }: { data: Array<{ path: string; avgTime: number; sessions: number }> }) {
+  const sorted = [...data].sort((a, b) => b.avgTime - a.avgTime);
+  const chartData = sorted.map((item) => ({
+    path: item.path === "/" ? "Home" : item.path.replace(/^\//, "").replace(/\//g, " > ") || "Home",
+    avgTime: item.avgTime,
+    sessions: item.sessions,
+  }));
+
+  const colors = ["#00FF8F", "#3b82f6", "#a855f7", "#10b981", "#f59e0b", "#ec4899", "#06b6d4", "#eab308", "#6366f1", "#8b5cf6"];
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 shadow-lg">
+          <p className="text-sm font-semibold text-white mb-1">{payload[0].payload.path}</p>
+          <p className="text-xs text-[var(--primary)]">
+            Avg Time: <span className="font-bold">{payload[0].value.toFixed(1)}s</span>
+          </p>
+          <p className="text-xs text-[var(--text-muted)]">
+            Sessions: <span className="font-bold">{payload[0].payload.sessions}</span>
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={chartData}
+        layout="vertical"
+        margin={{ top: 10, right: 30, left: 120, bottom: 10 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={true} vertical={false} />
+        <XAxis 
+          type="number" 
+          stroke="var(--text-muted)" 
+          tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+          label={{ value: "Seconds", position: "insideBottom", offset: -5, fill: "var(--text-muted)", fontSize: 12 }}
+        />
+        <YAxis
+          type="category"
+          dataKey="path"
+          stroke="var(--text-muted)"
+          tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+          width={110}
+        />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar dataKey="avgTime" radius={[0, 8, 8, 0]}>
+          {chartData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );

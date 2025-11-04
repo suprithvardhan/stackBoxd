@@ -76,7 +76,8 @@ export async function trackEvent(
       eventType,
       { ...eventData, metadata },
       path || window.location.pathname,
-      document.referrer
+      document.referrer,
+      duration
     );
   } catch (error) {
     // Silent fail
