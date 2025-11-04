@@ -50,9 +50,9 @@ export async function GET(
 
     const userName = escapeHtml(log.user.displayName || log.user.username || "User")
     const toolName = escapeHtml(log.tool.name || "Tool")
-    const reviewText = log.review.substring(0, 200)
+    const reviewText = (log.review || "").substring(0, 200) || "No review provided"
     const toolColor = log.tool.color || "#00FF8F"
-    const rating = log.rating || 0
+    const rating = Math.max(0, Math.min(5, log.rating || 0))
 
     // Better word wrapping for SVG text
     const wordWrap = (text: string, maxChars: number) => {
@@ -78,6 +78,7 @@ export async function GET(
     const escapedLines = reviewLines.map(line => escapeHtml(line))
 
     // Completely new design from scratch - simple and clean
+    // Using system fonts that are guaranteed to be available on Vercel
     const svg = `
       <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -105,18 +106,18 @@ export async function GET(
         
         <!-- User avatar -->
         <circle cx="150" cy="135" r="26" fill="${toolColor}12" stroke="${toolColor}" stroke-width="2"/>
-        <text x="150" y="142" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="18" font-weight="700" fill="${toolColor}" text-anchor="middle" dominant-baseline="central">${(userName[0] || "U").toUpperCase()}</text>
+        <text x="150" y="142" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="${toolColor}" text-anchor="middle" dominant-baseline="central">${(userName[0] || "U").toUpperCase()}</text>
         
         <!-- User info -->
-        <text x="200" y="110" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="34" font-weight="700" fill="#ffffff" letter-spacing="-0.3">${userName}</text>
-        <text x="200" y="138" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="20" fill="#999999">reviewed <tspan fill="${toolColor}" font-weight="600">${toolName}</tspan></text>
+        <text x="200" y="110" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">${userName}</text>
+        <text x="200" y="138" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#999999">reviewed <tspan fill="${toolColor}" font-weight="bold">${toolName}</tspan></text>
         
         <!-- Stars -->
         <g transform="translate(200, 153)">
           ${[...Array(5)]
             .map(
               (_, i) =>
-                `<text x="${i * 26}" y="0" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="22" fill="${
+                `<text x="${i * 26}" y="0" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="${
                   i < rating ? "#FFD700" : "#2a2a2a"
                 }">★</text>`
             )
@@ -125,21 +126,21 @@ export async function GET(
         
         <!-- Tool badge (smaller) -->
         <rect x="1000" y="88" width="70" height="70" fill="${toolColor}10" rx="14" stroke="${toolColor}25" stroke-width="2"/>
-        <text x="1035" y="132" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="32" font-weight="700" fill="${toolColor}" text-anchor="middle" dominant-baseline="central">${(toolName[0] || "T").toUpperCase()}</text>
+        <text x="1035" y="132" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="${toolColor}" text-anchor="middle" dominant-baseline="central">${(toolName[0] || "T").toUpperCase()}</text>
         
         <!-- Review container (properly sized) -->
         <rect x="140" y="240" width="920" height="270" fill="#121212" rx="16" stroke="${toolColor}06" stroke-width="1"/>
         
         <!-- Review text using tspan for proper wrapping -->
-        <text x="170" y="280" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="22" fill="#e5e5e5" font-weight="400" letter-spacing="-0.1">
+        <text x="170" y="280" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#e5e5e5" font-weight="normal">
           ${escapedLines.map((line, idx) => 
             `<tspan x="170" dy="${idx === 0 ? '0' : '30'}">${line}</tspan>`
           ).join("")}
         </text>
         
         <!-- Footer -->
-        <text x="170" y="535" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="18" fill="#666666" font-weight="500">stackboxd.com</text>
-        <text x="1030" y="535" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="18" fill="#666666" font-weight="500" text-anchor="end">${new Date(log.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</text>
+        <text x="170" y="535" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#666666" font-weight="bold">stackboxd.com</text>
+        <text x="1030" y="535" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#666666" font-weight="bold" text-anchor="end">${new Date(log.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</text>
       </svg>
     `.trim()
 
