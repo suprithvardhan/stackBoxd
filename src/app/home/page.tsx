@@ -39,16 +39,16 @@ export default function FeedPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-12 animate-in">
-      <section className="md:col-span-8 space-y-4">
-        <h2 className="mb-2 text-sm uppercase tracking-wide text-[var(--text-muted)]">Recent Activity</h2>
+    <div className="flex flex-col lg:grid lg:grid-cols-12 gap-4 sm:gap-6 animate-in">
+      <section className="lg:col-span-8 space-y-3 sm:space-y-4 order-2 lg:order-1">
+        <h2 className="mb-2 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)] px-1">Recent Activity</h2>
         {loading ? (
           <LoadingSkeleton />
         ) : logs.length === 0 ? (
-          <div className="text-center py-12 text-[var(--text-muted)]">
-            <Icon icon="mdi:newspaper-outline" width={48} height={48} className="mx-auto mb-4 opacity-50" />
-            <p className="text-lg mb-2">No logs yet</p>
-            <Link href="/log/new" className="mt-4 inline-block text-[var(--primary)] hover:underline transition-colors">
+          <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+            <Icon icon="mdi:newspaper-outline" width={40} height={40} className="sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 opacity-50" />
+            <p className="text-base sm:text-lg mb-2">No logs yet</p>
+            <Link href="/log/new" className="mt-4 inline-block text-sm sm:text-base text-[var(--primary)] hover:underline transition-colors">
               Create your first log →
             </Link>
           </div>
@@ -56,9 +56,9 @@ export default function FeedPage() {
           logs.map((item) => <FeedCardLog key={item.id} item={item} />)
         )}
       </section>
-      <aside className="md:col-span-4 space-y-6">
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
-          <h3 className="mb-3 text-sm uppercase tracking-wide text-[var(--text-muted)]">Trending Tools</h3>
+      <aside className="lg:col-span-4 space-y-4 sm:space-y-6 order-1 lg:order-2">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4">
+          <h3 className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)]">Trending Tools</h3>
           {loading ? (
             <div className="space-y-3">
               {[...Array(3)].map((_, i) => (
@@ -74,22 +74,22 @@ export default function FeedPage() {
           ) : tools.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)]">No tools yet</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {tools.map((t) => (
                 <li key={t.slug || t.id} className="flex items-center justify-between">
-                  <Link href={`/tools/${t.slug}`} className="flex items-center gap-3 hover:underline transition-colors group">
+                  <Link href={`/tools/${t.slug}`} className="flex items-center gap-2 sm:gap-3 hover:underline transition-colors group flex-1 min-w-0">
                     <div
-                      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--bg)] transition-transform group-hover:scale-110"
+                      className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--bg)] transition-transform group-hover:scale-110 flex-shrink-0"
                       style={{ background: (t.color || "#888") + "12" }}
                     >
-                      <Icon icon={t.icon} width={22} height={22} style={{ color: t.color }} />
+                      <Icon icon={t.icon} width={18} height={18} className="sm:w-[22px] sm:h-[22px]" style={{ color: t.color }} />
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold" style={{ color: t.color }}>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm font-semibold truncate" style={{ color: t.color }}>
                         {t.name}
                       </p>
-                      <p className="text-xs text-[var(--text-muted)]">
-                        {(t.avgRating || 0).toFixed(1)} · Used by {(t.usedByCount || 0).toLocaleString()}
+                      <p className="text-[10px] sm:text-xs text-[var(--text-muted)] truncate">
+                        {(t.avgRating || 0).toFixed(1)} · {(t.usedByCount || 0).toLocaleString()} users
                       </p>
                     </div>
                   </Link>
@@ -98,8 +98,8 @@ export default function FeedPage() {
             </ul>
           )}
         </div>
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
-          <h3 className="mb-3 text-sm uppercase tracking-wide text-[var(--text-muted)]">Recently Logged Projects</h3>
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4">
+          <h3 className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)]">Recently Logged Projects</h3>
           {loading ? (
             <div className="space-y-3">
               {[...Array(3)].map((_, i) => (
@@ -115,23 +115,23 @@ export default function FeedPage() {
           ) : projects.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)]">No projects yet</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {projects.map((p) => (
-                <li key={p.id} className="flex items-center gap-3 group">
+                <li key={p.id} className="flex items-center gap-2 sm:gap-3 group">
                   <div
-                    className="h-10 w-16 overflow-hidden rounded-md border border-[var(--border)] bg-[var(--bg)] transition-transform group-hover:scale-105"
+                    className="h-8 w-12 sm:h-10 sm:w-16 overflow-hidden rounded-md border border-[var(--border)] bg-[var(--bg)] transition-transform group-hover:scale-105 flex-shrink-0"
                     style={{
                       backgroundImage: p.coverImage ? `url(${p.coverImage})` : undefined,
                       backgroundSize: "cover",
                     }}
                   />
-                  <div className="flex-1">
-                    <Link href={`/projects/${p.id}`} className="text-sm font-semibold hover:underline transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <Link href={`/projects/${p.id}`} className="text-xs sm:text-sm font-semibold hover:underline transition-colors block truncate">
                       {p.displayName || p.name}
                     </Link>
-                    <div className="mt-1 flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                    <div className="mt-1 flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-[var(--text-muted)]">
                       {p.tools?.slice(0, 3).map((icon: string, idx: number) => (
-                        <Icon key={idx} icon={icon} width={16} height={16} style={{ color: getColorByIcon(icon) }} />
+                        <Icon key={idx} icon={icon} width={14} height={14} className="sm:w-4 sm:h-4" style={{ color: getColorByIcon(icon) }} />
                       ))}
                     </div>
                   </div>

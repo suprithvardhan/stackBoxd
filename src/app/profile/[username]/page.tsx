@@ -110,40 +110,40 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10">
       {/* Banner hero */}
-      <section className="relative h-48 md:h-60 w-full rounded-3xl mb-2 border border-[var(--border)] overflow-hidden bg-gradient-to-br from-black via-zinc-900 to-[#00FF8F10] shadow-lg flex flex-col justify-end">
+      <section className="relative h-40 sm:h-48 md:h-60 w-full rounded-2xl sm:rounded-3xl mb-2 border border-[var(--border)] overflow-hidden bg-gradient-to-br from-black via-zinc-900 to-[#00FF8F10] shadow-lg flex flex-col justify-end">
         <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-        <div className="relative flex flex-col md:flex-row items-end md:items-center gap-5 px-8 pb-5 z-2">
-          <img src={user.avatarUrl || "/default-avatar.png"} alt={user.username} width={92} height={92} className="rounded-full border-4 border-[var(--primary)] shadow-xl bg-[var(--surface)] -mb-8 md:mb-0" />
-          <div className="flex-1">
-            <h1 className="text-2xl font-extrabold text-white drop-shadow">{user.displayName} <span className="text-[var(--primary)]">@{user.username}</span></h1>
-            <div className="mt-1 text-[var(--text-muted)] font-serif max-w-md">{user.bio || "No bio yet."}</div>
+        <div className="relative flex flex-col md:flex-row items-end md:items-center gap-3 sm:gap-4 md:gap-5 px-4 sm:px-6 md:px-8 pb-3 sm:pb-4 md:pb-5 z-2">
+          <img src={user.avatarUrl || "/default-avatar.png"} alt={user.username} width={92} height={92} className="rounded-full border-2 sm:border-4 border-[var(--primary)] shadow-xl bg-[var(--surface)] h-16 w-16 sm:h-20 sm:w-20 md:h-[92px] md:w-[92px] -mb-6 sm:-mb-8 md:mb-0 flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white drop-shadow truncate">{user.displayName} <span className="text-[var(--primary)]">@{user.username}</span></h1>
+            <div className="mt-1 text-xs sm:text-sm text-[var(--text-muted)] font-serif line-clamp-2">{user.bio || "No bio yet."}</div>
           </div>
-          <div className="flex flex-col md:items-end md:justify-end items-start gap-1 ml-auto min-w-[110px]">
-            <div className="text-sm text-[var(--text-muted)]">
-              <span className="font-semibold text-[var(--primary)]">{user.stats?.toolsLogged || 0}</span> tools |&nbsp;
-              <span className="font-semibold text-[var(--primary)]">{user.stats?.projects || 0}</span> projects |&nbsp;
+          <div className="flex flex-col sm:flex-row md:flex-col md:items-end md:justify-end items-start gap-2 sm:gap-3 md:gap-1 ml-auto w-full sm:w-auto md:min-w-[110px]">
+            <div className="text-xs sm:text-sm text-[var(--text-muted)] flex flex-wrap items-center gap-1 sm:gap-0">
+              <span className="font-semibold text-[var(--primary)]">{user.stats?.toolsLogged || 0}</span> <span className="hidden sm:inline">tools</span> <span className="sm:inline">|</span>
+              <span className="font-semibold text-[var(--primary)] ml-1 sm:ml-0">{user.stats?.projects || 0}</span> <span className="hidden sm:inline">projects</span> <span className="sm:inline">|</span>
               <button 
                 onClick={() => setShowFollowersModal(true)}
-                className="font-semibold text-[var(--primary)] hover:underline cursor-pointer"
+                className="font-semibold text-[var(--primary)] hover:underline cursor-pointer ml-1 sm:ml-0"
               >
-                {user.stats?.followers || 0} followers
+                {user.stats?.followers || 0} <span className="hidden sm:inline">followers</span>
               </button>
               {user.stats?.following !== undefined && (user.stats.following < 200) && (
                 <>
-                  {" | "}
+                  <span className="sm:inline"> | </span>
                   <button 
                     onClick={() => setShowFollowingModal(true)}
                     className="font-semibold text-[var(--primary)] hover:underline cursor-pointer"
                   >
-                    {user.stats.following} following
+                    {user.stats.following} <span className="hidden sm:inline">following</span>
                   </button>
                 </>
               )}
             </div>
-            <div className="flex gap-2 mt-2">
-              <Link href="/stack-card" className="rounded-full bg-[var(--primary)] px-4 py-1.5 text-sm font-bold text-black focus:outline-none shadow-md">Share Card</Link>
+            <div className="flex gap-2 sm:gap-2 mt-1 sm:mt-2 w-full sm:w-auto">
+              <Link href="/stack-card" className="flex-1 sm:flex-none rounded-full bg-[var(--primary)] px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold text-black focus:outline-none shadow-md text-center min-h-[36px] sm:min-h-0 flex items-center justify-center">Share Card</Link>
               {session?.user?.id !== user.id && (
                 <button 
                   onClick={() => {
@@ -152,7 +152,7 @@ export default function ProfilePage() {
                     }
                   }}
                   disabled={toggleFollow.isPending}
-                  className={`rounded-full border px-4 py-1.5 text-sm font-bold transition ${
+                  className={`flex-1 sm:flex-none rounded-full border px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold transition min-h-[36px] sm:min-h-0 flex items-center justify-center ${
                     isFollowing
                       ? "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg)]"
                       : "border-[var(--primary)] text-[var(--primary)] bg-transparent hover:bg-[var(--primary)]/10"
@@ -167,38 +167,38 @@ export default function ProfilePage() {
       </section>
 
       {/* Profile Tabs */}
-      <nav className="flex gap-1 md:gap-4 px-2 md:px-0 border-b border-[var(--border)] sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur">
+      <nav className="flex gap-0.5 sm:gap-1 md:gap-4 px-1 sm:px-2 md:px-0 border-b border-[var(--border)] sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur overflow-x-auto -mx-1 sm:mx-0">
         {navTabs.map(t => (
-          <button key={t.key} onClick={() => setTab(t.key)} className={`px-3 py-2 text-sm font-semibold rounded-t text-[var(--text)] border-b-2 transition-all ${tab === t.key ? 'border-[var(--primary)] text-[var(--primary)] bg-white/5' : 'border-transparent hover:text-[var(--primary)]'}`}>{t.label}</button>
+          <button key={t.key} onClick={() => setTab(t.key)} className={`px-2 sm:px-3 py-2 text-xs sm:text-sm font-semibold rounded-t text-[var(--text)] border-b-2 transition-all whitespace-nowrap flex-shrink-0 min-h-[44px] sm:min-h-0 ${tab === t.key ? 'border-[var(--primary)] text-[var(--primary)] bg-white/5' : 'border-transparent hover:text-[var(--primary)]'}`}>{t.label}</button>
         ))}
       </nav>
 
       {/* Tab Content */}
       <div>
         {tab === "activity" && (
-          <div className="space-y-6">
-            <h2 className="mb-3 text-lg font-semibold">Activity</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">Activity</h2>
             {logs.length === 0 ? (
-              <div className="text-center py-12 text-[var(--text-muted)]">
-                <p>No activity yet.</p>
+              <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+                <p className="text-sm sm:text-base">No activity yet.</p>
               </div>
             ) : (
-              <div className="flex flex-wrap gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {logs.slice(0, 6).map((l: any) => {
                   const tColor = getToolColor(tools, l.tool.icon);
                   return (
-                    <div key={l.id} className="rounded-xl border border-[var(--border)] bg-[var(--surface)] flex flex-col p-4 w-64 shadow hover:bg-white/5">
+                    <div key={l.id} className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] flex flex-col p-3 sm:p-4 shadow hover:bg-white/5 w-full">
                       <div className="flex items-center gap-2">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)]" style={{ background: (tColor || '#888') + '10' }}>
-                          <Icon icon={l.tool.icon} width={20} height={20} style={{ color: tColor }} />
+                        <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-[var(--border)] flex-shrink-0" style={{ background: (tColor || '#888') + '10' }}>
+                          <Icon icon={l.tool.icon} width={18} height={18} className="sm:w-5 sm:h-5" style={{ color: tColor }} />
                         </span>
-                        <div className="flex-1">
-                          <div className="text-[var(--text)] text-sm">Logged <span className="font-semibold">{l.tool.name}</span></div>
-                          <div className="text-xs text-[var(--text-muted)]">{shortAgo(l.createdAt)}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[var(--text)] text-xs sm:text-sm truncate">Logged <span className="font-semibold">{l.tool.name}</span></div>
+                          <div className="text-[10px] sm:text-xs text-[var(--text-muted)]">{shortAgo(l.createdAt)}</div>
                         </div>
                       </div>
-                      <div className="mt-2 text-xs text-[var(--text-muted)] italic line-clamp-2">"{l.review}"</div>
-                      <Link href={`/logs/${l.id}`} className="mt-3 text-xs text-[var(--primary)] hover:underline">View Log</Link>
+                      <div className="mt-2 text-[10px] sm:text-xs text-[var(--text-muted)] italic line-clamp-2 leading-relaxed">"{l.review}"</div>
+                      <Link href={`/logs/${l.id}`} className="mt-2 sm:mt-3 text-[10px] sm:text-xs text-[var(--primary)] hover:underline">View Log</Link>
                     </div>
                   );
                 })}
@@ -207,14 +207,14 @@ export default function ProfilePage() {
           </div>
         )}
         {tab === "diary" && (
-          <div className="space-y-4">
-            <h2 className="mb-3 text-lg font-semibold">Diary</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">Diary</h2>
             {logs.length === 0 ? (
-              <div className="text-center py-12 text-[var(--text-muted)]">
-                <p>No logs yet.</p>
+              <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+                <p className="text-sm sm:text-base">No logs yet.</p>
               </div>
             ) : (
-              <div className="rounded-xl border border-[var(--border)] overflow-hidden">
+              <div className="rounded-lg sm:rounded-xl border border-[var(--border)] overflow-hidden">
                 <div className="hidden md:grid grid-cols-[72px_56px_56px_1fr_120px_72px] items-center px-4 py-2 text-xs uppercase tracking-wide text-[var(--text-muted)] border-b border-[var(--border)] bg-[var(--surface)]/60">
                   <div>Month</div>
                   <div className="text-center">Day</div>
@@ -234,32 +234,33 @@ export default function ProfilePage() {
                       const isNewMonth = monthKey !== prevMonthKey;
                       const tColor = getToolColor(tools, l.tool.icon);
                       return (
-                        <div key={l.id} className="grid grid-cols-[72px_56px_56px_1fr_120px_72px] items-center px-3 md:px-4 py-3 border-b border-[var(--border)] hover:bg-white/5 transition">
-                          <div className="text-xs font-semibold text-[var(--text-muted)]">
+                        <div key={l.id} className="md:grid md:grid-cols-[72px_56px_56px_1fr_120px_72px] md:items-center flex flex-col md:flex-row gap-2 md:gap-0 px-3 sm:px-4 py-3 border-b border-[var(--border)] hover:bg-white/5 transition">
+                          <div className="text-xs font-semibold text-[var(--text-muted)] flex items-center gap-2 md:block">
                             {isNewMonth ? (
-                              <div className="inline-flex items-center gap-2 rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-1">
-                                <span className="rounded bg-[var(--surface)] px-1.5 py-0.5 text-[var(--text-muted)]">{d.toLocaleString(undefined, { month: 'short' }).toUpperCase()}</span>
-                                <span className="text-[var(--text)]">{d.getFullYear()}</span>
+                              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-1">
+                                <span className="rounded bg-[var(--surface)] px-1.5 py-0.5 text-[10px] sm:text-xs text-[var(--text-muted)]">{d.toLocaleString(undefined, { month: 'short' }).toUpperCase()}</span>
+                                <span className="text-xs sm:text-sm text-[var(--text)]">{d.getFullYear()}</span>
                               </div>
                             ) : (
-                              <span className="opacity-40">—</span>
+                              <span className="opacity-40 hidden md:inline">—</span>
                             )}
+                            <span className="md:hidden text-[var(--text-muted)]">{d.getDate().toString().padStart(2,'0')} {d.toLocaleString(undefined, { month: 'short' })}</span>
                           </div>
-                          <div className="text-center text-sm text-[var(--text-muted)]">{d.getDate().toString().padStart(2,'0')}</div>
+                          <div className="hidden md:block text-center text-sm text-[var(--text-muted)]">{d.getDate().toString().padStart(2,'0')}</div>
                           <div className="flex items-center justify-center">
-                            <span className="h-10 w-10 rounded bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center" style={{ background: (tColor||'#888') + '10' }}>
-                              <Icon icon={l.tool.icon} width={18} height={18} style={{ color: tColor }} />
+                            <span className="h-8 w-8 sm:h-10 sm:w-10 rounded bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center flex-shrink-0" style={{ background: (tColor||'#888') + '10' }}>
+                              <Icon icon={l.tool.icon} width={16} height={16} className="sm:w-[18px] sm:h-[18px]" style={{ color: tColor }} />
                             </span>
                           </div>
-                          <div className="min-w-0 flex items-center gap-2">
-                            <Link href={`/tools/${l.tool.slug}`} className="font-medium text-[var(--text)] truncate hover:underline" style={{ color: tColor }}>{l.tool.name}</Link>
-                            <span className="text-xs text-[var(--text-muted)] truncate">· {new Date(l.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                          <div className="min-w-0 flex items-center gap-2 flex-1">
+                            <Link href={`/tools/${l.tool.slug}`} className="font-medium text-xs sm:text-sm text-[var(--text)] truncate hover:underline" style={{ color: tColor }}>{l.tool.name}</Link>
+                            <span className="text-[10px] sm:text-xs text-[var(--text-muted)] truncate hidden sm:inline">· {new Date(l.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                           </div>
-                          <div className="flex items-center justify-center text-[var(--accent)] text-sm">{starRow(l.rating)}</div>
-                          <div className="flex items-center justify-center gap-3 text-[var(--text-muted)]">
-                            <Icon icon="mdi:heart-outline" width={16} height={16} />
-                            <Icon icon="mdi:pencil-outline" width={16} height={16} />
-                            <Link href={`/logs/${l.id}`}><Icon icon="lucide:more-horizontal" width={16} height={16} /></Link>
+                          <div className="flex items-center justify-center text-[var(--accent)] text-xs sm:text-sm">{starRow(l.rating)}</div>
+                          <div className="flex items-center justify-center gap-2 sm:gap-3 text-[var(--text-muted)]">
+                            <Icon icon="mdi:heart-outline" width={14} height={14} className="sm:w-4 sm:h-4" />
+                            <Icon icon="mdi:pencil-outline" width={14} height={14} className="sm:w-4 sm:h-4" />
+                            <Link href={`/logs/${l.id}`}><Icon icon="lucide:more-horizontal" width={14} height={14} className="sm:w-4 sm:h-4" /></Link>
                           </div>
                         </div>
                       );
@@ -270,26 +271,26 @@ export default function ProfilePage() {
           </div>
         )}
         {tab === "reviews" && (
-          <div className="space-y-4">
-            <h2 className="mb-3 text-lg font-semibold">Reviews</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">Reviews</h2>
             {logs.length === 0 ? (
-              <div className="text-center py-12 text-[var(--text-muted)]">
-                <p>No reviews yet.</p>
+              <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+                <p className="text-sm sm:text-base">No reviews yet.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
                 {logs.map((l: any) => {
                   const tColor = getToolColor(tools, l.tool.icon);
                   return (
-                    <Link key={l.id} href={`/logs/${l.id}`} className="block rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 hover:bg-white/5 shadow flex flex-col gap-1">
+                    <Link key={l.id} href={`/logs/${l.id}`} className="block rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4 hover:bg-white/5 shadow flex flex-col gap-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)]" style={{ background: `${tColor||'#737'}11` }}>
-                          <Icon icon={l.tool.icon} width={20} height={20} style={{ color: tColor }} />
+                        <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-[var(--border)] flex-shrink-0" style={{ background: `${tColor||'#737'}11` }}>
+                          <Icon icon={l.tool.icon} width={18} height={18} className="sm:w-5 sm:h-5" style={{ color: tColor }} />
                         </span>
-                        <span className="text-sm font-semibold text-[var(--text)]">{l.tool.name}</span>
-                        <span className="ml-2 text-xs text-[var(--text-muted)]">{starRow(l.rating)}</span>
+                        <span className="text-xs sm:text-sm font-semibold text-[var(--text)] truncate flex-1">{l.tool.name}</span>
+                        <span className="ml-2 text-[10px] sm:text-xs text-[var(--text-muted)] flex-shrink-0">{starRow(l.rating)}</span>
                       </div>
-                      <div className="text-sm text-[var(--text-muted)] line-clamp-3">{l.review}</div>
+                      <div className="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 sm:line-clamp-3 leading-relaxed">{l.review}</div>
                     </Link>
                   );
                 })}
@@ -298,31 +299,31 @@ export default function ProfilePage() {
           </div>
         )}
         {tab === "lists" && (
-          <div className="space-y-4">
-            <h2 className="mb-3 text-lg font-semibold">Lists</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">Lists</h2>
             {lists.length === 0 ? (
-              <div className="text-center py-12 text-[var(--text-muted)]">
-                <p>No lists yet.</p>
+              <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+                <p className="text-sm sm:text-base">No lists yet.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
                 {lists.map((lst) => (
-                  <Link key={lst.id} href={`/lists/${lst.id}`} className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 flex flex-col gap-2 shadow-md hover:bg-white/5">
+                  <Link key={lst.id} href={`/lists/${lst.id}`} className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 flex flex-col gap-2 shadow-md hover:bg-white/5">
                     {lst.cover && (
                       <div className="aspect-[3/1.2] rounded-lg overflow-hidden mb-2 border border-[var(--border)] bg-center bg-cover" style={{ backgroundImage: `url(${lst.cover})` }} />
                     )}
-                    <div className="font-semibold text-md">{lst.title}</div>
+                    <div className="font-semibold text-sm sm:text-base truncate">{lst.title}</div>
                     {lst.description && (
-                      <div className="text-sm text-[var(--text-muted)] line-clamp-2">{lst.description}</div>
+                      <div className="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed">{lst.description}</div>
                     )}
-                    <div className="flex gap-2 flex-wrap mt-1">
+                    <div className="flex gap-1.5 sm:gap-2 flex-wrap mt-1">
                       {lst.tools?.slice(0, 5).map((slug: string) => {
                         const t = tools.find(t => t.slug === slug);
                         if (!t) return null;
-                        return <Icon icon={t.icon} width={24} height={24} key={slug} style={{ color: t.color }} />;
+                        return <Icon icon={t.icon} width={20} height={20} className="sm:w-6 sm:h-6" key={slug} style={{ color: t.color }} />;
                       })}
                     </div>
-                    <div className="text-xs text-[var(--text-muted)] mt-1">{lst.count} tools</div>
+                    <div className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-1">{lst.count} tools</div>
                   </Link>
                 ))}
               </div>
@@ -330,23 +331,23 @@ export default function ProfilePage() {
           </div>
         )}
         {tab === "likes" && (
-          <div className="space-y-4">
-            <h2 className="mb-3 text-lg font-semibold">Liked Tools</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">Liked Tools</h2>
             {likedTools.length === 0 ? (
-              <div className="text-center py-12 text-[var(--text-muted)]">
-                <p>No liked tools yet.</p>
+              <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+                <p className="text-sm sm:text-base">No liked tools yet.</p>
               </div>
             ) : (
-              <div className="flex flex-wrap gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
                 {likedTools.map(slug => {
                   const t = tools.find(t => t.slug === slug);
                   if (!t) return null;
                   return (
-                    <Link key={slug} href={`/tools/${slug}`} className="flex flex-col items-center w-32 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 hover:bg-white/5 shadow group">
-                      <div className="rounded-md p-3 mb-2 border border-[var(--border)]" style={{ background: t.color+"10" }}>
-                        <Icon icon={t.icon} width={32} height={32} style={{ color: t.color }} />
+                    <Link key={slug} href={`/tools/${slug}`} className="flex flex-col items-center rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4 hover:bg-white/5 shadow group">
+                      <div className="rounded-md p-2 sm:p-3 mb-2 border border-[var(--border)] flex-shrink-0" style={{ background: t.color+"10" }}>
+                        <Icon icon={t.icon} width={24} height={24} className="sm:w-8 sm:h-8" style={{ color: t.color }} />
                       </div>
-                      <span className="font-semibold text-[var(--text)] text-sm group-hover:text-[var(--primary)]">{t.name}</span>
+                      <span className="font-semibold text-[var(--text)] text-xs sm:text-sm text-center group-hover:text-[var(--primary)] truncate w-full">{t.name}</span>
                     </Link>
                   );
                 })}

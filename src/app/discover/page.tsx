@@ -137,12 +137,12 @@ export default function DiscoverPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col gap-3 sm:gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight">Discover Tools</h1>
-            <p className="text-sm text-[var(--text-muted)] mt-1">
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">Discover Tools</h1>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
               {selectedCategory === "all" 
                 ? `All ${allTools.length} tools` 
                 : `${filteredAndSortedTools.length} tools in ${selectedCategory}`}
@@ -151,10 +151,10 @@ export default function DiscoverPage() {
         </div>
 
         {/* Category Filter - Buttons + Dropdown */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 sm:pb-0 -mx-1 px-1 sm:mx-0 sm:px-0">
           <button
             onClick={() => setSelectedCategory("all")}
-            className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition ${
+            className={`rounded-lg border px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition whitespace-nowrap min-h-[36px] sm:min-h-0 ${
               selectedCategory === "all" 
                 ? "bg-[var(--primary)] text-black border-[var(--primary)] shadow-sm" 
                 : "border-[var(--border)] hover:bg-[var(--surface)] hover:border-[var(--primary)]/50"
@@ -168,7 +168,7 @@ export default function DiscoverPage() {
             <button
               key={cat.name}
               onClick={() => setSelectedCategory(cat.name)}
-              className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition capitalize ${
+              className={`rounded-lg border px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium transition capitalize whitespace-nowrap min-h-[36px] sm:min-h-0 ${
                 selectedCategory === cat.name 
                   ? "bg-[var(--primary)] text-black border-[var(--primary)] shadow-sm" 
                   : "border-[var(--border)] hover:bg-[var(--surface)] hover:border-[var(--primary)]/50"
@@ -183,13 +183,14 @@ export default function DiscoverPage() {
             <div className="relative">
               <button
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm font-medium hover:bg-[var(--surface)] hover:border-[var(--primary)]/50 transition flex items-center gap-1.5"
+                className="rounded-lg border border-[var(--border)] px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium hover:bg-[var(--surface)] hover:border-[var(--primary)]/50 transition flex items-center gap-1.5 whitespace-nowrap min-h-[36px] sm:min-h-0"
               >
-                More Categories
+                More
                 <Icon 
                   icon={showCategoryDropdown ? "mdi:chevron-up" : "mdi:chevron-down"} 
-                  width={16} 
-                  height={16} 
+                  width={14} 
+                  height={14}
+                  className="sm:w-4 sm:h-4"
                 />
               </button>
 
@@ -227,45 +228,45 @@ export default function DiscoverPage() {
         </div>
       </div>
 
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm uppercase tracking-wide text-[var(--text-muted)] font-semibold">
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
+          <h2 className="text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)] font-semibold">
             {selectedCategory === "all" ? "All Tools" : `${selectedCategory.replace(/\b\w/g, (l) => l.toUpperCase())} Tools`}
         </h2>
-          <span className="text-xs text-[var(--text-muted)]">
+          <span className="text-[10px] sm:text-xs text-[var(--text-muted)]">
             Showing {startIndex + 1}-{Math.min(endIndex, filteredAndSortedTools.length)} of {filteredAndSortedTools.length} {filteredAndSortedTools.length === 1 ? 'tool' : 'tools'}
           </span>
         </div>
         
         {filteredAndSortedTools.length === 0 ? (
-          <div className="text-center py-16 border border-[var(--border)] rounded-xl bg-[var(--surface)]">
-            <Icon icon="mdi:toolbox-outline" width={48} height={48} className="mx-auto mb-3 text-[var(--text-muted)] opacity-40" />
-            <p className="text-[var(--text-muted)]">No tools found in this category.</p>
+          <div className="text-center py-12 sm:py-16 border border-[var(--border)] rounded-xl bg-[var(--surface)] px-4">
+            <Icon icon="mdi:toolbox-outline" width={40} height={40} className="sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-[var(--text-muted)] opacity-40" />
+            <p className="text-sm sm:text-base text-[var(--text-muted)]">No tools found in this category.</p>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3">
               {paginatedTools.map((t) => (
               <Link 
                 key={t.slug || t.id} 
                 href={`/tools/${t.slug}`}
-                className="group rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 hover:border-[var(--primary)]/50 hover:shadow-lg transition-all"
+                className="group rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2.5 sm:p-3 md:p-4 hover:border-[var(--primary)]/50 hover:shadow-lg transition-all"
               >
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg border border-[var(--border)] transition-transform group-hover:scale-110" 
+                <div className="mb-2 sm:mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg border border-[var(--border)] transition-transform group-hover:scale-110" 
                      style={{ background: (t.color || '#888') + '15' }}>
-                  <Icon icon={t.icon} width={24} height={24} style={{ color: t.color }} />
+                  <Icon icon={t.icon} width={20} height={20} className="sm:w-6 sm:h-6" style={{ color: t.color }} />
                 </div>
-                <div className="text-sm font-semibold mb-1 line-clamp-2 group-hover:underline" style={{ color: t.color }}>
+                <div className="text-xs sm:text-sm font-semibold mb-1 line-clamp-2 group-hover:underline" style={{ color: t.color }}>
                   {t.name}
                 </div>
-                <div className="text-xs text-[var(--text-muted)] space-y-0.5">
-                  <div className="flex items-center gap-1">
-                    <Icon icon="mdi:star" width={12} height={12} className="text-yellow-400" />
+                <div className="text-[10px] sm:text-xs text-[var(--text-muted)] space-y-0.5">
+                  <div className="flex items-center gap-0.5 sm:gap-1">
+                    <Icon icon="mdi:star" width={10} height={10} className="sm:w-3 sm:h-3" style={{ color: "#fbbf24", fill: "#fbbf24" }} />
                     <span>{(t.avgRating || 0).toFixed(1)}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Icon icon="mdi:account-group" width={12} height={12} />
-                    <span>{(t.usedByCount || 0).toLocaleString()} users</span>
+                  <div className="flex items-center gap-0.5 sm:gap-1">
+                    <Icon icon="mdi:account-group" width={10} height={10} className="sm:w-3 sm:h-3" />
+                    <span className="truncate">{(t.usedByCount || 0).toLocaleString()}</span>
                   </div>
                 </div>
               </Link>
@@ -275,17 +276,17 @@ export default function DiscoverPage() {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-[var(--border)]">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[var(--border)]">
                 <button
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1.5"
+                  className="w-full sm:w-auto px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-1.5 min-h-[44px] sm:min-h-0"
                 >
-                  <Icon icon="mdi:chevron-left" width={20} height={20} />
-                  <span>Previous</span>
+                  <Icon icon="mdi:chevron-left" width={18} height={18} className="sm:w-5 sm:h-5" />
+                  <span className="text-sm sm:text-base">Previous</span>
                 </button>
                 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 overflow-x-auto pb-2 sm:pb-0">
                   {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
                     let pageNum: number;
                     if (totalPages <= 7) {
@@ -302,7 +303,7 @@ export default function DiscoverPage() {
                       <button
                         key={pageNum}
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`px-3 py-2 rounded-lg border transition min-w-[40px] ${
+                        className={`px-2.5 sm:px-3 py-2 rounded-lg border transition min-w-[36px] sm:min-w-[40px] text-sm ${
                           currentPage === pageNum
                             ? "bg-[var(--primary)] text-black border-[var(--primary)] font-semibold"
                             : "border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--bg)] hover:border-[var(--primary)]/50"
@@ -317,10 +318,10 @@ export default function DiscoverPage() {
                 <button
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1.5"
+                  className="w-full sm:w-auto px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-1.5 min-h-[44px] sm:min-h-0"
                 >
-                  <span>Next</span>
-                  <Icon icon="mdi:chevron-right" width={20} height={20} />
+                  <span className="text-sm sm:text-base">Next</span>
+                  <Icon icon="mdi:chevron-right" width={18} height={18} className="sm:w-5 sm:h-5" />
                 </button>
           </div>
             )}
@@ -328,24 +329,24 @@ export default function DiscoverPage() {
         )}
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-sm uppercase tracking-wide text-[var(--text-muted)]">Recent Logs</h2>
+      <section className="space-y-2 sm:space-y-3">
+        <h2 className="text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)]">Recent Logs</h2>
         {logs.length === 0 ? (
-          <div className="text-center py-12 text-[var(--text-muted)]">
-            <p>No logs yet.</p>
+          <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
+            <p className="text-sm sm:text-base">No logs yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {logs.map((l) => (
-              <Link key={l.id} href={`/logs/${l.id}`} className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 hover:bg-white/5 transition">
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded bg-[var(--bg)]" style={{ background: (l.tool.color || '#888') + '10' }}>
-                    <Icon icon={l.tool.icon} width={16} height={16} style={{ color: l.tool.color }} />
+              <Link key={l.id} href={`/logs/${l.id}`} className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4 hover:bg-white/5 transition">
+                <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+                  <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded bg-[var(--bg)] flex-shrink-0" style={{ background: (l.tool.color || '#888') + '10' }}>
+                    <Icon icon={l.tool.icon} width={14} height={14} className="sm:w-4 sm:h-4" style={{ color: l.tool.color }} />
                   </div>
-                  <div className="flex-1">
-                    <div className="text-[var(--text)] font-semibold">{l.tool.name}</div>
-                    <div className="text-[var(--text-muted)] text-xs line-clamp-2">{l.review.slice(0, 80)}…</div>
-                    <div className="text-xs text-[var(--text-muted)] mt-1">by @{l.user}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[var(--text)] font-semibold truncate text-xs sm:text-sm">{l.tool.name}</div>
+                    <div className="text-[var(--text-muted)] text-[10px] sm:text-xs line-clamp-2 mt-0.5">{l.review.slice(0, 60)}…</div>
+                    <div className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-1">by @{l.user}</div>
                   </div>
                 </div>
               </Link>

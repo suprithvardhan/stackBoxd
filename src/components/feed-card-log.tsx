@@ -141,39 +141,39 @@ export function FeedCardLog({ item }: Props) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
-      className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm hover:shadow-md transition-shadow"
+      className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4 md:p-5 shadow-sm hover:shadow-md transition-shadow"
     >
-      <header className="mb-3 flex items-center gap-3">
+      <header className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3">
         <Link href={`/profile/${item.userData?.username || item.user}`} className="flex-shrink-0">
           {userAvatar ? (
             <img
               src={userAvatar}
               alt={userDisplayName}
-              className="h-10 w-10 rounded-full border-2 border-[var(--border)] hover:border-[var(--primary)] transition-colors object-cover"
+              className="h-8 w-8 sm:h-10 sm:w-10 rounded-full border-2 border-[var(--border)] hover:border-[var(--primary)] transition-colors object-cover"
             />
           ) : (
-            <div className="h-10 w-10 rounded-full bg-[var(--bg)] border-2 border-[var(--border)] flex items-center justify-center text-sm font-semibold hover:border-[var(--primary)] transition-colors">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[var(--bg)] border-2 border-[var(--border)] flex items-center justify-center text-xs sm:text-sm font-semibold hover:border-[var(--primary)] transition-colors">
               {userDisplayName[0]?.toUpperCase() || "U"}
             </div>
           )}
         </Link>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
             <Link
               href={`/profile/${item.userData?.username || item.user}`}
-              className="text-sm font-semibold text-[var(--text)] hover:text-[var(--primary)] transition-colors"
+              className="text-xs sm:text-sm font-semibold text-[var(--text)] hover:text-[var(--primary)] transition-colors truncate"
             >
               {userDisplayName}
             </Link>
-            <span className="text-sm text-[var(--text-muted)]">logged</span>
+            <span className="text-xs sm:text-sm text-[var(--text-muted)] hidden sm:inline">logged</span>
             <Link
               href={`/tools/${item.tool.slug}`}
-              className="text-sm font-semibold text-[var(--text)] hover:text-[var(--primary)] transition-colors"
+              className="text-xs sm:text-sm font-semibold text-[var(--text)] hover:text-[var(--primary)] transition-colors truncate"
               style={{ color: toolColor }}
             >
               {item.tool.name}
             </Link>
-            <span className="text-sm text-[var(--text-muted)]">· {timeAgo(item.createdAt)}</span>
+            <span className="text-xs sm:text-sm text-[var(--text-muted)]">· {timeAgo(item.createdAt)}</span>
           </div>
         </div>
       </header>
@@ -183,35 +183,39 @@ export function FeedCardLog({ item }: Props) {
         className="block"
         onMouseEnter={handleMouseEnter}
       >
-        <div className="flex gap-4">
+        <div className="flex gap-3 sm:gap-4">
           <div
-            className="flex h-14 w-14 items-center justify-center rounded-lg border-2 transition-transform hover:scale-105 flex-shrink-0"
+            className="flex h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 items-center justify-center rounded-lg border-2 transition-transform hover:scale-105 flex-shrink-0"
             style={{
               background: `${toolColor}15`,
               borderColor: `${toolColor}40`,
             }}
           >
-            <Icon icon={item.tool.icon} width={28} height={28} style={{ color: toolColor }} />
+            <Icon icon={item.tool.icon} width={20} height={20} className="sm:w-6 sm:h-6 md:w-7 md:h-7" style={{ color: toolColor }} />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="mb-2 flex items-center gap-2">
+            <div className="mb-1.5 sm:mb-2 flex items-center gap-1 sm:gap-2">
               {[...Array(5)].map((_, i) => (
                 <Icon
                   key={i}
                   icon="mdi:star"
-                  width={16}
-                  height={16}
-                  className={i < item.rating ? "text-yellow-400 fill-current" : "text-[var(--text-muted)]/30 fill-current"}
+                  width={12}
+                  height={12}
+                  className="sm:w-4 sm:h-4"
+                  style={{ 
+                    color: i < item.rating ? "#fbbf24" : undefined,
+                    fill: i < item.rating ? "#fbbf24" : "rgba(255,255,255,0.1)"
+                  }}
                 />
               ))}
             </div>
-            <p className="text-[var(--text-muted)] line-clamp-3 mb-2">{item.review}</p>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 sm:line-clamp-3 mb-2 leading-relaxed">{item.review}</p>
             {item.tags && item.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-2">
+              <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2">
                 {item.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-[var(--bg)] border border-[var(--border)] text-[var(--text-muted)]"
+                    className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs bg-[var(--bg)] border border-[var(--border)] text-[var(--text-muted)]"
                   >
                     #{tag}
                   </span>
@@ -219,40 +223,41 @@ export function FeedCardLog({ item }: Props) {
               </div>
             )}
             {item.project && (
-              <div className="mt-2 inline-flex items-center gap-2 rounded-md border border-[var(--border)] px-2 py-1 text-xs text-[var(--text-muted)] bg-[var(--bg)]">
-                <Icon icon="mdi:code-tags" width={14} height={14} />
-                Used in <span className="text-[var(--text)] font-medium">{item.project.name}</span>
+              <div className="mt-2 inline-flex items-center gap-1.5 sm:gap-2 rounded-md border border-[var(--border)] px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs text-[var(--text-muted)] bg-[var(--bg)]">
+                <Icon icon="mdi:code-tags" width={12} height={12} className="sm:w-3.5 sm:h-3.5" />
+                <span className="hidden sm:inline">Used in </span><span className="text-[var(--text)] font-medium truncate max-w-[120px] sm:max-w-none">{item.project.name}</span>
               </div>
             )}
           </div>
         </div>
       </Link>
 
-      <footer className="mt-4 flex items-center gap-6 pt-4 border-t border-[var(--border)]">
+      <footer className="mt-3 sm:mt-4 flex items-center gap-4 sm:gap-6 pt-3 sm:pt-4 border-t border-[var(--border)]">
         <button
           onClick={(e) => {
             e.preventDefault();
             handleLike();
           }}
           disabled={loading}
-          className={`inline-flex items-center gap-2 text-sm transition-colors ${
+          className={`inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm transition-colors min-h-[44px] sm:min-h-0 ${
             liked ? "text-red-400" : "text-[var(--text-muted)] hover:text-red-400"
           } disabled:opacity-50`}
         >
           <Icon
             icon={liked ? "mdi:heart" : "mdi:heart-outline"}
-            width={18}
-            height={18}
-            className={liked ? "fill-current" : ""}
+            width={16}
+            height={16}
+            className="sm:w-[18px] sm:h-[18px]"
+            style={{ fill: liked ? "currentColor" : "none" }}
           />
           <span>{reactionCount}</span>
         </button>
 
         <Link
           href={`/logs/${item.id}`}
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
+          className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors min-h-[44px] sm:min-h-0"
         >
-          <Icon icon="mdi:comment-outline" width={18} height={18} />
+          <Icon icon="mdi:comment-outline" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
           <span>{commentCount}</span>
         </Link>
 
@@ -266,17 +271,17 @@ export function FeedCardLog({ item }: Props) {
                 setShowShareMenu(true);
               }
             }}
-            className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors min-h-[44px] sm:min-h-0"
           >
             {copied ? (
               <>
-                <Icon icon="mdi:check" width={18} height={18} />
-                <span>Copied!</span>
+                <Icon icon="mdi:check" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="hidden sm:inline">Copied!</span>
               </>
             ) : (
               <>
-                <Icon icon="mdi:share-variant" width={18} height={18} />
-                <span>Share</span>
+                <Icon icon="mdi:share-variant" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="hidden sm:inline">Share</span>
               </>
             )}
           </button>

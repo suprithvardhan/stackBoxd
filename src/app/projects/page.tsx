@@ -153,26 +153,27 @@ export default function ProjectsIndex() {
         />
       )}
       
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 md:space-y-8">
         {/* Section Toggle */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-extrabold tracking-tight">Projects</h1>
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">Projects</h1>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             {session && (
               <button
                 onClick={handleSyncGitHub}
                 disabled={syncing}
-                className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium hover:bg-white/5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="flex-1 sm:flex-none rounded-full border border-[var(--border)] px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium hover:bg-white/5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[44px] sm:min-h-0"
               >
                 {syncing ? (
                   <>
-                    <Icon icon="mdi:loading" className="animate-spin" width={16} height={16} />
+                    <Icon icon="mdi:loading" className="animate-spin" width={14} height={14} className="sm:w-4 sm:h-4" />
                     <span>Syncing...</span>
                   </>
                 ) : (
                   <>
-                    <Icon icon="mdi:github" width={16} height={16} />
-                    <span>Sync from GitHub</span>
+                    <Icon icon="mdi:github" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">Sync from GitHub</span>
+                    <span className="sm:hidden">Sync</span>
                   </>
                 )}
               </button>
@@ -181,11 +182,11 @@ export default function ProjectsIndex() {
         </div>
 
         {/* Section Tabs */}
-        <div className="flex items-center gap-2 border-b border-[var(--border)]">
+        <div className="flex items-center gap-1 sm:gap-2 border-b border-[var(--border)] overflow-x-auto -mx-1 px-1 sm:mx-0 sm:px-0">
           {session && (
             <button
               onClick={() => setActiveSection("your")}
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors border-b-2 whitespace-nowrap flex-shrink-0 min-h-[44px] sm:min-h-0 ${
                 activeSection === "your"
                   ? "border-[var(--primary)] text-[var(--primary)]"
                   : "border-transparent text-[var(--text-muted)] hover:text-[var(--text)]"
@@ -193,7 +194,7 @@ export default function ProjectsIndex() {
             >
               Your Projects
               {!loading && userProjects.length > 0 && (
-                <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-[var(--bg)] border border-[var(--border)]">
+                <span className="ml-1.5 sm:ml-2 px-1 sm:px-1.5 py-0.5 text-[10px] sm:text-xs rounded-full bg-[var(--bg)] border border-[var(--border)]">
                   {userProjects.length}
                 </span>
               )}
@@ -201,7 +202,7 @@ export default function ProjectsIndex() {
           )}
           <button
             onClick={() => setActiveSection("all")}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+            className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors border-b-2 whitespace-nowrap flex-shrink-0 min-h-[44px] sm:min-h-0 ${
               activeSection === "all"
                 ? "border-[var(--primary)] text-[var(--primary)]"
                 : "border-transparent text-[var(--text-muted)] hover:text-[var(--text)]"
@@ -209,7 +210,7 @@ export default function ProjectsIndex() {
           >
             All Projects
             {!loading && allProjects.length > 0 && (
-              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-[var(--bg)] border border-[var(--border)]">
+              <span className="ml-1.5 sm:ml-2 px-1 sm:px-1.5 py-0.5 text-[10px] sm:text-xs rounded-full bg-[var(--bg)] border border-[var(--border)]">
                 {allProjects.length}
               </span>
             )}
@@ -218,72 +219,72 @@ export default function ProjectsIndex() {
 
         {/* Your Projects Section */}
         {activeSection === "your" && session && (
-          <section className="space-y-6">
+          <section className="space-y-4 sm:space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-extrabold tracking-tight">Your Projects</h2>
-                <p className="text-sm text-[var(--text-muted)] mt-1">Projects you've created or synced</p>
+                <h2 className="text-lg sm:text-xl font-extrabold tracking-tight">Your Projects</h2>
+                <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">Projects you've created or synced</p>
               </div>
             </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {[...Array(3)].map((_, i) => (
                   <ProjectCardSkeleton key={i} />
                 ))}
               </div>
             ) : userProjects.length === 0 ? (
-              <div className="text-center py-16 text-[var(--text-muted)] border border-[var(--border)] rounded-xl bg-[var(--surface)]">
-                <Icon icon="mdi:folder-outline" width={64} height={64} className="mx-auto mb-4 opacity-50" />
-                <p className="text-lg font-semibold mb-2">No projects yet</p>
-                <p className="text-sm mb-4">Get started by creating or syncing your first project</p>
+              <div className="text-center py-12 sm:py-16 text-[var(--text-muted)] border border-[var(--border)] rounded-xl bg-[var(--surface)] px-4">
+                <Icon icon="mdi:folder-outline" width={48} height={48} className="sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 opacity-50" />
+                <p className="text-base sm:text-lg font-semibold mb-2">No projects yet</p>
+                <p className="text-xs sm:text-sm mb-4">Get started by creating or syncing your first project</p>
                 <Link 
                   href="/projects/new" 
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)] text-black font-medium hover:bg-[var(--primary)]/90 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)] text-black text-sm sm:text-base font-medium hover:bg-[var(--primary)]/90 transition-colors min-h-[44px]"
                 >
-                  <Icon icon="mdi:plus" width={18} height={18} />
+                  <Icon icon="mdi:plus" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
                   <span>Create your first project</span>
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {userProjects.map((p) => (
                   <Link
                     key={p.id}
                     href={`/projects/${p.id}`}
-                    className="group rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--surface)] shadow hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                    className="group rounded-xl sm:rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--surface)] shadow hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                   >
                     {p.coverImage ? (
                       <div
-                        className="h-40 w-full bg-center bg-cover relative transition-transform duration-300 group-hover:scale-105"
+                        className="h-32 sm:h-40 w-full bg-center bg-cover relative transition-transform duration-300 group-hover:scale-105"
                         style={{ backgroundImage: `url(${p.coverImage})` }}
                       >
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                        <div className="absolute bottom-2 left-3 right-3">
-                          <div className="text-white font-bold text-lg drop-shadow">{p.displayName || p.name}</div>
+                        <div className="absolute bottom-2 left-2 right-2 sm:left-3 sm:right-3">
+                          <div className="text-white font-bold text-sm sm:text-lg drop-shadow truncate">{p.displayName || p.name}</div>
                           {p.tagline && (
-                            <div className="text-zinc-200/85 text-xs italic line-clamp-1">{p.tagline}</div>
+                            <div className="text-zinc-200/85 text-[10px] sm:text-xs italic line-clamp-1">{p.tagline}</div>
                           )}
                         </div>
                       </div>
                     ) : (
-                      <div className="h-40 w-full bg-gradient-to-br from-black via-zinc-900 to-[#00FF8F10] flex items-center justify-center">
+                      <div className="h-32 sm:h-40 w-full bg-gradient-to-br from-black via-zinc-900 to-[#00FF8F10] flex items-center justify-center p-3">
                         <div className="text-center">
-                          <div className="text-white font-bold text-lg">{p.displayName || p.name}</div>
+                          <div className="text-white font-bold text-sm sm:text-lg truncate">{p.displayName || p.name}</div>
                           {p.tagline && (
-                            <div className="text-zinc-200/85 text-xs italic mt-1">{p.tagline}</div>
+                            <div className="text-zinc-200/85 text-[10px] sm:text-xs italic mt-1 line-clamp-1">{p.tagline}</div>
                           )}
                         </div>
                       </div>
                     )}
 
-                    <div className="p-4">
+                    <div className="p-3 sm:p-4">
                       {p.highlights && p.highlights.length > 0 && (
-                        <div className="mb-3 flex flex-wrap gap-2">
+                        <div className="mb-2 sm:mb-3 flex flex-wrap gap-1.5 sm:gap-2">
                           {p.highlights.slice(0, 3).map((h: string) => (
                             <span 
                               key={h} 
-                              className="px-2 py-0.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[var(--primary)] text-xs font-bold"
+                              className="px-1.5 sm:px-2 py-0.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[var(--primary)] text-[10px] sm:text-xs font-bold"
                             >
                               {h}
                             </span>
@@ -291,28 +292,28 @@ export default function ProjectsIndex() {
                         </div>
                       )}
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         {p.tools && p.tools.slice(0, 3).map((icon: string) => {
                           const t = getTool(icon);
                           if (!t) return null;
                           return (
                             <span 
                               key={icon} 
-                              className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--border)] transition-transform hover:scale-110" 
+                              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-md border border-[var(--border)] transition-transform hover:scale-110 flex-shrink-0" 
                               style={{ background: (t.color || '#999') + '12' }}
                               title={t.name}
                             >
-                              <Icon icon={t.icon} width={18} height={18} style={{ color: t.color }} />
+                              <Icon icon={t.icon} width={16} height={16} className="sm:w-[18px] sm:h-[18px]" style={{ color: t.color }} />
                             </span>
                           );
                         })}
-                        <span className="ml-auto text-xs text-[var(--text-muted)] flex items-center gap-1">
-                          <Icon icon="mdi:star" width={14} height={14} />
+                        <span className="ml-auto text-[10px] sm:text-xs text-[var(--text-muted)] flex items-center gap-1">
+                          <Icon icon="mdi:star" width={12} height={12} className="sm:w-3.5 sm:h-3.5" />
                           {p.stars || 0}
                         </span>
                       </div>
                       {p.description && (
-                        <p className="text-xs text-[var(--text-muted)] mt-2 line-clamp-2">{p.description}</p>
+                        <p className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-2 line-clamp-2 leading-relaxed">{p.description}</p>
                       )}
                     </div>
                   </Link>
@@ -324,28 +325,28 @@ export default function ProjectsIndex() {
 
         {/* All Projects Section */}
         {activeSection === "all" && (
-          <section className="space-y-6">
+          <section className="space-y-4 sm:space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-extrabold tracking-tight">All Projects</h2>
-                <p className="text-sm text-[var(--text-muted)] mt-1">Projects from everyone in the community</p>
+                <h2 className="text-lg sm:text-xl font-extrabold tracking-tight">All Projects</h2>
+                <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">Projects from everyone in the community</p>
               </div>
             </div>
 
             {loading ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {[...Array(6)].map((_, i) => (
                 <ProjectCardSkeleton key={i} />
               ))}
             </div>
           ) : allProjects.length === 0 ? (
-            <div className="text-center py-16 text-[var(--text-muted)] border border-[var(--border)] rounded-xl bg-[var(--surface)]">
-              <Icon icon="mdi:folder-outline" width={64} height={64} className="mx-auto mb-4 opacity-50" />
-              <p className="text-lg font-semibold mb-2">No projects yet</p>
-              <p className="text-sm">Be the first to showcase your project!</p>
+            <div className="text-center py-12 sm:py-16 text-[var(--text-muted)] border border-[var(--border)] rounded-xl bg-[var(--surface)] px-4">
+              <Icon icon="mdi:folder-outline" width={48} height={48} className="sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 opacity-50" />
+              <p className="text-base sm:text-lg font-semibold mb-2">No projects yet</p>
+              <p className="text-xs sm:text-sm">Be the first to showcase your project!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {allProjects.map((p) => (
                 <Link
                   key={p.id}

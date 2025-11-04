@@ -35,7 +35,7 @@ export default function LogoCollage() {
       show: {
         transition: { staggerChildren: 0.09, delayChildren: 0.1 },
       },
-    }} className="relative w-[350px] h-[330px] md:w-[420px] md:h-[400px] flex items-center justify-center select-none pointer-events-none">
+    }} className="relative w-[280px] h-[260px] sm:w-[350px] sm:h-[330px] md:w-[420px] md:h-[400px] flex items-center justify-center select-none pointer-events-none">
       {tools.map((t, i) => (
         <motion.div
           key={t.icon}
@@ -48,10 +48,10 @@ export default function LogoCollage() {
           whileHover={{ scale: (pos[i]?.s || 1) * 1.12, zIndex: 99, filter: "brightness(1.18)" }}
           className="absolute flex flex-col items-center"
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-2xl shadow-lg border border-[var(--border)]" style={{ background: t.color + "11", boxShadow: `0 0 32px ${t.color}22` }}>
-            <Icon icon={t.icon} width={44} height={44} style={{ color: t.color, filter: "drop-shadow(0 0 2px #0007)" }} />
+          <span className="flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl sm:rounded-2xl shadow-lg border border-[var(--border)]" style={{ background: t.color + "11", boxShadow: `0 0 32px ${t.color}22` }}>
+            <Icon icon={t.icon} width={32} height={32} className="sm:w-10 sm:h-10 md:w-11 md:h-11" style={{ color: t.color, filter: "drop-shadow(0 0 2px #0007)" }} />
           </span>
-          <span className="mt-1 text-xs font-semibold tracking-tight" style={{ color: t.color }}>{t.name}</span>
+          <span className="mt-1 text-[10px] sm:text-xs font-semibold tracking-tight" style={{ color: t.color }}>{t.name}</span>
         </motion.div>
       ))}
       <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl" style={{boxShadow: '0 0 150px 0 #00ff8f22'}} />

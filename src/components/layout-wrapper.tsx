@@ -25,7 +25,7 @@ export function LayoutWrapper({ children }: { children: ReactNode }) {
       <AuthProvider>
         <AnalyticsTracker />
         {isLanding ? <LandingNavbar /> : !isAuthPage && <SiteNavbar />}
-        <main className={`flex-1 w-full ${isAuthPage ? "" : "mx-auto max-w-7xl px-4 py-6"} flex flex-col gap-6`}>{children}</main>
+        <main className={`flex-1 w-full ${isAuthPage ? "" : "mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6"} flex flex-col gap-4 sm:gap-6`}>{children}</main>
         {!isAuthPage && <SiteFooter />}
       </AuthProvider>
     </QueryProvider>

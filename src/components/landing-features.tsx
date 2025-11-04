@@ -41,13 +41,13 @@ export default function LandingFeatures() {
         hidden: {},
         show: { transition: { staggerChildren: 0.12, delayChildren: 0.13 } },
       }}
-      className="mx-auto mt-20 max-w-7xl w-full"
+      className="mx-auto mt-12 sm:mt-16 md:mt-20 max-w-7xl w-full px-4 sm:px-6"
     >
-      <div className="mb-8 text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">Why Stackboxd?</h2>
-        <p className="text-lg text-[var(--text-muted)] max-w-xl mx-auto">Your developer life deserves a platform as sleek as your favorite movies site. Here’s what makes us different.</p>
+      <div className="mb-6 sm:mb-8 text-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight mb-2">Why Stackboxd?</h2>
+        <p className="text-sm sm:text-base md:text-lg text-[var(--text-muted)] max-w-xl mx-auto px-4">Your developer life deserves a platform as sleek as your favorite movies site. Here's what makes us different.</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {FEATURES.map((f, i) => (
           <motion.div
             key={f.label}
@@ -57,11 +57,11 @@ export default function LandingFeatures() {
             }}
             transition={{ type: "spring", damping: 18, mass: 1 }}
             whileHover={{ scale: 1.04, boxShadow: "0 8px 30px 0 #00FF8F30" }}
-            className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-7 flex flex-col gap-4 items-start min-h-[210px] shadow-sm cursor-pointer transition"
+            className="rounded-xl sm:rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-6 md:p-7 flex flex-col gap-3 sm:gap-4 items-start min-h-[180px] sm:min-h-[210px] shadow-sm cursor-pointer transition"
           >
-            <div>{f.icon}</div>
-            <div className="font-bold text-base tracking-tight">{f.label}</div>
-            <div className="text-[var(--text-muted)] text-sm">{f.desc}</div>
+            <div className="scale-90 sm:scale-100">{f.icon}</div>
+            <div className="font-bold text-sm sm:text-base tracking-tight">{f.label}</div>
+            <div className="text-[var(--text-muted)] text-xs sm:text-sm leading-relaxed">{f.desc}</div>
           </motion.div>
         ))}
       </div>
