@@ -166,12 +166,12 @@ export default function ProjectsIndex() {
               >
                 {syncing ? (
                   <>
-                    <Icon icon="mdi:loading" className="animate-spin" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <Icon icon="mdi:loading" className="animate-spin w-[14px] h-[14px] sm:w-4 sm:h-4" width={14} height={14} />
                     <span>Syncing...</span>
                   </>
                 ) : (
                   <>
-                    <Icon icon="mdi:github" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <Icon icon="mdi:github" className="w-[14px] h-[14px] sm:w-4 sm:h-4" width={14} height={14} />
                     <span className="hidden sm:inline">Sync from GitHub</span>
                     <span className="sm:hidden">Sync</span>
                   </>
