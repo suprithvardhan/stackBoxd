@@ -4,9 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 
-const ADMIN_EMAIL = "suprith@gmail.com";
-const ADMIN_PASSWORD = "suprith";
-
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,14 +16,31 @@ export default function AdminLoginPage() {
     setError("");
     setLoading(true);
 
-    // Simple hardcoded auth
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      // Store admin session in localStorage
-      localStorage.setItem("admin_authenticated", "true");
-      localStorage.setItem("admin_session_expiry", String(Date.now() + 24 * 60 * 60 * 1000)); // 24 hours
-      router.push("/admin");
-    } else {
-      setError("Invalid credentials");
+    try {
+      // Authenticate via secure API route
+      const response = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Store admin session in localStorage
+        localStorage.setItem("admin_authenticated", "true");
+        localStorage.setItem("admin_session_token", data.session.token);
+        localStorage.setItem("admin_session_expiry", String(data.session.expiresAt));
+        router.push("/admin");
+      } else {
+        setError(data.error || "Invalid credentials");
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("An error occurred. Please try again.");
       setLoading(false);
     }
   };

@@ -85,10 +85,19 @@ export default function AdminDashboard() {
   const loadAnalytics = async () => {
     try {
       setRefreshing(true);
-      const response = await fetch(`/api/admin/analytics?period=${period}`);
+      const token = localStorage.getItem("admin_session_token");
+      const response = await fetch(`/api/admin/analytics?period=${period}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         const analyticsData = await response.json();
         setData(analyticsData);
+      } else if (response.status === 401) {
+        // Session expired, redirect to login
+        logoutAdmin();
+        router.push("/admin/login");
       }
     } catch (error) {
       console.error("Failed to load analytics:", error);

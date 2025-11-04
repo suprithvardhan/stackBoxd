@@ -1,7 +1,48 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
+/**
+ * Verify admin session from request headers
+ */
+function verifyAdminSession(request: NextRequest): boolean {
+  const authHeader = request.headers.get("authorization")
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return false
+  }
+
+  const token = authHeader.replace("Bearer ", "")
+  try {
+    // Decode the session token
+    const decoded = Buffer.from(token, "base64").toString("utf-8")
+    const [email, timestamp] = decoded.split(":")
+    
+    // Verify email matches admin email
+    if (email !== process.env.ADMIN_EMAIL) {
+      return false
+    }
+
+    // Check if session expired (24 hours)
+    const sessionTime = parseInt(timestamp, 10)
+    const expiresAt = sessionTime + 24 * 60 * 60 * 1000
+    if (Date.now() > expiresAt) {
+      return false
+    }
+
+    return true
+  } catch {
+    return false
+  }
+}
+
 export async function GET(request: NextRequest) {
+  // Verify admin authentication
+  if (!verifyAdminSession(request)) {
+    return NextResponse.json(
+      { error: "Unauthorized" },
+      { status: 401 }
+    )
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const period = searchParams.get("period") || "7d" // 7d, 30d, 90d, all
