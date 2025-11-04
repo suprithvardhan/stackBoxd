@@ -128,7 +128,7 @@ export async function GET(request: NextRequest) {
         });
         return Array.from(byDate.entries())
           .map(([date, count]) => ({ date, count }))
-          .sort((a, b) => b.date.localeCompare(a.date))
+          .sort((a, b) => a.date.localeCompare(b.date))
           .slice(0, 30);
       }),
       

@@ -443,8 +443,11 @@ function TableCard({ title, children }: { title: string; children: React.ReactNo
 }
 
 function LineChartWithLabels({ data }: { data: Array<{ date: string; count: number }> }) {
+  // Sort data chronologically (oldest to newest) if not already sorted
+  const sortedData = [...data].sort((a, b) => a.date.localeCompare(b.date));
+  
   // Transform data for recharts
-  const chartData = data.map((item) => ({
+  const chartData = sortedData.map((item) => ({
     date: new Date(item.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
     fullDate: item.date,
     events: item.count,
