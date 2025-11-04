@@ -4,6 +4,18 @@ import type { NextRequest } from "next/server"
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
+  // Allow OG image routes and static assets without authentication
+  if (
+    pathname.startsWith("/opengraph-image") ||
+    pathname.startsWith("/icon") ||
+    pathname.startsWith("/favicon") ||
+    pathname.startsWith("/api/og") ||
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api/auth")
+  ) {
+    return NextResponse.next()
+  }
+
   // Protected routes that require authentication
   const protectedRoutes = [
     "/discover",

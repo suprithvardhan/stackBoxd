@@ -8,6 +8,8 @@ export const size = {
 
 export const contentType = "image/png";
 
+export const runtime = "nodejs";
+
 export default async function Image() {
   return new ImageResponse(
     (
@@ -31,6 +33,10 @@ export default async function Image() {
     ),
     {
       ...size,
+      headers: {
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "Content-Type": "image/png",
+      },
     }
   );
 }

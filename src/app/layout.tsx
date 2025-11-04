@@ -16,8 +16,10 @@ const lora = Lora({
   display: "swap",
 });
 
+const baseUrl = process.env.NEXTAUTH_URL || "https://stackboxd.vercel.app"
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXTAUTH_URL || "https://stackboxd.vercel.app"),
+  metadataBase: new URL(baseUrl),
   title: {
     default: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
     template: "%s | StackBoxd",
@@ -46,13 +48,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "/",
+    url: baseUrl,
     siteName: "StackBoxd",
     title: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
     description: "Discover and share developer tools. Log your tech stack, rate tools, and build your developer portfolio.",
     images: [
       {
-        url: "/og-image.png",
+        url: `${baseUrl}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: "StackBoxd - Developer Stack Platform",
@@ -63,8 +65,16 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
     description: "Discover and share developer tools. Log your tech stack, rate tools, and build your developer portfolio.",
-    images: ["/og-image.png"],
+    images: [
+      {
+        url: `${baseUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "StackBoxd - Developer Stack Platform",
+      },
+    ],
     creator: "@stackboxd",
+    site: "@stackboxd",
   },
   robots: {
     index: true,
