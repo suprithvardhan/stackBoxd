@@ -117,7 +117,7 @@ function LoginPageContent() {
         <div className="mt-8 text-center">
           <p className="text-sm text-[var(--text-muted)]">
             Don't have an account?{" "}
-            <Link href="/onboarding" className="text-[var(--primary)] hover:underline font-medium">
+            <Link href="/home" className="text-[var(--primary)] hover:underline font-medium">
               Get started
             </Link>
           </p>

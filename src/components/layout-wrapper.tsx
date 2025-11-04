@@ -12,7 +12,7 @@ import { AnalyticsTracker } from "./analytics-tracker";
 export function LayoutWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isLanding = pathname === "/";
-  const isAuthPage = pathname === "/login" || pathname === "/onboarding";
+  const isAuthPage = pathname === "/login";
   const isAdminPage = pathname?.startsWith("/admin");
   
   // Admin pages don't need layout wrapper

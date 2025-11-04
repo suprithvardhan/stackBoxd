@@ -14,7 +14,6 @@ export function middleware(request: NextRequest) {
     "/logs",
     "/profile",
     "/settings",
-    "/onboarding",
   ]
 
   // Check if the route requires authentication
