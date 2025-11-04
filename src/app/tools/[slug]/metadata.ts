@@ -9,7 +9,6 @@ export async function generateToolMetadata(slug: string): Promise<Metadata> {
       where: { slug },
       select: {
         name: true,
-        description: true,
         category: true,
         icon: true,
         color: true,
@@ -27,7 +26,7 @@ export async function generateToolMetadata(slug: string): Promise<Metadata> {
       };
     }
 
-    const description = tool.description || `Discover ${tool.name}, a ${tool.category} tool used by ${tool.usedByCount || 0} developers. Rate it ${tool.avgRating?.toFixed(1) || "0.0"}/5.0 based on ${tool.ratingsCount || 0} reviews.`;
+    const description = `Discover ${tool.name}, a ${tool.category} tool used by ${tool.usedByCount || 0} developers. Rate it ${tool.avgRating?.toFixed(1) || "0.0"}/5.0 based on ${tool.ratingsCount || 0} reviews.`;
 
     return {
       title: `${tool.name} - Developer Tool Reviews & Ratings`,
