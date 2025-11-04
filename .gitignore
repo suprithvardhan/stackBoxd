@@ -47,3 +47,5 @@ tools-data.json
 scripts/
 
 src/app/demo/
+
+prisma/fix-tools-icons.ts

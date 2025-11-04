@@ -73,7 +73,7 @@ export const { handlers, auth } = NextAuth({
       }
       return session
     },
-    async signIn({ user, account, profile }: { user: any; account: any; profile: any }) {
+    async signIn({ user, account, profile }: { user: any; account?: any; profile?: any }) {
       if (account?.provider === "github" && profile && user.email) {
         // Run user update in background to not block login flow
         // This improves perceived login speed

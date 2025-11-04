@@ -79,7 +79,7 @@ export default function ProjectPage() {
   }
 
   // Tools are already stored in database from sync - no need to merge with repoInfo
-  const allToolIcons = Array.from(new Set(project.tools || []));
+  const allToolIcons = Array.from(new Set((project.tools || []) as string[]));
   
   // Filter to only show tools that exist in database
   const allTools = allToolIcons.filter((icon: string) => {

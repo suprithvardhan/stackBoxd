@@ -234,7 +234,7 @@ export function useToggleFollow() {
       // Optimistically update follower count for ALL user queries (by id match)
       queryClient.setQueriesData({ queryKey: ["users"] }, (old: any) => {
         if (!old || !old.id || old.id !== followingId) return old;
-        const increment = !previousStatus?.following ? 1 : -1;
+        const increment = !(previousStatus as any)?.following ? 1 : -1;
         return {
           ...old,
           stats: {

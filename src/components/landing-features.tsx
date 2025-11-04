@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Sparkles, Users, HeartHand, TerminalSquare, ActivitySquare } from "lucide-react";
+import { Sparkles, Users, Heart, TerminalSquare, ActivitySquare } from "lucide-react";
 import { Icon } from "@iconify/react";
 
 const FEATURES = [

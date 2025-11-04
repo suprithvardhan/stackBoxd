@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { Icon } from "@iconify/react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useSession } from "next-auth/react"
@@ -31,7 +31,7 @@ function Toast({ message, type = "success", onClose }: { message: string; type?:
   )
 }
 
-export default function NewLogPage() {
+function NewLogPageContent() {
   const router = useRouter()
   const params = useSearchParams()
   const { data: session, status } = useSession()
@@ -558,5 +558,17 @@ function TagAdder({ onAdd }: { onAdd: (t: string) => void }) {
         autoFocus
       />
     </div>
+  )
+}
+
+export default function NewLogPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-[var(--text-muted)]">Loading...</div>
+      </div>
+    }>
+      <NewLogPageContent />
+    </Suspense>
   )
 }

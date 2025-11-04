@@ -78,13 +78,14 @@ export default function ListsIndexPage() {
                   <div className="flex items-center gap-2 mb-1">
                     <h2 className="font-medium">{l.title}</h2>
                     {l.visibility === "private" && (
-                      <Icon
-                        icon="mdi:lock"
-                        width={16}
-                        height={16}
-                        className="text-[var(--text-muted)]"
-                        title="Private list"
-                      />
+                      <span title="Private list">
+                        <Icon
+                          icon="mdi:lock"
+                          width={16}
+                          height={16}
+                          className="text-[var(--text-muted)]"
+                        />
+                      </span>
                     )}
                   </div>
                   {l.description && (
