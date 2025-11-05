@@ -49,14 +49,21 @@ export function FeedCardLog({ item }: Props) {
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   
-  // OPTIMIZED: Use React Query hook - cached across all feed cards (single API call per user)
-  // This checks if user has liked ANY log, cached for all cards
-  const { data: userReactions = [] } = useReactions(
-    undefined, 
-    session?.user?.id, 
-    !!session?.user?.id
-  );
-  const liked = session?.user?.id ? userReactions.includes(item.id) : false;
+      // OPTIMIZED: Use React Query hook - cached across all feed cards (single API call per user)
+      // This checks if user has liked ANY log, cached for all cards
+      const { data: userReactions = [] } = useReactions(
+        undefined, 
+        session?.user?.id, 
+        !!session?.user?.id
+      );
+      const [liked, setLiked] = useState(session?.user?.id ? userReactions.includes(item.id) : false);
+      
+      // Update liked state when userReactions changes
+      useEffect(() => {
+        if (session?.user?.id && userReactions) {
+          setLiked(userReactions.includes(item.id));
+        }
+      }, [userReactions, item.id, session?.user?.id]);
   
   // Prefetch log details, comments, and reactions for instant navigation
   const { handleMouseEnter } = useLogPrefetch(item.id, true, true);

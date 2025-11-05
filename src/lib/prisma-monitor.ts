@@ -1,5 +1,13 @@
 import { Prisma } from '@prisma/client'
 
+// Prisma query logging types
+interface PrismaQueryEvent {
+  model?: string;
+  action?: string;
+  query?: string;
+  duration?: number;
+}
+
 // Session-based query tracking
 const sessionQueries = new Map<string, { count: number; queries: string[]; startTime: number }>()
 
@@ -71,22 +79,23 @@ export function cleanupOldSessions() {
   }
 }
 
-// Prisma query logging middleware
-export function createPrismaLogger(sessionId: string) {
-  return {
-    query: async (params: Prisma.QueryEvent) => {
-      const start = Date.now()
-      const query = `${params.model}.${params.action}`
-      const duration = Date.now() - start
-      
-      trackQuery(sessionId, query, duration)
-      
-      // Log slow queries (>100ms) in development
-      if (process.env.NODE_ENV === 'development' && duration > 100) {
-        console.warn(`[Slow Query] ${query} took ${duration}ms`)
-      }
+// Enable Prisma query logging for a Prisma client instance
+export function enablePrismaQueryLogging(prisma: any) {
+  // Use Prisma's $on event listener for query events
+  prisma.$on('query' as any, (event: PrismaQueryEvent) => {
+    const sessionId = 'server' // Default session ID for server-side queries
+    const model = event.model || 'unknown'
+    const action = event.action || 'query'
+    const query = `${model}.${action}`
+    const duration = event.duration || 0
+    
+    trackQuery(sessionId, query, duration)
+    
+    // Log slow queries (>100ms) in development
+    if (process.env.NODE_ENV === 'development' && duration > 100) {
+      console.warn(`[Slow Query] ${query} took ${duration}ms`)
     }
-  }
+  })
 }
 
 // Run cleanup every 5 minutes

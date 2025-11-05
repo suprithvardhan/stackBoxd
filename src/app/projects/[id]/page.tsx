@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useProject, useTools, useUser } from "@/lib/api-hooks";
 
 function getColor(tools: any[], icon: string) {
   return tools.find((t) => t.icon === icon)?.color || undefined;
