@@ -8,6 +8,7 @@ StackBoxd is a social platform for developers to document the tools they use, di
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![Neon](https://img.shields.io/badge/Database-Neon%20Postgres-0075ea)
 
 ## What is StackBoxd?
 
@@ -51,7 +52,7 @@ Instead of just listing technologies on your resume, you can log them with ratin
 ### Prerequisites
 
 - Node.js 18+ and npm
-- PostgreSQL database (local or cloud)
+- **Neon Postgres** database (recommended) or any PostgreSQL database
 - GitHub OAuth App (for authentication and repo syncing)
 
 ### Installation
@@ -71,7 +72,11 @@ cp .env.example .env
 Fill in your `.env` file:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/stackboxd"
+# Neon Postgres connection string (recommended)
+# Get your connection string from: https://console.neon.com
+DATABASE_URL="postgresql://user:password@ep-xxx.us-east-2.aws.neon.tech/stackboxd?sslmode=require"
+# Or use a local PostgreSQL database:
+# DATABASE_URL="postgresql://user:password@localhost:5432/stackboxd"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-secret-here"
 GITHUB_CLIENT_ID="your-github-client-id"
@@ -84,6 +89,30 @@ openssl rand -base64 32
 ```
 
 ### Database Setup
+
+#### Using Neon Postgres (Recommended)
+
+StackBoxd is powered by **[Neon](https://neon.com)** (Neon Postgres) - a serverless Postgres platform built for modern developers. Neon is perfect for open-source projects like StackBoxd because it offers:
+
+- **Instant provisioning** - Get a Postgres database in seconds
+- **Autoscaling** - Scales up when you need it, scales to zero when you don't
+- **Branching** - Create isolated database branches for testing and development
+- **Generous free tier** - Perfect for open-source projects and community growth
+- **Seamless Prisma integration** - Works flawlessly with our Prisma ORM setup
+
+To get started with Neon:
+
+1. Sign up at [neon.com](https://neon.com) (free tier available)
+2. Create a new project
+3. Copy your connection string from the Neon dashboard
+4. Add it to your `.env` file as `DATABASE_URL`
+
+The connection string will look like:
+```
+postgresql://user:password@ep-xxx.region.aws.neon.tech/dbname?sslmode=require
+```
+
+#### Setup Commands
 
 ```bash
 # Generate Prisma client
@@ -132,6 +161,7 @@ The matching algorithm is database-driven: we maintain a `packageNames` field fo
 
 - **Next.js 16** - React framework with App Router
 - **TypeScript** - Type safety throughout
+- **Neon Postgres** - Serverless PostgreSQL database with branching and autoscaling
 - **Prisma** - Database ORM with PostgreSQL
 - **NextAuth.js v5** - Authentication with GitHub OAuth
 - **Tailwind CSS** - Styling
@@ -216,11 +246,31 @@ Not currently. Manual tool entry might come later, but the auto-detection is the
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
+## Infrastructure & Sponsorships
+
+### Powered by Neon Postgres
+
+StackBoxd is proudly powered by **[Neon](https://neon.com)** (Neon Postgres), a serverless Postgres platform that enables us to:
+
+- **Scale effortlessly** - Neon's autoscaling handles traffic spikes without manual intervention
+- **Develop faster** - Database branching lets us test schema changes in isolation
+- **Reduce costs** - Scale-to-zero means we only pay for what we use, perfect for open-source projects
+- **Deploy globally** - Low-latency connections help our community worldwide
+
+Neon's modern Postgres workflows align perfectly with StackBoxd's mission to help developers document and share their tech stacks. The platform's transparent pricing and generous free tier ensure that our open-source community can grow without infrastructure constraints.
+
+**Why Neon for Open Source?**
+
+As an open-source project using Postgres as a core component, Neon provides the foundation we need to scale sustainably. Their commitment to supporting open-source developers through infrastructure, transparent pricing, and modern workflows makes them the ideal database partner for StackBoxd.
+
+👉 [Learn more about Neon](https://neon.com) | [Get started for free](https://console.neon.com)
+
 ## Acknowledgments
 
 - Inspired by [Letterboxd](https://letterboxd.com) - the social platform for film lovers
 - Built with love by developers who wanted a better way to document their stack
+- Powered by [Neon](https://neon.com) - Serverless Postgres for modern developers
 
 ---
 
-**Built with** Next.js, TypeScript, Prisma, and a lot of coffee ☕
+**Built with** Next.js, TypeScript, Neon Postgres, Prisma, and a lot of coffee ☕
