@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
-import { useLogPrefetch } from "@/lib/api-hooks";
+import { useLogPrefetch, useReactions } from "@/lib/api-hooks";
 import Link from "next/link";
 
 type Props = { 
@@ -41,40 +41,25 @@ type Props = {
 export function FeedCardLog({ item }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
-  const [liked, setLiked] = useState(false);
+  // OPTIMIZED: Use data already provided in item - no redundant API calls!
+  // Reaction and comment counts are already in item.reactions and item.comments from API
   const [reactionCount, setReactionCount] = useState(item.reactions || 0);
   const [commentCount, setCommentCount] = useState(item.comments || 0);
   const [loading, setLoading] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   
+  // OPTIMIZED: Use React Query hook - cached across all feed cards (single API call per user)
+  // This checks if user has liked ANY log, cached for all cards
+  const { data: userReactions = [] } = useReactions(
+    undefined, 
+    session?.user?.id, 
+    !!session?.user?.id
+  );
+  const liked = session?.user?.id ? userReactions.includes(item.id) : false;
+  
   // Prefetch log details, comments, and reactions for instant navigation
   const { handleMouseEnter } = useLogPrefetch(item.id, true, true);
-
-  useEffect(() => {
-    // Check if user has liked this log
-    if (session?.user?.id) {
-      api.reactions.list(undefined, session.user.id as string)
-        .then((userReactions) => {
-          setLiked(userReactions.includes(item.id));
-        })
-        .catch(() => {});
-    }
-
-    // Load reaction count
-    api.reactions.list(item.id)
-      .then((reactions) => {
-        setReactionCount(reactions.length);
-      })
-      .catch(() => {});
-
-    // Load comment count
-    api.comments.list(item.id)
-      .then((comments) => {
-        setCommentCount(comments.length);
-      })
-      .catch(() => {});
-  }, [item.id, session?.user?.id]);
 
   useEffect(() => {
     const handleClickOutside = () => {

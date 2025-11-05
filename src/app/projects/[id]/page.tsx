@@ -34,33 +34,26 @@ export default function ProjectPage() {
   const [author, setAuthor] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadProject = async () => {
-      try {
-        const [projectData, toolsData] = await Promise.all([
-          api.projects.get(projectId),
-          api.tools.list({ limit: 1000 }), // Fetch all tools to ensure matching works
-        ]);
-        setProject(projectData);
-        setTools(toolsData);
-        
-        if (projectData.author) {
-          const authorData = await api.users.get(projectData.author);
-          setAuthor(authorData);
-        }
+  // OPTIMIZED: Use React Query hooks for caching
+  const { data: projectData, isLoading: projectLoading } = useProject(projectId, !!projectId);
+  const { data: toolsData = [], isLoading: toolsLoading } = useTools({ limit: 200 }); // Reduced from 1000
+  const { data: authorData, isLoading: authorLoading } = useUser(
+    projectData?.author || '', 
+    !!projectData?.author
+  );
 
-        // Tools are already stored in database from sync - no need to re-detect
-        // repoInfo is only used for additional metadata like topics, which we can add later
-      } catch (error) {
-        console.error("Failed to load project:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (projectId) {
-      loadProject();
+  useEffect(() => {
+    if (projectData) {
+      setProject(projectData);
     }
-  }, [projectId, session]);
+    if (toolsData) {
+      setTools(toolsData);
+    }
+    if (authorData) {
+      setAuthor(authorData);
+    }
+    setLoading(projectLoading || toolsLoading || authorLoading);
+  }, [projectData, toolsData, authorData, projectLoading, toolsLoading, authorLoading]);
 
   if (loading) {
     return (

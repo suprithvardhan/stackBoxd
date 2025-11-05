@@ -43,10 +43,14 @@ export const queryKeys = {
 
 // Tools hooks
 export function useTools(params?: { category?: string; search?: string; limit?: number; offset?: number }) {
+  // OPTIMIZED: Longer cache for tools list (tools rarely change)
+  // If fetching large list (300+), cache longer as it's expensive
+  const isLargeList = (params?.limit || 0) >= 200;
   return useQuery({
     queryKey: queryKeys.tools.lists(params),
     queryFn: () => api.tools.list(params),
-    staleTime: 3 * 60 * 1000, // 3 minutes
+    staleTime: isLargeList ? 15 * 60 * 1000 : 5 * 60 * 1000, // 15 min for large lists, 5 min for smaller
+    gcTime: isLargeList ? 30 * 60 * 1000 : 10 * 60 * 1000, // Keep in cache longer
   });
 }
 

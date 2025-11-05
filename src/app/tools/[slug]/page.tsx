@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { StructuredData, generateToolStructuredData } from "@/components/structured-data";
+import { useTool, useToolDescription, useLogs, useProjects } from "@/lib/api-hooks";
 
 function shortAgo(date: string) {
   const d = new Date(date);
@@ -136,53 +137,37 @@ export default function ToolPage() {
     }
   }, [tool?.slug, tool?.id, loading])
 
+  // OPTIMIZED: Use React Query hooks for caching
+  const { data: toolData, isLoading: toolLoading } = useTool(slug, !!slug);
+  const { data: descData } = useToolDescription(slug, !!slug);
+  // OPTIMIZED: Filter server-side using toolId instead of fetching all logs
+  // Only fetch logs when we have tool data
+  const { data: allLogs = [], isLoading: logsLoading } = useLogs({ 
+    toolId: toolData?.id, 
+    limit: 50 
+  });
+  // Only fetch user projects if logged in
+  const { data: userProjects = [], isLoading: projectsLoading } = useProjects(
+    session?.user?.id ? { authorId: session.user.id, limit: 50 } : undefined
+  );
+
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        // Load tool data and description in parallel
-        const [toolData, descData] = await Promise.all([
-          api.tools.get(slug),
-          api.tools.getDescription(slug).catch(() => ({ description: null, source: null })),
-        ]);
-        
-        setTool(toolData);
-        setDescription(descData);
-        
-        // Load logs and projects in parallel
-        // Only load user's projects if logged in, otherwise show empty
-        const loadPromises: Promise<any>[] = [
-          api.logs.list({ limit: 50 }),
-        ];
-        
-        // Only load user projects if logged in
-        if (session?.user?.id) {
-          loadPromises.push(api.projects.list({ authorId: session.user.id, limit: 50 }));
-        } else {
-          loadPromises.push(Promise.resolve([]));
-        }
-        
-        const [logsData, projectsData] = await Promise.all(loadPromises);
-        
-        // Filter logs for this tool
-        const toolLogs = logsData.filter((log: any) => log.tool?.slug === slug);
-        setLogs(toolLogs);
-        
-        // Filter user's projects that use this tool
-        const toolProjects = projectsData.filter((p: any) => 
-          p.tools?.includes(toolData.icon)
-        );
-        setProjects(toolProjects.slice(0, 12));
-      } catch (error) {
-        console.error("Failed to load tool:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    if (slug) {
-      loadData();
+    if (toolData) {
+      setTool(toolData);
+      // Logs are already filtered server-side by toolId
+      setLogs(allLogs);
+      
+      // Filter user's projects that use this tool
+      const toolProjects = userProjects.filter((p: any) => 
+        p.tools?.includes(toolData.icon)
+      );
+      setProjects(toolProjects.slice(0, 12));
     }
-  }, [slug, session?.user?.id]);
+    if (descData) {
+      setDescription(descData);
+    }
+    setLoading(toolLoading || logsLoading || projectsLoading);
+  }, [toolData, descData, allLogs, userProjects, toolLoading, logsLoading, projectsLoading]);
 
   if (loading) {
     return (

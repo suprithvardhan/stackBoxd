@@ -168,6 +168,8 @@ model Log {
   @@index([toolId])
   @@index([projectId])
   @@index([createdAt])
+  @@index([visibility]) // OPTIMIZED: For filtering public logs
+  @@index([visibility, createdAt]) // OPTIMIZED: Composite index for common query pattern
 }
 
 model List {

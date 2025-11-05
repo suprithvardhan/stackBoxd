@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import AuthProvider from "./auth-provider";
 import { QueryProvider } from "./query-provider";
 import { AnalyticsTracker } from "./analytics-tracker";
+import { PerformanceMonitor } from "./performance-monitor";
 
 export function LayoutWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -27,6 +28,7 @@ export function LayoutWrapper({ children }: { children: ReactNode }) {
         {isLanding ? <LandingNavbar /> : !isAuthPage && <SiteNavbar />}
         <main className={`flex-1 w-full ${isAuthPage ? "" : "mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6"} flex flex-col gap-4 sm:gap-6`}>{children}</main>
         {!isAuthPage && <SiteFooter />}
+        <PerformanceMonitor />
       </AuthProvider>
     </QueryProvider>
   );

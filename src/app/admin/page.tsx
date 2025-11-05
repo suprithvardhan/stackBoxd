@@ -64,6 +64,16 @@ type AnalyticsData = {
   eventsByDay: Array<{ date: string; count: number }>;
   topPages: Array<{ path: string; count: number }>;
   topUsers: Array<{ user: any; count: number }>;
+  performance: {
+    avgApiCalls: number;
+    avgDbQueries: number;
+    avgCacheHitRate: number;
+    totalApiCalls: number;
+    totalDbQueries: number;
+    avgApiDuration: number;
+    callsByEndpoint: Array<{ endpoint: string; count: number }>;
+    queriesByType: Array<{ type: string; count: number }>;
+  };
 };
 
 export default function AdminDashboard() {
@@ -227,6 +237,66 @@ export default function AdminDashboard() {
             color="green"
           />
         </div>
+
+        {/* Performance Metrics */}
+        {data.performance && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-white mb-4">Performance Analytics</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <StatCard
+                title="Avg API Calls/Session"
+                value={data.performance.avgApiCalls?.toFixed(1) || "0"}
+                icon="mdi:api"
+                color="blue"
+              />
+              <StatCard
+                title="Avg DB Queries/Session"
+                value={data.performance.avgDbQueries?.toFixed(1) || "0"}
+                icon="mdi:database"
+                color="purple"
+              />
+              <StatCard
+                title="Cache Hit Rate"
+                value={`${(data.performance.avgCacheHitRate || 0).toFixed(1)}%`}
+                icon="mdi:cache"
+                color="green"
+              />
+              <StatCard
+                title="Avg API Duration"
+                value={`${(data.performance.avgApiDuration || 0).toFixed(0)}ms`}
+                icon="mdi:speedometer"
+                color="orange"
+              />
+            </div>
+
+            {/* Performance Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* API Calls by Endpoint */}
+              <ChartCard 
+                title="API Calls by Endpoint" 
+                description="Most frequently called API endpoints"
+              >
+                <div className="h-96">
+                  <ApiCallsChart data={data.performance.callsByEndpoint || []} />
+                </div>
+              </ChartCard>
+
+              {/* Performance Summary */}
+              <ChartCard 
+                title="Performance Summary" 
+                description="Total API calls and DB queries"
+              >
+                <div className="h-96">
+                  <PerformanceSummaryChart 
+                    apiCalls={data.performance.totalApiCalls || 0}
+                    dbQueries={data.performance.totalDbQueries || 0}
+                    cacheHitRate={data.performance.avgCacheHitRate || 0}
+                  />
+                </div>
+              </ChartCard>
+            </div>
+          </div>
+        )}
 
         {/* Content Stats */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
@@ -1046,4 +1116,139 @@ function formatDuration(ms: number): string {
   const minutes = Math.floor(ms / 60000);
   const seconds = Math.floor((ms % 60000) / 1000);
   return `${minutes}m ${seconds}s`;
+}
+
+function ApiCallsChart({ data }: { data: Array<{ endpoint: string; count: number }> }) {
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full text-[var(--text-muted)]">
+        No API call data available
+      </div>
+    );
+  }
+
+  const sorted = [...data].sort((a, b) => b.count - a.count).slice(0, 10);
+  const chartData = sorted.map((item) => ({
+    name: item.endpoint.replace('/api/', '').replace(/\//g, ' > ') || 'Root',
+    value: item.count,
+    endpoint: item.endpoint,
+  }));
+
+  const colors = ["#00FF8F", "#3b82f6", "#a855f7", "#10b981", "#f59e0b", "#ec4899", "#06b6d4", "#eab308", "#6366f1", "#8b5cf6"];
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 shadow-lg">
+          <p className="text-sm font-semibold text-white mb-1">{payload[0].payload.endpoint}</p>
+          <p className="text-xs text-[var(--primary)]">
+            Calls: <span className="font-bold">{payload[0].value.toLocaleString()}</span>
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={chartData}
+        layout="vertical"
+        margin={{ top: 10, right: 30, left: 100, bottom: 10 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={true} vertical={false} />
+        <XAxis type="number" stroke="var(--text-muted)" tick={{ fill: "var(--text-muted)", fontSize: 12 }} />
+        <YAxis
+          type="category"
+          dataKey="name"
+          stroke="var(--text-muted)"
+          tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+          width={90}
+        />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar dataKey="value" radius={[0, 8, 8, 0]}>
+          {chartData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function PerformanceSummaryChart({ 
+  apiCalls, 
+  dbQueries, 
+  cacheHitRate 
+}: { 
+  apiCalls: number; 
+  dbQueries: number; 
+  cacheHitRate: number;
+}) {
+  const chartData = [
+    { name: "API Calls", value: apiCalls, color: "#3b82f6" },
+    { name: "DB Queries", value: dbQueries, color: "#a855f7" },
+  ];
+
+  const total = apiCalls + dbQueries;
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const percentage = total > 0 ? ((payload[0].value / total) * 100).toFixed(1) : '0';
+      return (
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 shadow-lg">
+          <p className="text-sm font-semibold text-white mb-1">{payload[0].name}</p>
+          <p className="text-xs text-blue-400">
+            Count: <span className="font-bold">{payload[0].value.toLocaleString()}</span>
+          </p>
+          <p className="text-xs text-[var(--text-muted)]">
+            {percentage}% of total
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <div className="space-y-6">
+      <ResponsiveContainer width="100%" height="60%">
+        <BarChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis 
+            dataKey="name"
+            stroke="var(--text-muted)"
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+          />
+          <YAxis 
+            stroke="var(--text-muted)"
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+      
+      <div className="bg-[var(--bg)] rounded-lg p-4 border border-[var(--border)]">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-[var(--text-muted)]">Cache Hit Rate</span>
+          <span className="text-lg font-bold text-[var(--primary)]">{cacheHitRate.toFixed(1)}%</span>
+        </div>
+        <div className="w-full bg-[var(--surface)] rounded-full h-2">
+          <div 
+            className="bg-[var(--primary)] h-2 rounded-full transition-all"
+            style={{ width: `${Math.min(100, cacheHitRate)}%` }}
+          />
+        </div>
+        <p className="text-xs text-[var(--text-muted)] mt-2">
+          {cacheHitRate >= 60 ? "✅ Excellent" : cacheHitRate >= 40 ? "⚠️ Good" : "❌ Needs improvement"}
+        </p>
+      </div>
+    </div>
+  );
 }

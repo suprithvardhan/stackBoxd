@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useFollowStatus, useToggleFollow, useFollowers, useFollowing, useUser } from "@/lib/api-hooks";
+import { useFollowStatus, useToggleFollow, useFollowers, useFollowing, useUser, useLogs, useProjects, useLists, useTools } from "@/lib/api-hooks";
 
 function getToolColor(tools: any[], icon: string) {
   return tools.find((t) => t.icon === icon)?.color || undefined;
@@ -57,27 +57,19 @@ export default function ProfilePage() {
   
   const isFollowing = followStatus?.following || false;
 
+  // OPTIMIZED: Use React Query hooks for caching instead of direct API calls
+  const { data: logsData = [], isLoading: logsLoading } = useLogs({ username, limit: 100 });
+  const { data: projectsData = [], isLoading: projectsLoading } = useProjects({ username, limit: 100 });
+  const { data: listsData = [], isLoading: listsLoading } = useLists({ username, limit: 100 });
+  const { data: toolsData = [], isLoading: toolsLoading } = useTools({ limit: 200 });
+
+  // Update state when data loads (for backward compatibility with existing code)
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const [logsData, projectsData, listsData, toolsData] = await Promise.all([
-          api.logs.list({ username, limit: 100 }),
-          api.projects.list({ username, limit: 100 }),
-          api.lists.list({ username, limit: 100 }),
-          api.tools.list({ limit: 200 }),
-        ]);
-        setLogs(logsData);
-        setProjects(projectsData);
-        setLists(listsData);
-        setTools(toolsData);
-      } catch (error) {
-        console.error("Failed to load profile data:", error);
-      }
-    };
-    if (username) {
-      loadData();
-    }
-  }, [username]);
+    if (logsData) setLogs(logsData);
+    if (projectsData) setProjects(projectsData);
+    if (listsData) setLists(listsData);
+    if (toolsData) setTools(toolsData);
+  }, [logsData, projectsData, listsData, toolsData]);
 
   // Optimistically update follower count when follow status changes
   useEffect(() => {

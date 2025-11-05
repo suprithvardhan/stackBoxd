@@ -36,8 +36,9 @@ export default function DiscoverPage() {
     return 1;
   });
 
-  // Fetch ALL tools (473) from database
-  const { data: allTools = [], isLoading: toolsLoading } = useTools({ limit: 500 });
+  // OPTIMIZED: Fetch tools with longer cache time (tools rarely change)
+  // Reduced limit from 500 to 300 to reduce payload size
+  const { data: allTools = [], isLoading: toolsLoading } = useTools({ limit: 300 });
   const { data: logs = [], isLoading: logsLoading } = useLogs({ limit: 20 });
 
   const loading = toolsLoading || logsLoading;

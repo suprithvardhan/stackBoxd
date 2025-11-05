@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession } from "next-auth/react";
+import { useTools, useProjects } from "@/lib/api-hooks";
 
 // Loading skeleton component
 function ProjectCardSkeleton() {
@@ -79,36 +80,21 @@ export default function ProjectsIndex() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.user?.id]);
 
+  // OPTIMIZED: Use React Query hooks for caching
+  const { data: toolsData = [], isLoading: toolsLoading } = useTools({ limit: 200 });
+  const { data: allProjectsData = [], isLoading: allProjectsLoading } = useProjects({ limit: 50 });
+  const { data: userProjectsData = [], isLoading: userProjectsLoading } = useProjects(
+    session?.user?.id ? { authorId: session.user.id, limit: 50 } : undefined
+  );
+
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const loadPromises: Promise<any>[] = [
-          api.tools.list({ limit: 200 }),
-          api.projects.list({ limit: 50 }), // All projects
-        ];
-        
-        // Load user projects if logged in
-        if (session?.user?.id) {
-          loadPromises.push(api.projects.list({ authorId: session.user.id, limit: 50 }));
-        }
-        
-        const results = await Promise.all(loadPromises);
-        setTools(results[0]);
-        setAllProjects(results[1]);
-        
-        // Set user projects if logged in
-        if (session?.user?.id && results[2]) {
-          setUserProjects(results[2]);
-        }
-      } catch (error) {
-        console.error("Failed to load projects:", error);
-        setToast({ message: "Failed to load projects", type: "error" });
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, [session?.user?.id]);
+    setTools(toolsData);
+    setAllProjects(allProjectsData);
+    if (session?.user?.id) {
+      setUserProjects(userProjectsData);
+    }
+    setLoading(toolsLoading || allProjectsLoading || userProjectsLoading);
+  }, [toolsData, allProjectsData, userProjectsData, toolsLoading, allProjectsLoading, userProjectsLoading, session?.user?.id]);
 
   function getTool(icon: string) {
     return tools.find((t) => t.icon === icon);

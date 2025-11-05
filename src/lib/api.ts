@@ -1,7 +1,23 @@
+// OPTIMIZED: Track API calls and check cache
+let apiMonitor: any = null
+
+// Lazy load monitor (client-side only)
+if (typeof window !== 'undefined') {
+  import('./api-monitor').then(({ getApiMonitor }) => {
+    apiMonitor = getApiMonitor()
+  }).catch(() => {})
+}
+
 export async function apiRequest<T>(
   url: string,
   options?: RequestInit
 ): Promise<T> {
+  const startTime = Date.now()
+  const method = options?.method || 'GET'
+  
+  // Check if this is a cached request (React Query handles this, but we can track)
+  let cached = false
+  
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -9,6 +25,17 @@ export async function apiRequest<T>(
       ...options?.headers,
     },
   })
+
+  const duration = Date.now() - startTime
+  
+  // Track API call (client-side only)
+  if (apiMonitor && typeof window !== 'undefined') {
+    // Check if response came from cache (React Query cache)
+    const cacheControl = response.headers.get('x-cache') || response.headers.get('cache-control')
+    cached = cacheControl?.includes('HIT') || false
+    
+    apiMonitor.trackCall(url, method, duration, cached)
+  }
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ error: "Unknown error" }))

@@ -93,6 +93,7 @@ export async function GET(request: NextRequest) {
       engagementMetrics,
       eventTypeDistribution,
       pageDurations,
+      performanceMetrics,
     ] = await Promise.all([
       // Total events
       (prisma as any).analyticsEvent.count({ where }),
@@ -427,6 +428,80 @@ export async function GET(request: NextRequest) {
           .sort((a, b) => b.avgTime - a.avgTime)
           .slice(0, 20); // Top 20 pages
       }),
+
+      // Performance metrics from session_stats events
+      ((prisma as any).analyticsEvent.findMany({
+        where: { ...where, eventType: "session_stats" },
+        select: { eventData: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 1000, // Get last 1000 session stats
+      }) as Promise<Array<{ eventData: any; createdAt: Date }>>).then((stats: Array<{ eventData: any; createdAt: Date }>) => {
+        if (stats.length === 0) {
+          return {
+            avgApiCalls: 0,
+            avgDbQueries: 0,
+            avgCacheHitRate: 0,
+            totalApiCalls: 0,
+            totalDbQueries: 0,
+            avgApiDuration: 0,
+            callsByEndpoint: [],
+            queriesByType: [],
+          };
+        }
+
+        let totalApiCalls = 0;
+        let totalDbQueries = 0;
+        let totalCachedCalls = 0;
+        let totalApiDuration = 0;
+        const callsByEndpointMap = new Map<string, number>();
+        const queriesByTypeMap = new Map<string, number>();
+
+        stats.forEach((stat) => {
+          const data = stat.eventData || {};
+          
+          // Aggregate API calls
+          if (data.totalCalls) {
+            totalApiCalls += data.totalCalls;
+            totalCachedCalls += data.cachedCalls || 0;
+            totalApiDuration += (data.averageDuration || 0) * (data.totalCalls || 0);
+            
+            // Aggregate calls by endpoint
+            if (data.callsByEndpoint) {
+              Object.entries(data.callsByEndpoint).forEach(([endpoint, count]) => {
+                callsByEndpointMap.set(endpoint, (callsByEndpointMap.get(endpoint) || 0) + (count as number));
+              });
+            }
+          }
+
+          // Aggregate DB queries (from current session if available)
+          if (data.queryCount) {
+            totalDbQueries += data.queryCount;
+          }
+        });
+
+        const sessionCount = stats.length;
+        const avgApiCalls = sessionCount > 0 ? Math.round((totalApiCalls / sessionCount) * 100) / 100 : 0;
+        const avgDbQueries = sessionCount > 0 ? Math.round((totalDbQueries / sessionCount) * 100) / 100 : 0;
+        const avgCacheHitRate = totalApiCalls > 0 ? Math.round((totalCachedCalls / totalApiCalls) * 100 * 100) / 100 : 0;
+        const avgApiDuration = totalApiCalls > 0 ? Math.round((totalApiDuration / totalApiCalls) * 100) / 100 : 0;
+
+        // Format calls by endpoint
+        const callsByEndpoint = Array.from(callsByEndpointMap.entries())
+          .map(([endpoint, count]) => ({ endpoint, count }))
+          .sort((a, b) => b.count - a.count)
+          .slice(0, 10);
+
+        return {
+          avgApiCalls,
+          avgDbQueries,
+          avgCacheHitRate,
+          totalApiCalls,
+          totalDbQueries,
+          avgApiDuration,
+          callsByEndpoint,
+          queriesByType: [], // Could be enhanced to track query types
+        };
+      }),
     ])
 
     return NextResponse.json({
@@ -484,6 +559,16 @@ export async function GET(request: NextRequest) {
           user: t.user,
           count: t._count.userId,
         })),
+      performance: performanceMetrics as {
+        avgApiCalls: number;
+        avgDbQueries: number;
+        avgCacheHitRate: number;
+        totalApiCalls: number;
+        totalDbQueries: number;
+        avgApiDuration: number;
+        callsByEndpoint: Array<{ endpoint: string; count: number }>;
+        queriesByType: Array<{ type: string; count: number }>;
+      },
     })
   } catch (error) {
     console.error("Error fetching admin analytics:", error)
