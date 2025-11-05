@@ -223,12 +223,12 @@ export default function LogDetail() {
           )}
         </div>
 
-        {/* Action Buttons - Twitter Style */}
-        <div className="flex items-center justify-between sm:justify-start sm:gap-6 max-w-md pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-[var(--border)]">
+        {/* Action Buttons - Mobile: Bottom bar, Desktop: Inline */}
+        <div className="flex items-center justify-around sm:justify-start sm:gap-6 max-w-md pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-[var(--border)]">
           <button
             onClick={handleLike}
             disabled={!session}
-            className={`group relative flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-2 rounded-full transition-colors min-h-[44px] sm:min-h-0 ${
+            className={`group relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3 py-2.5 sm:py-2 rounded-full transition-colors min-h-[44px] sm:min-h-0 flex-1 sm:flex-none justify-center sm:justify-start ${
               liked 
                 ? "text-red-500 hover:bg-red-500/10" 
                 : "text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-red-500"
@@ -250,7 +250,7 @@ export default function LogDetail() {
 
           <Link
             href={`#comments`}
-            className="group flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--primary)] transition-colors min-h-[44px] sm:min-h-0"
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3 py-2.5 sm:py-2 rounded-full text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--primary)] transition-colors min-h-[44px] sm:min-h-0 flex-1 sm:flex-none justify-center sm:justify-start"
           >
             <Icon icon="mdi:comment-outline" width={18} height={18} className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
             <span className="text-xs sm:text-sm font-medium">{comments.length > 0 ? comments.length : ""}</span>
@@ -258,7 +258,7 @@ export default function LogDetail() {
 
           <button
             onClick={handleShare}
-            className="group flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--primary)] transition-colors min-h-[44px] sm:min-h-0"
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3 py-2.5 sm:py-2 rounded-full text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--primary)] transition-colors min-h-[44px] sm:min-h-0 flex-1 sm:flex-none justify-center sm:justify-start"
           >
             <Icon icon="mdi:share-variant" width={18} height={18} className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
           </button>
@@ -267,7 +267,7 @@ export default function LogDetail() {
             href={`/logs/${logId}/share`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--primary)] transition-colors min-h-[44px] sm:min-h-0"
+            className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3 py-2.5 sm:py-2 rounded-full text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--primary)] transition-colors min-h-[44px] sm:min-h-0 flex-1 sm:flex-none justify-center sm:justify-start"
           >
             <Icon icon="mdi:image" width={18} height={18} className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
           </a>

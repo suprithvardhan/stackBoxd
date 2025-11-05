@@ -353,11 +353,11 @@ export default function ProjectsIndex() {
                   href={`/projects/${p.id}`}
                   className="group rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--surface)] shadow hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  {p.coverImage ? (
-                    <div
-                      className="h-40 w-full bg-center bg-cover relative transition-transform duration-300 group-hover:scale-105"
-                      style={{ backgroundImage: `url(${p.coverImage})` }}
-                    >
+                    {p.coverImage ? (
+                      <div
+                        className="h-32 sm:h-40 w-full bg-center bg-cover relative transition-transform duration-300 group-hover:scale-105"
+                        style={{ backgroundImage: `url(${p.coverImage})` }}
+                      >
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                       <div className="absolute bottom-2 left-3 right-3">
                         <div className="text-white font-bold text-lg drop-shadow">{p.displayName || p.name}</div>

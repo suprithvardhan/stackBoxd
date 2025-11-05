@@ -40,7 +40,9 @@ export default function FeedPage() {
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-12 gap-4 sm:gap-6 animate-in">
-      <section className="lg:col-span-8 space-y-3 sm:space-y-4 order-2 lg:order-1">
+      {/* Mobile: Logs first, full width */}
+      {/* Desktop: Logs on left, sidebar on right */}
+      <section className="lg:col-span-8 space-y-3 sm:space-y-4 order-1">
         <h2 className="mb-2 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)] px-1">Recent Activity</h2>
         {loading ? (
           <LoadingSkeleton />
@@ -56,9 +58,12 @@ export default function FeedPage() {
           logs.map((item) => <FeedCardLog key={item.id} item={item} />)
         )}
       </section>
-      <aside className="lg:col-span-4 space-y-4 sm:space-y-6 order-1 lg:order-2">
+      {/* Mobile: Sidebar moved to bottom, simplified */}
+      <aside className="lg:col-span-4 space-y-4 sm:space-y-6 order-2 lg:order-2">
+        {/* Mobile: Compact cards, Desktop: Full sidebar */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4">
-          <h3 className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)]">Trending Tools</h3>
+          <h3 className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)] hidden lg:block">Trending Tools</h3>
+          <h3 className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)] lg:hidden">Trending</h3>
           {loading ? (
             <div className="space-y-3">
               {[...Array(3)].map((_, i) => (
@@ -74,7 +79,31 @@ export default function FeedPage() {
           ) : tools.length === 0 ? (
             <p className="text-sm text-[var(--text-muted)]">No tools yet</p>
           ) : (
-            <ul className="space-y-2 sm:space-y-3">
+            <>
+            {/* Mobile: Horizontal scroll, Desktop: Vertical list */}
+            <div className="lg:hidden">
+              <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
+                {tools.map((t) => (
+                  <Link 
+                    key={t.slug || t.id} 
+                    href={`/tools/${t.slug}`}
+                    className="flex flex-col items-center gap-1.5 min-w-[80px] p-2 rounded-lg border border-[var(--border)] hover:bg-[var(--bg)] transition-colors group flex-shrink-0"
+                  >
+                    <div
+                      className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--bg)] transition-transform group-hover:scale-110"
+                      style={{ background: (t.color || "#888") + "12" }}
+                    >
+                      <Icon icon={t.icon} width={20} height={20} style={{ color: t.color }} />
+                    </div>
+                    <p className="text-[10px] font-semibold truncate w-full text-center" style={{ color: t.color }}>
+                      {t.name}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {/* Desktop: Vertical list */}
+            <ul className="hidden lg:block space-y-2 sm:space-y-3">
               {tools.map((t) => (
                 <li key={t.slug || t.id} className="flex items-center justify-between">
                   <Link href={`/tools/${t.slug}`} className="flex items-center gap-2 sm:gap-3 hover:underline transition-colors group flex-1 min-w-0">
@@ -98,7 +127,8 @@ export default function FeedPage() {
             </ul>
           )}
         </div>
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4">
+        {/* Mobile: Hide projects section, Desktop: Show */}
+        <div className="hidden lg:block rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:p-4">
           <h3 className="mb-2 sm:mb-3 text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)]">Recently Logged Projects</h3>
           {loading ? (
             <div className="space-y-3">

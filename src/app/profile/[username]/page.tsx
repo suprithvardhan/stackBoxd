@@ -166,10 +166,16 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      {/* Profile Tabs */}
-      <nav className="flex gap-0.5 sm:gap-1 md:gap-4 px-1 sm:px-2 md:px-0 border-b border-[var(--border)] sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur overflow-x-auto -mx-1 sm:mx-0">
+      {/* Profile Tabs - Mobile: Horizontal scroll, Desktop: Full width */}
+      <nav className="flex gap-0.5 sm:gap-1 md:gap-4 px-1 sm:px-2 md:px-0 border-b border-[var(--border)] sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur overflow-x-auto -mx-1 sm:mx-0 scrollbar-hide">
         {navTabs.map(t => (
-          <button key={t.key} onClick={() => setTab(t.key)} className={`px-2 sm:px-3 py-2 text-xs sm:text-sm font-semibold rounded-t text-[var(--text)] border-b-2 transition-all whitespace-nowrap flex-shrink-0 min-h-[44px] sm:min-h-0 ${tab === t.key ? 'border-[var(--primary)] text-[var(--primary)] bg-white/5' : 'border-transparent hover:text-[var(--primary)]'}`}>{t.label}</button>
+          <button 
+            key={t.key} 
+            onClick={() => setTab(t.key)} 
+            className={`px-3 sm:px-4 md:px-3 py-2.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-t text-[var(--text)] border-b-2 transition-all whitespace-nowrap flex-shrink-0 min-h-[44px] sm:min-h-0 ${tab === t.key ? 'border-[var(--primary)] text-[var(--primary)] bg-white/5' : 'border-transparent hover:text-[var(--primary)]'}`}
+          >
+            {t.label}
+          </button>
         ))}
       </nav>
 
@@ -278,7 +284,7 @@ export default function ProfilePage() {
                 <p className="text-sm sm:text-base">No reviews yet.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
                 {logs.map((l: any) => {
                   const tColor = getToolColor(tools, l.tool.icon);
                   return (
@@ -306,7 +312,7 @@ export default function ProfilePage() {
                 <p className="text-sm sm:text-base">No lists yet.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
                 {lists.map((lst) => (
                   <Link key={lst.id} href={`/lists/${lst.id}`} className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 flex flex-col gap-2 shadow-md hover:bg-white/5">
                     {lst.cover && (
@@ -338,7 +344,7 @@ export default function ProfilePage() {
                 <p className="text-sm sm:text-base">No liked tools yet.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
                 {likedTools.map(slug => {
                   const t = tools.find(t => t.slug === slug);
                   if (!t) return null;

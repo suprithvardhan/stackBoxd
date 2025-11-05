@@ -210,9 +210,9 @@ export default function ToolPage() {
       {tool && (
         <StructuredData data={generateToolStructuredData(tool, baseUrl)} />
       )}
-      <div className="max-w-7xl mx-auto space-y-8">
-      {/* Hero Section - Redesigned */}
-      <section className="relative rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 px-4 sm:px-6">
+      {/* Hero Section - Mobile optimized */}
+      <section className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl">
         {/* Background gradient */}
         <div 
           className="absolute inset-0 opacity-10"
@@ -221,11 +221,11 @@ export default function ToolPage() {
           }}
         />
         
-        <div className="relative p-8 md:p-10">
-          <div className="flex flex-col lg:flex-row items-start gap-8">
-            {/* Tool Icon - Larger and more prominent */}
+        <div className="relative p-4 sm:p-6 md:p-8 lg:p-10">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 sm:gap-6 md:gap-8">
+            {/* Tool Icon - Mobile: Smaller, Desktop: Larger */}
             <div 
-              className="flex-shrink-0 w-36 h-36 md:w-44 md:h-44 rounded-3xl border-2 flex items-center justify-center shadow-2xl transition-all hover:scale-105 hover:shadow-[var(--primary)]/20"
+              className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 rounded-2xl sm:rounded-3xl border-2 flex items-center justify-center shadow-2xl transition-all hover:scale-105 hover:shadow-[var(--primary)]/20"
               style={{ 
                 background: `${tool.color || '#888'}15`,
                 borderColor: `${tool.color || '#888'}40`,
@@ -234,25 +234,25 @@ export default function ToolPage() {
             >
               <Icon 
                 icon={tool.icon} 
-                width={80} 
-                height={80} 
+                width={48} 
+                height={48} 
+                className="sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28"
                 style={{ color: tool.color }} 
-                className="md:w-28 md:h-28"
               />
             </div>
 
             {/* Tool Info */}
-            <div className="flex-1 min-w-0 space-y-4">
+            <div className="flex-1 min-w-0 space-y-3 sm:space-y-4 text-center lg:text-left w-full">
               <div>
                 <h1 
-                  className="text-4xl md:text-6xl font-extrabold tracking-tight mb-2"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold tracking-tight mb-2"
                   style={{ color: tool.color }}
                 >
                   {tool.name}
                 </h1>
                 
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <span className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-xs sm:text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)]">
                     {tool.category}
                   </span>
                   {tool.site && (
@@ -260,68 +260,68 @@ export default function ToolPage() {
                       href={tool.site} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text-muted)] hover:text-[var(--primary)] hover:border-[var(--primary)]/50 transition-all"
+                      className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-xs sm:text-sm text-[var(--text-muted)] hover:text-[var(--primary)] hover:border-[var(--primary)]/50 transition-all"
                     >
-                      <Icon icon="mdi:link" width={14} height={14} />
-                      <span className="truncate max-w-xs">{tool.site.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+                      <Icon icon="mdi:link" width={12} height={12} className="sm:w-[14px] sm:h-[14px]" />
+                      <span className="truncate max-w-[200px] sm:max-w-xs">{tool.site.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
                     </a>
                   )}
                 </div>
               </div>
 
-              {/* Stats Grid - Enhanced */}
-              <div className="grid grid-cols-3 gap-6 max-w-lg">
-                <div className="flex flex-col p-4 rounded-xl bg-[var(--bg)] border border-[var(--border)]">
-                  <span className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-2">Average</span>
-                  <div className="flex items-baseline gap-2">
+              {/* Stats Grid - Mobile: Stack, Desktop: Grid */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6 max-w-lg mx-auto lg:mx-0">
+                <div className="flex flex-col p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl bg-[var(--bg)] border border-[var(--border)]">
+                  <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1 sm:mb-2">Average</span>
+                  <div className="flex items-baseline gap-1 sm:gap-2 justify-center">
                     <span 
-                      className="text-3xl font-extrabold"
+                      className="text-xl sm:text-2xl md:text-3xl font-extrabold"
                       style={{ color: tool.color }}
                     >
                       {tool.avgRating?.toFixed(1) || '0.0'}
                     </span>
-                    <Icon icon="mdi:star" width={20} height={20} className="text-yellow-400" />
+                    <Icon icon="mdi:star" width={14} height={14} className="sm:w-5 sm:h-5 text-yellow-400" />
                   </div>
-                  <span className="text-xs text-[var(--text-muted)] mt-1">
+                  <span className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-0.5 sm:mt-1 text-center">
                     {totalRatings} {totalRatings === 1 ? 'rating' : 'ratings'}
                   </span>
                 </div>
-                <div className="flex flex-col p-4 rounded-xl bg-[var(--bg)] border border-[var(--border)]">
-                  <span className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-2">Developers</span>
+                <div className="flex flex-col p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl bg-[var(--bg)] border border-[var(--border)]">
+                  <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1 sm:mb-2">Developers</span>
                   <span 
-                    className="text-3xl font-extrabold"
+                    className="text-xl sm:text-2xl md:text-3xl font-extrabold text-center"
                     style={{ color: tool.color }}
                   >
                     {tool.usedByCount?.toLocaleString() || '0'}
                   </span>
-                  <span className="text-xs text-[var(--text-muted)] mt-1">
+                  <span className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-0.5 sm:mt-1 text-center">
                     have logged
                   </span>
                 </div>
-                <div className="flex flex-col p-4 rounded-xl bg-[var(--bg)] border border-[var(--border)]">
-                  <span className="text-xs text-[var(--text-muted)] uppercase tracking-wide mb-2">Reviews</span>
+                <div className="flex flex-col p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl bg-[var(--bg)] border border-[var(--border)]">
+                  <span className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-wide mb-1 sm:mb-2">Reviews</span>
                   <span 
-                    className="text-3xl font-extrabold"
+                    className="text-xl sm:text-2xl md:text-3xl font-extrabold text-center"
                     style={{ color: tool.color }}
                   >
                     {logs.length}
                   </span>
-                  <span className="text-xs text-[var(--text-muted)] mt-1">
-                    experiences shared
+                  <span className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-0.5 sm:mt-1 text-center">
+                    experiences
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Button - Mobile: Full width, Desktop: Auto */}
             {session && (
-              <div className="flex-shrink-0 lg:self-start">
+              <div className="flex-shrink-0 w-full lg:w-auto lg:self-start">
                 <Link
                   href={`/log/new?tool=${tool.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-6 py-3.5 text-black font-bold shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] hover:opacity-90 transition-all hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--primary)] px-4 sm:px-6 py-2.5 sm:py-3.5 text-black font-bold shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] hover:opacity-90 transition-all hover:scale-105 w-full lg:w-auto text-sm sm:text-base min-h-[44px] sm:min-h-0"
                 >
-                  <Icon icon="mdi:plus-circle" width={20} height={20} />
-                  Log Tool
+                  <Icon icon="mdi:plus-circle" width={18} height={18} className="sm:w-5 sm:h-5" />
+                  <span>Log Tool</span>
                 </Link>
               </div>
             )}
@@ -329,25 +329,25 @@ export default function ToolPage() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section - Mobile optimized */}
       {description && description.description && (
-        <section className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">About {tool.name}</h2>
+        <section className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6 max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-3 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-semibold">About {tool.name}</h2>
             {description.source && (
-              <span className="text-xs px-2 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[var(--text-muted)] uppercase tracking-wide">
+              <span className="text-[10px] sm:text-xs px-2 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[var(--text-muted)] uppercase tracking-wide">
                 Source: {description.source}
               </span>
             )}
           </div>
-          <p className="text-[var(--text-muted)] leading-relaxed max-w-3xl">{description.description}</p>
+          <p className="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed max-w-3xl">{description.description}</p>
         </section>
       )}
 
-      {/* Rating Distribution Histogram - Letterboxd Style */}
+      {/* Rating Distribution Histogram - Mobile optimized */}
       {totalRatings > 0 && (
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6">
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="lg:col-span-2 rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6">
             <RatingDistributionHistogram 
               distribution={ratingDistribution} 
               totalRatings={totalRatings}
@@ -356,9 +356,9 @@ export default function ToolPage() {
             />
           </div>
           
-          {/* Additional Stats Card */}
-          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6">
-            <h2 className="text-xl font-semibold mb-6">Statistics</h2>
+          {/* Additional Stats Card - Mobile optimized */}
+          <div className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Statistics</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
                 <span className="text-sm text-[var(--text-muted)]">Total Ratings</span>
@@ -384,19 +384,20 @@ export default function ToolPage() {
         </section>
       )}
 
-      {/* Popular Logs */}
+      {/* Popular Logs - Mobile optimized */}
       {logs.length > 0 && (
         <section>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold">Recent Reviews</h2>
-            <span className="text-sm text-[var(--text-muted)]">{logs.length} {logs.length === 1 ? 'review' : 'reviews'}</span>
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-semibold">Recent Reviews</h2>
+            <span className="text-xs sm:text-sm text-[var(--text-muted)]">{logs.length} {logs.length === 1 ? 'review' : 'reviews'}</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Mobile: 1 column, Desktop: 2 columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             {logs.slice(0, 8).map((log) => (
               <Link
                 key={log.id}
                 href={`/logs/${log.id}`}
-                className="group rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 hover:border-[var(--primary)]/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="group rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 hover:border-[var(--primary)]/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="flex items-start gap-3 mb-3">
                   <Link

@@ -245,26 +245,30 @@ export default function DiscoverPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3">
+            {/* Mobile: 3 columns with smaller cards, Desktop: More columns */}
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3">
               {paginatedTools.map((t) => (
               <Link 
                 key={t.slug || t.id} 
                 href={`/tools/${t.slug}`}
-                className="group rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2.5 sm:p-3 md:p-4 hover:border-[var(--primary)]/50 hover:shadow-lg transition-all"
+                className="group rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2 sm:p-2.5 md:p-3 lg:p-4 hover:border-[var(--primary)]/50 hover:shadow-lg transition-all"
               >
-                <div className="mb-2 sm:mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg border border-[var(--border)] transition-transform group-hover:scale-110" 
+                {/* Mobile: Smaller icon, Desktop: Larger */}
+                <div className="mb-1.5 sm:mb-2 md:mb-3 flex h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 items-center justify-center rounded-lg border border-[var(--border)] transition-transform group-hover:scale-110 mx-auto" 
                      style={{ background: (t.color || '#888') + '15' }}>
-                  <Icon icon={t.icon} width={20} height={20} className="sm:w-6 sm:h-6" style={{ color: t.color }} />
+                  <Icon icon={t.icon} width={16} height={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6" style={{ color: t.color }} />
                 </div>
-                <div className="text-xs sm:text-sm font-semibold mb-1 line-clamp-2 group-hover:underline" style={{ color: t.color }}>
+                {/* Mobile: Single line, Desktop: 2 lines */}
+                <div className="text-[10px] sm:text-xs md:text-sm font-semibold mb-1 line-clamp-1 sm:line-clamp-2 group-hover:underline text-center" style={{ color: t.color }}>
                   {t.name}
                 </div>
-                <div className="text-[10px] sm:text-xs text-[var(--text-muted)] space-y-0.5">
-                  <div className="flex items-center gap-0.5 sm:gap-1">
+                {/* Mobile: Hide stats, Desktop: Show */}
+                <div className="hidden sm:block text-[10px] md:text-xs text-[var(--text-muted)] space-y-0.5">
+                  <div className="flex items-center justify-center gap-0.5 sm:gap-1">
                     <Icon icon="mdi:star" width={10} height={10} className="sm:w-3 sm:h-3" style={{ color: "#fbbf24", fill: "#fbbf24" }} />
                     <span>{(t.avgRating || 0).toFixed(1)}</span>
                   </div>
-                  <div className="flex items-center gap-0.5 sm:gap-1">
+                  <div className="flex items-center justify-center gap-0.5 sm:gap-1">
                     <Icon icon="mdi:account-group" width={10} height={10} className="sm:w-3 sm:h-3" />
                     <span className="truncate">{(t.usedByCount || 0).toLocaleString()}</span>
                   </div>
@@ -329,7 +333,8 @@ export default function DiscoverPage() {
         )}
       </section>
 
-      <section className="space-y-2 sm:space-y-3">
+      {/* Mobile: Hide recent logs, Desktop: Show */}
+      <section className="hidden lg:block space-y-2 sm:space-y-3">
         <h2 className="text-xs sm:text-sm uppercase tracking-wide text-[var(--text-muted)]">Recent Logs</h2>
         {logs.length === 0 ? (
           <div className="text-center py-8 sm:py-12 text-[var(--text-muted)] px-4">
