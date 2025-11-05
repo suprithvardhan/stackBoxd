@@ -39,8 +39,9 @@ export default async function Image() {
           fontFamily: "system-ui",
         }}
       >
-        <div style={{ fontSize: 80, fontWeight: "bold", marginBottom: 20 }}>StackBoxd</div>
-        <div style={{ fontSize: 32, opacity: 0.9 }}>Log, Rate, and Reflect on Your Developer Stack</div>
+        <div style={{ fontSize: 80, fontWeight: "bold", marginBottom: 20, letterSpacing: "-2px" }}>StackBoxd</div>
+        <div style={{ fontSize: 32, opacity: 0.9, marginBottom: 10 }}>Log, Rate, and Reflect on Your Developer Stack</div>
+        <div style={{ fontSize: 24, opacity: 0.8, fontStyle: "italic" }}>The Social Platform for Developers</div>
       </div>
     ),
     {

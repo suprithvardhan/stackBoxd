@@ -24,8 +24,12 @@ export const metadata: Metadata = {
     default: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
     template: "%s | StackBoxd",
   },
-  description: "Log, rate, and reflect on your developer stack. Discover tools, share projects, and build your developer portfolio. Think Letterboxd, but for your tech stack.",
+  description: "StackBoxd is the social platform for developers to log, rate, and reflect on their developer stack. Discover tools, share projects, and build your developer portfolio. Think Letterboxd, but for your tech stack. StackBoxd helps developers document the tools they use, discover new technologies, and build a public portfolio of their tech stack.",
   keywords: [
+    "stackboxd",
+    "stackboxd app",
+    "stackboxd platform",
+    "stackboxd developer tools",
     "developer tools",
     "tech stack",
     "software development",
@@ -36,6 +40,9 @@ export const metadata: Metadata = {
     "tech reviews",
     "software reviews",
     "developer stack",
+    "log developer tools",
+    "rate programming tools",
+    "developer tool reviews",
   ],
   authors: [{ name: "StackBoxd Team" }],
   creator: "StackBoxd",
@@ -51,13 +58,13 @@ export const metadata: Metadata = {
     url: baseUrl,
     siteName: "StackBoxd",
     title: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
-    description: "Discover and share developer tools. Log your tech stack, rate tools, and build your developer portfolio.",
+    description: "StackBoxd is the social platform for developers to log, rate, and reflect on their developer stack. Discover tools, share projects, and build your developer portfolio. Join StackBoxd today!",
     images: [
       {
         url: `${baseUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "StackBoxd - Developer Stack Platform",
+        alt: "StackBoxd - Developer Stack Platform - Log, Rate, and Reflect on Your Developer Stack",
         type: "image/png",
       },
     ],
@@ -65,7 +72,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "StackBoxd - Log, Rate, and Reflect on Your Developer Stack",
-    description: "Discover and share developer tools. Log your tech stack, rate tools, and build your developer portfolio.",
+    description: "StackBoxd is the social platform for developers to log, rate, and reflect on their developer stack. Discover tools, share projects, and build your developer portfolio.",
     images: [
       {
         url: `${baseUrl}/opengraph-image`,
@@ -89,13 +96,20 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add these when you have them
-    // google: "your-google-verification-code",
+    google: "Ggl7mG_Cjvz3NmDegyvEXwli-0KDqLV0wsBRkO2SrOw",
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
   alternates: {
     canonical: "/",
+  },
+  other: {
+    "application-name": "StackBoxd",
+    "apple-mobile-web-app-title": "StackBoxd",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "msvalidate.01": "94FA14E2854EF1644827DF29DA720782",
   },
   icons: {
     icon: [
