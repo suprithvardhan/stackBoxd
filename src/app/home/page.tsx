@@ -125,6 +125,7 @@ export default function FeedPage() {
                 </li>
               ))}
             </ul>
+            </>
           )}
         </div>
         {/* Mobile: Hide projects section, Desktop: Show */}
