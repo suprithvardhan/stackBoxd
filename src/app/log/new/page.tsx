@@ -131,29 +131,30 @@ function NewLogPageContent() {
     <>
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
-      <div className="max-w-6xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex items-center justify-between">
+      <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6 md:space-y-8 px-4 sm:px-0">
+        {/* Header - Mobile optimized */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-2">Log a Tool</h1>
-            <p className="text-[var(--text-muted)]">Share your experience with the developer community</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight mb-1 sm:mb-2">Log a Tool</h1>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)]">Share your experience with the developer community</p>
           </div>
           <Link
             href="/home"
-            className="text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors flex items-center gap-2"
+            className="text-xs sm:text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors flex items-center gap-1.5 sm:gap-2 min-h-[44px] sm:min-h-0"
           >
-            <Icon icon="mdi:close" width={18} height={18} />
-            Cancel
+            <Icon icon="mdi:close" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+            <span>Cancel</span>
           </Link>
         </div>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Mobile: Stacked, Desktop: Side by side */}
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {/* Main Form */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Tool Selection */}
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+            {/* Tool Selection - Mobile optimized */}
+            <div className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-semibold mb-3 text-[var(--text)]">
+                <label className="block text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-[var(--text)]">
                   Select Tool <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
@@ -167,13 +168,13 @@ function NewLogPageContent() {
                       }}
                       onFocus={() => setShowToolDropdown(true)}
                       placeholder="Search for a tool..."
-                      className="w-full px-4 py-3 pl-12 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pl-10 sm:pl-12 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] text-sm sm:text-base placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all min-h-[44px] sm:min-h-0"
                     />
                     <Icon
                       icon="mdi:magnify"
-                      width={20}
-                      height={20}
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)]"
+                      width={18}
+                      height={18}
+                      className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)] sm:w-5 sm:h-5"
                     />
                   </div>
 
@@ -216,19 +217,19 @@ function NewLogPageContent() {
                 </div>
 
                 {selectedTool && (
-                  <div className="mt-4 flex items-center gap-3 p-4 rounded-lg border border-[var(--primary)]/30 bg-[var(--primary)]/5">
+                  <div className="mt-3 sm:mt-4 flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-lg border border-[var(--primary)]/30 bg-[var(--primary)]/5">
                     <div
-                      className="flex h-12 w-12 items-center justify-center rounded-lg border-2"
+                      className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg border-2 flex-shrink-0"
                       style={{
                         background: `${selectedTool.color || "#888"}20`,
                         borderColor: selectedTool.color || "#888",
                       }}
                     >
-                      <Icon icon={selectedTool.icon} width={24} height={24} style={{ color: selectedTool.color }} />
+                      <Icon icon={selectedTool.icon} width={20} height={20} className="sm:w-6 sm:h-6" style={{ color: selectedTool.color }} />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-[var(--text)]">{selectedTool.name}</p>
-                      <p className="text-xs text-[var(--text-muted)] capitalize">{selectedTool.category}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm sm:text-base text-[var(--text)] truncate">{selectedTool.name}</p>
+                      <p className="text-[10px] sm:text-xs text-[var(--text-muted)] capitalize truncate">{selectedTool.category}</p>
                     </div>
                     <button
                       type="button"
@@ -236,22 +237,22 @@ function NewLogPageContent() {
                         setSelectedTool(null)
                         setToolQuery("")
                       }}
-                      className="text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
+                      className="text-[var(--text-muted)] hover:text-[var(--text)] transition-colors flex-shrink-0 min-h-[44px] sm:min-h-0 flex items-center"
                     >
-                      <Icon icon="mdi:close" width={20} height={20} />
+                      <Icon icon="mdi:close" width={18} height={18} className="sm:w-5 sm:h-5" />
                     </button>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Rating */}
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
-              <label className="block text-sm font-semibold text-[var(--text)]">
+            {/* Rating - Mobile optimized */}
+            <div className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
+              <label className="block text-xs sm:text-sm font-semibold text-[var(--text)]">
                 Rating <span className="text-red-400">*</span>
               </label>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <div className="flex items-center gap-0.5 sm:gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
                       key={star}
@@ -259,37 +260,37 @@ function NewLogPageContent() {
                       onClick={() => setRating(star)}
                       onMouseEnter={() => setHoveredRating(star)}
                       onMouseLeave={() => setHoveredRating(0)}
-                      className="transition-transform hover:scale-110"
+                      className="transition-transform hover:scale-110 min-h-[44px] sm:min-h-0 flex items-center justify-center"
                     >
                       <Icon
                         icon="mdi:star"
-                        width={36}
-                        height={36}
-                        className={
+                        width={32}
+                        height={32}
+                        className={`sm:w-9 sm:h-9 ${
                           star <= (hoveredRating || rating)
                             ? "text-yellow-400 fill-current"
                             : "text-[var(--text-muted)]/30 fill-current"
-                        }
+                        }`}
                       />
                     </button>
                   ))}
                 </div>
                 {rating > 0 && (
-                  <span className="text-lg font-semibold text-[var(--text)]">
+                  <span className="text-base sm:text-lg font-semibold text-[var(--text)]">
                     {rating} {rating === 1 ? "star" : "stars"}
                   </span>
                 )}
               </div>
             </div>
 
-            {/* Review */}
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
+            {/* Review - Mobile optimized */}
+            <div className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
               <div className="flex items-center justify-between">
-                <label className="block text-sm font-semibold text-[var(--text)]">
+                <label className="block text-xs sm:text-sm font-semibold text-[var(--text)]">
                   Review <span className="text-red-400">*</span>
                 </label>
                 <span
-                  className={`text-xs ${
+                  className={`text-[10px] sm:text-xs ${
                     review.trim().length < 10
                       ? "text-red-400"
                       : review.trim().length > 5000
@@ -304,15 +305,15 @@ function NewLogPageContent() {
                 <textarea
                   value={review}
                   onChange={(e) => setReview(e.target.value)}
-                  rows={10}
+                  rows={8}
                   placeholder="Share your experience with this tool... What did you like? What could be improved? Be specific and helpful!"
-                  className="w-full resize-none rounded-lg border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
-                  style={{ minHeight: "240px", maxHeight: "400px" }}
+                  className="w-full resize-none rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
+                  style={{ minHeight: "180px", maxHeight: "400px" }}
                   maxLength={5000}
                 />
               </div>
               {review.trim().length > 0 && review.trim().length < 10 && (
-                <p className="text-xs text-red-400">Review must be at least 10 characters</p>
+                <p className="text-[10px] sm:text-xs text-red-400">Review must be at least 10 characters</p>
               )}
             </div>
 
@@ -385,19 +386,19 @@ function NewLogPageContent() {
               </div>
             </div>
 
-            {/* Submit Button */}
-            <div className="flex items-center justify-end gap-4 pt-4">
+            {/* Submit Button - Mobile: Full width, Desktop: Auto */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-4 pt-3 sm:pt-4">
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-6 py-3 rounded-lg border border-[var(--border)] text-[var(--text)] hover:bg-white/5 transition-colors font-medium"
+                className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-lg border border-[var(--border)] text-[var(--text)] hover:bg-white/5 transition-colors font-medium text-sm sm:text-base min-h-[44px] sm:min-h-0 flex items-center justify-center"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading || !canSubmit}
-                className="px-8 py-3 rounded-lg bg-[var(--primary)] text-black font-bold shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg bg-[var(--primary)] text-black font-bold shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] sm:min-h-0"
               >
                 {loading ? (
                   <>
@@ -414,8 +415,8 @@ function NewLogPageContent() {
             </div>
           </div>
 
-          {/* Preview Sidebar */}
-          <aside className="lg:col-span-1">
+          {/* Preview Sidebar - Mobile: Hidden, Desktop: Show */}
+          <aside className="hidden lg:block lg:col-span-1">
             <div className="sticky top-24">
               <div>
                 <h2 className="text-sm uppercase tracking-wide text-[var(--text-muted)] mb-4">Preview</h2>

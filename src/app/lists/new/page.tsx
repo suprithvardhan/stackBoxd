@@ -117,24 +117,26 @@ export default function NewListPage() {
         </div>
       )}
 
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-extrabold tracking-tight">Create New List</h1>
+      <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-0">
+        {/* Mobile: Stacked, Desktop: Side by side */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">Create New List</h1>
           <Link
             href="/lists"
-            className="text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
+            className="text-xs sm:text-sm text-[var(--text-muted)] hover:text-[var(--text)] transition-colors flex items-center gap-1.5 min-h-[44px] sm:min-h-0"
           >
-            ← Back to Lists
+            <Icon icon="mdi:arrow-left" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+            <span>Back to Lists</span>
           </Link>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Basic Info */}
-          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
-            <h2 className="text-lg font-semibold">Basic Information</h2>
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+          {/* Basic Info - Mobile optimized */}
+          <div className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
+            <h2 className="text-base sm:text-lg font-semibold">Basic Information</h2>
 
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
                 Title <span className="text-red-400">*</span>
               </label>
               <input
@@ -142,77 +144,77 @@ export default function NewListPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g., My Favorite Frontend Tools"
-                className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary)] min-h-[44px] sm:min-h-0"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Description</label>
+              <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Description</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe what this list is about..."
                 rows={3}
-                className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none min-h-[80px] sm:min-h-0"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Cover Image URL</label>
+              <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Cover Image URL</label>
               <input
                 type="url"
                 value={cover}
                 onChange={(e) => setCover(e.target.value)}
                 placeholder="https://example.com/image.jpg"
-                className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary)] min-h-[44px] sm:min-h-0"
               />
             </div>
 
-            {/* Visibility Toggle */}
+            {/* Visibility Toggle - Mobile optimized */}
             <div>
-              <label className="block text-sm font-medium mb-2">Visibility</label>
-              <div className="flex gap-3">
+              <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Visibility</label>
+              <div className="flex gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={() => setVisibility("public")}
-                  className={`flex-1 px-4 py-3 rounded-lg border transition-all ${
+                  className={`flex-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border transition-all min-h-[60px] sm:min-h-0 ${
                     visibility === "public"
                       ? "border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]"
                       : "border-[var(--border)] bg-[var(--bg)] text-[var(--text-muted)] hover:border-[var(--primary)]/50"
                   }`}
                 >
-                  <div className="flex items-center justify-center gap-2">
-                    <Icon icon="mdi:earth" width={20} height={20} />
-                    <span className="font-medium">Public</span>
+                  <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                    <Icon icon="mdi:earth" width={18} height={18} className="sm:w-5 sm:h-5" />
+                    <span className="font-medium text-xs sm:text-sm">Public</span>
                   </div>
-                  <p className="text-xs mt-1 opacity-75">Anyone can view this list</p>
+                  <p className="text-[10px] sm:text-xs mt-1 opacity-75">Anyone can view</p>
                 </button>
                 <button
                   type="button"
                   onClick={() => setVisibility("private")}
-                  className={`flex-1 px-4 py-3 rounded-lg border transition-all ${
+                  className={`flex-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg border transition-all min-h-[60px] sm:min-h-0 ${
                     visibility === "private"
                       ? "border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]"
                       : "border-[var(--border)] bg-[var(--bg)] text-[var(--text-muted)] hover:border-[var(--primary)]/50"
                   }`}
                 >
-                  <div className="flex items-center justify-center gap-2">
-                    <Icon icon="mdi:lock" width={20} height={20} />
-                    <span className="font-medium">Private</span>
+                  <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                    <Icon icon="mdi:lock" width={18} height={18} className="sm:w-5 sm:h-5" />
+                    <span className="font-medium text-xs sm:text-sm">Private</span>
                   </div>
-                  <p className="text-xs mt-1 opacity-75">Only you can view this list</p>
+                  <p className="text-[10px] sm:text-xs mt-1 opacity-75">Only you can view</p>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Tools Selection */}
-          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 flex flex-col" style={{ minHeight: "600px" }}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Tools</h2>
+          {/* Tools Selection - Mobile optimized */}
+          <div className="rounded-lg sm:rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 sm:p-5 md:p-6 flex flex-col" style={{ minHeight: "400px" }}>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h2 className="text-base sm:text-lg font-semibold">Tools</h2>
               {selectedTools.length > 0 && (
-                <span className="text-sm text-[var(--text-muted)]">
+                <span className="text-xs sm:text-sm text-[var(--text-muted)]">
                   {selectedTools.length} selected
                 </span>
               )}
@@ -260,23 +262,23 @@ export default function NewListPage() {
               )}
             </div>
 
-            {/* Search - Fixed height */}
-            <div className="mb-4">
+            {/* Search - Mobile optimized */}
+            <div className="mb-3 sm:mb-4">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search tools..."
-                className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary)] min-h-[44px] sm:min-h-0"
               />
             </div>
 
-            {/* Tools Grid - Fixed height container */}
-            <div className="flex-1 min-h-0">
+            {/* Tools Grid - Mobile: 2 columns, Desktop: More */}
+            <div className="flex-1 min-h-0 overflow-y-auto">
               {loading ? (
-                <div className="text-center py-8 text-[var(--text-muted)] h-full flex items-center justify-center">Loading tools...</div>
+                <div className="text-center py-8 text-[var(--text-muted)] h-full flex items-center justify-center text-sm">Loading tools...</div>
               ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 h-full overflow-y-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
                   {filteredTools.length === 0 ? (
                     <div className="col-span-full text-center py-8 text-[var(--text-muted)]">
                       No tools found matching "{searchQuery}"
@@ -289,25 +291,25 @@ export default function NewListPage() {
                           key={tool.slug}
                           type="button"
                           onClick={() => toggleTool(tool.slug)}
-                          className={`p-3 rounded-lg border transition-all text-left ${
+                          className={`p-2 sm:p-3 rounded-lg border transition-all text-left min-h-[80px] sm:min-h-0 ${
                             isSelected
                               ? "border-[var(--primary)] bg-[var(--primary)]/10"
                               : "border-[var(--border)] bg-[var(--bg)] hover:border-[var(--primary)]/50"
                           }`}
                         >
-                          <div className="flex items-center gap-2 mb-2">
+                          <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
                             <div
-                              className="flex h-8 w-8 items-center justify-center rounded-md border border-[var(--border)]"
+                              className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-md border border-[var(--border)] flex-shrink-0"
                               style={{ background: (tool.color || "#999") + "12" }}
                             >
-                              <Icon icon={tool.icon} width={18} height={18} style={{ color: tool.color }} />
+                              <Icon icon={tool.icon} width={16} height={16} className="sm:w-[18px] sm:h-[18px]" style={{ color: tool.color }} />
                             </div>
                             {isSelected && (
-                              <Icon icon="mdi:check-circle" width={16} height={16} className="text-[var(--primary)]" />
+                              <Icon icon="mdi:check-circle" width={14} height={14} className="sm:w-4 sm:h-4 text-[var(--primary)] flex-shrink-0" />
                             )}
                           </div>
-                          <div className="text-sm font-medium">{tool.name}</div>
-                          <div className="text-xs text-[var(--text-muted)]">{tool.category}</div>
+                          <div className="text-xs sm:text-sm font-medium truncate">{tool.name}</div>
+                          <div className="text-[10px] sm:text-xs text-[var(--text-muted)] truncate">{tool.category}</div>
                         </button>
                       );
                     })
@@ -317,18 +319,18 @@ export default function NewListPage() {
             </div>
           </div>
 
-          {/* Submit */}
-          <div className="flex items-center justify-end gap-3">
+          {/* Submit - Mobile: Full width buttons, Desktop: Auto */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-3">
             <Link
               href="/lists"
-              className="px-4 py-2 rounded-lg border border-[var(--border)] text-[var(--text)] hover:bg-white/5 transition-colors"
+              className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-lg border border-[var(--border)] text-[var(--text)] hover:bg-white/5 transition-colors text-center text-sm sm:text-base min-h-[44px] sm:min-h-0 flex items-center justify-center"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={submitting || !title.trim()}
-              className="px-6 py-2 rounded-lg bg-[var(--primary)] text-black font-medium shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-2.5 sm:py-2 rounded-lg bg-[var(--primary)] text-black font-medium shadow-[0_0_0_1px_#00FF8F40,_0_8px_30px_rgba(0,0,0,0.6)] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] sm:min-h-0"
             >
               {submitting ? (
                 <>
