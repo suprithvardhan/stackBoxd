@@ -605,74 +605,52 @@ async function detectFromFileStructure(
   toolMatcher: ReturnType<typeof getToolMatcher>
 ): Promise<string[]> {
   const toolIds = new Set<string>()
+  const authHeader = accessToken.startsWith('token ') || accessToken.startsWith('Bearer ')
+    ? accessToken
+    : `token ${accessToken}`
   
-  // Check for config files that indicate framework usage
-  const configFiles = Object.keys(FRAMEWORK_CONFIG_FILES)
+  // Filter config files that can be checked (no wildcards)
+  const configFiles = Object.keys(FRAMEWORK_CONFIG_FILES).filter(f => !f.includes('*'))
   
-  for (const configFile of configFiles) {
+  // OPTIMIZATION: Check all config files in parallel instead of sequentially
+  const checkPromises = configFiles.map(async (configFile) => {
     try {
-      // Handle wildcards (e.g., *.csproj)
-      if (configFile.includes('*')) {
-        // Skip wildcards for now - would need repo contents API
-        continue
-      }
+      const isWorkflows = configFile === '.github/workflows'
+      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${configFile}`
       
-      // Special case: .github/workflows
-      if (configFile === '.github/workflows') {
-        try {
-          const workflowsResponse = await Promise.race([
-            fetch(`https://api.github.com/repos/${owner}/${repo}/contents/.github/workflows`, {
-              headers: {
-                Authorization: accessToken.startsWith('token ') || accessToken.startsWith('Bearer ')
-                  ? accessToken
-                  : `token ${accessToken}`,
-                Accept: "application/vnd.github.v3+json",
-              },
-            }),
-            new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 500)),
-          ]).catch(() => null) as Response | null
-          
-          if (workflowsResponse?.ok) {
-            const workflows = await workflowsResponse.json().catch(() => [])
-            if (Array.isArray(workflows) && workflows.length > 0) {
-              const tools = FRAMEWORK_CONFIG_FILES[configFile]
-              for (const toolSlug of tools) {
-                const toolId = toolMatcher.slugMap.get(toolSlug)
-                if (toolId) toolIds.add(toolId)
-              }
-            }
-          }
-        } catch (e) {
-          // Silently skip
-        }
-        continue
-      }
-      
-      // Regular file check
-      const fileResponse = await Promise.race([
-        fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${configFile}`, {
+      const response = await Promise.race([
+        fetch(url, {
           headers: {
-            Authorization: accessToken.startsWith('token ') || accessToken.startsWith('Bearer ')
-              ? accessToken
-              : `token ${accessToken}`,
+            Authorization: authHeader,
             Accept: "application/vnd.github.v3+json",
           },
         }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 500)),
-      ]).catch(() => null) as Response | null
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 300)), // Reduced timeout from 500ms
+      ]).catch(() => null)
       
-      if (fileResponse?.ok) {
-        const tools = FRAMEWORK_CONFIG_FILES[configFile]
-        for (const toolSlug of tools) {
-          const toolId = toolMatcher.slugMap.get(toolSlug)
-          if (toolId) {
-            toolIds.add(toolId)
-            console.log(`Detected framework from ${configFile} → ${toolSlug}`)
-          }
+      if (response && response.ok) {
+        // For workflows, verify it's a non-empty array
+        if (isWorkflows) {
+          const workflows = await response.json().catch(() => [])
+          if (!Array.isArray(workflows) || workflows.length === 0) return []
         }
+        
+        return FRAMEWORK_CONFIG_FILES[configFile]
       }
-    } catch (e) {
+    } catch {
       // Silently skip
+    }
+    return []
+  })
+  
+  // Wait for all checks to complete in parallel
+  const results = await Promise.all(checkPromises)
+  
+  // Process results
+  for (const toolSlugs of results) {
+    for (const toolSlug of toolSlugs) {
+      const toolId = toolMatcher.slugMap.get(toolSlug)
+      if (toolId) toolIds.add(toolId)
     }
   }
   
@@ -784,13 +762,11 @@ export async function detectToolsFromRepo(
     )
     
     if (!languagesResponse.ok) {
-      console.error(`GitHub languages API error: ${languagesResponse.status} ${languagesResponse.statusText}`)
       const errorText = await languagesResponse.text().catch(() => "")
-      console.error(`Error details: ${errorText}`)
       
       // Throw error for 401/403 to stop processing and show clear error
       if (languagesResponse.status === 401 || languagesResponse.status === 403) {
-        let errorDetails: any = {}
+        let errorDetails: { message?: string } = {}
         try {
           errorDetails = JSON.parse(errorText)
         } catch {
@@ -801,19 +777,11 @@ export async function detectToolsFromRepo(
     }
     
     const languages: Record<string, number> = languagesResponse.ok 
-      ? await languagesResponse.json().catch((e) => {
-          console.error("Error parsing languages JSON:", e)
-          return {}
-        })
+      ? await languagesResponse.json().catch(() => ({}))
       : {}
     
     // Store ALL languages (no filtering, no percentages)
     const allLanguages = Object.keys(languages)
-    console.log(`Found ${allLanguages.length} languages: ${allLanguages.join(", ")}`)
-    
-    if (allLanguages.length === 0 && languagesResponse.ok) {
-      console.warn("Languages API returned empty object (repo might be empty or very new)")
-    }
     
     // Map languages to tools (add language-based tools)
     const languageToToolMap: Record<string, string[]> = {
@@ -864,15 +832,12 @@ export async function detectToolsFromRepo(
           const toolId = toolMatcher.slugMap.get(slug)
           if (toolId) {
             toolIds.add(toolId)
-            console.log(`Added language: ${lang} → ${slug}`)
           }
         }
       }
     }
     
-    // STEP 2: Check for package.json only (other dependency files support coming later)
-    console.log("Step 2: Checking for package.json...")
-    
+    // STEP 2: Check for package.json
     let packageJsonUrl: string | null = null
     
     try {
@@ -887,89 +852,47 @@ export async function detectToolsFromRepo(
       )
       
       if (contentsResponse.ok) {
-        const contents: any[] = await contentsResponse.json().catch(() => [])
-        const packageJsonFile = contents.find((item: any) => item.type === "file" && item.name === "package.json")
+        const contents: Array<{ type: string; name: string; download_url?: string }> = await contentsResponse.json().catch(() => [])
+        const packageJsonFile = contents.find((item) => item.type === "file" && item.name === "package.json")
         
         if (packageJsonFile) {
           packageJsonUrl = packageJsonFile.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/main/package.json`
-          console.log("✓ Found package.json")
-        } else {
-          console.log("⚠ package.json not found")
         }
-      } else {
-        console.error(`Contents API error: ${contentsResponse.status} ${contentsResponse.statusText}`)
       }
-    } catch (error) {
-      console.error("Error checking for package.json:", error)
+    } catch {
+      // Silently skip
     }
     
-    // STEP 3: Fetch and parse package.json only
+    // STEP 3: Fetch and parse package.json
     const allPackages: string[] = []
     
     if (packageJsonUrl) {
       try {
-        console.log("Step 3: Fetching package.json content...")
         const contentResponse = await fetch(packageJsonUrl)
         
-        if (!contentResponse.ok) {
-          console.warn(`⚠ Failed to fetch package.json: ${contentResponse.status}`)
-        } else {
+        if (contentResponse.ok) {
           const fileContent = await contentResponse.text()
-          
-          // STEP 4: Parse package.json
           const packages = parsePackageJson(fileContent)
-          
           if (packages.length > 0) {
-            console.log(`  ✓ Parsed ${packages.length} packages from package.json`)
-            if (packages.length <= 20) {
-              console.log(`    Packages: ${packages.join(", ")}`)
-            } else {
-              console.log(`    Sample: ${packages.slice(0, 10).join(", ")}... (+${packages.length - 10} more)`)
-            }
             allPackages.push(...packages)
-          } else {
-            console.log("  ⚠ package.json exists but contains no dependencies")
           }
         }
-      } catch (e) {
-        console.warn(`⚠ Error processing package.json:`, e)
+      } catch {
+        // Silently skip
       }
     }
     
-    // STEP 5: Match all packages to tools using improved matching
-    console.log(`Step 5: Matching ${allPackages.length} packages to tools...`)
-    
+    // STEP 4: Match all packages to tools
     // Remove duplicates
     const uniquePackages = Array.from(new Set(allPackages.map(p => p.toLowerCase())))
-    console.log(`  Unique packages: ${uniquePackages.length}`)
     
     // Match each package
-    const matchedCounts = new Map<string, number>() // toolId -> count
-    
     for (const pkg of uniquePackages) {
       const toolId = toolMatcher.matchPackage(pkg)
       if (toolId) {
         toolIds.add(toolId)
-        matchedCounts.set(toolId, (matchedCounts.get(toolId) || 0) + 1)
       }
     }
-    
-    // Log matched tools
-    console.log(`  Matched ${toolIds.size} tools from ${uniquePackages.length} packages:`)
-    for (const [toolId, count] of matchedCounts.entries()) {
-      const tool = toolMatcher.getTool(toolId)
-      if (tool) {
-        console.log(`    ✓ ${tool.name} (${tool.slug}) - matched from ${count} package(s)`)
-      }
-    }
-    
-    // Log unmatched packages (for debugging)
-    const unmatchedPackages = uniquePackages.filter(pkg => !toolMatcher.matchPackage(pkg))
-    if (unmatchedPackages.length > 0) {
-      console.log(`  Unmatched packages (${unmatchedPackages.length}): ${unmatchedPackages.slice(0, 20).join(", ")}${unmatchedPackages.length > 20 ? "..." : ""}`)
-    }
-    
-    console.log(`Total tools detected: ${toolIds.size}`)
     
     return Array.from(toolIds)
   } catch (error) {

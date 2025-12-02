@@ -254,19 +254,18 @@ export async function POST(request: NextRequest) {
       },
     }).catch(() => {}) // Silent fail
 
-    // Update tool stats using efficient aggregation queries
-    const [ratingStats, uniqueUsersCount, totalRatings] = await Promise.all([
+    // OPTIMIZATION: Update tool stats using efficient aggregation queries
+    // Combined aggregate query gets avg, count and we derive total from _count
+    const [ratingStats, uniqueUsersCount] = await Promise.all([
       prisma.log.aggregate({
         where: { toolId: tool.id },
         _avg: { rating: true },
         _count: { rating: true },
       }),
+      // Use groupBy to get unique user count efficiently
       prisma.log.groupBy({
         by: ["userId"],
-      where: { toolId: tool.id },
-      }),
-      prisma.log.count({
-      where: { toolId: tool.id },
+        where: { toolId: tool.id },
       }),
     ])
 
@@ -275,7 +274,7 @@ export async function POST(request: NextRequest) {
       where: { id: tool.id },
       data: {
         avgRating: ratingStats._avg.rating || 0,
-        ratingsCount: totalRatings,
+        ratingsCount: ratingStats._count.rating, // Use _count.rating directly (same as totalRatings)
         usedByCount: uniqueUsersCount.length,
       },
     })
