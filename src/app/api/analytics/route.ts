@@ -61,7 +61,8 @@ export async function POST(request: NextRequest) {
       ...(country && { country }),
     }
 
-    await (prisma as unknown as { analyticsEvent: { create: (args: unknown) => Promise<unknown> } }).analyticsEvent.create({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (prisma as any).analyticsEvent.create({
       data: {
         userId: session?.user?.id || null,
         sessionId,
@@ -90,18 +91,19 @@ export async function GET(request: NextRequest) {
     const endDate = searchParams.get("endDate")
     const eventType = searchParams.get("eventType")
 
-    const where: any = {}
+    const where: Record<string, unknown> = {}
     
     if (startDate || endDate) {
       where.createdAt = {}
-      if (startDate) where.createdAt.gte = new Date(startDate)
-      if (endDate) where.createdAt.lte = new Date(endDate)
+      if (startDate) (where.createdAt as Record<string, Date>).gte = new Date(startDate)
+      if (endDate) (where.createdAt as Record<string, Date>).lte = new Date(endDate)
     }
 
     if (eventType) {
       where.eventType = eventType
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const events = await (prisma as any).analyticsEvent.findMany({
       where,
       orderBy: { createdAt: "desc" },
