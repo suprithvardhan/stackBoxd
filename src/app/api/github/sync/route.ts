@@ -107,9 +107,7 @@ export async function POST(request: NextRequest) {
               .map((toolId: string) => {
                 return { toolId }
               })
-              .filter(Boolean) as any
-            
-            console.log(`✓ ${repoName}: Detected ${toolIds.length} tools, saving ${toolsToCreate.length} ProjectTool relations`)
+              .filter(Boolean) as Array<{ toolId: string }>
 
             // Check if project already exists (batch check could be optimized further)
             const existingProject = await prisma.project.findFirst({
@@ -133,7 +131,7 @@ export async function POST(request: NextRequest) {
 
             if (existingProject) {
               // Update existing project
-              const updatedProject = await prisma.project.update({
+              await prisma.project.update({
                 where: { id: existingProject.id },
                 data: {
                   ...projectData,
@@ -142,17 +140,8 @@ export async function POST(request: NextRequest) {
                     create: toolsToCreate,
                   } : undefined,
                 },
-                include: {
-                  tools: {
-                    include: {
-                      tool: {
-                        select: { name: true, icon: true },
-                      },
-                    },
-                  },
-                },
+                select: { id: true }, // OPTIMIZATION: Only select id, we don't need full tool data
               })
-              console.log(`✓ ${repoName}: Updated project with ${updatedProject.tools.length} tools saved`)
               syncedProjects.push(existingProject.id)
             } else {
               // Create new project
@@ -164,17 +153,8 @@ export async function POST(request: NextRequest) {
                     create: toolsToCreate,
                   } : undefined,
                 },
-                include: {
-                  tools: {
-                    include: {
-                      tool: {
-                        select: { name: true, icon: true },
-                      },
-                    },
-                  },
-                },
+                select: { id: true }, // OPTIMIZATION: Only select id, we don't need full tool data
               })
-              console.log(`✓ ${repoName}: Created project with ${newProject.tools.length} tools saved`)
               syncedProjects.push(newProject.id)
             }
           } catch (error) {

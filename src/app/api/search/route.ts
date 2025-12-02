@@ -37,8 +37,8 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Parallel queries for better performance - with optimized conditions
-    const [tools, users, listsResult] = await Promise.all([
+    // OPTIMIZATION: Run session check in parallel with database queries
+    const [tools, users, listsResult, session] = await Promise.all([
       // Search tools - use startsWith for better index usage
       prisma.tool.findMany({
         where: {
@@ -105,9 +105,11 @@ export async function GET(request: NextRequest) {
         },
         orderBy: { createdAt: "desc" },
       }),
+      
+      // Get session in parallel with search queries
+      getSession(),
     ])
 
-    const session = await getSession()
     const results = {
       tools: tools.map((t) => ({
         id: t.id,
